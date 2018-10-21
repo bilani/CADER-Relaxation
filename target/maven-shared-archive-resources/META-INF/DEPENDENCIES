@@ -1,0 +1,111 @@
+// ------------------------------------------------------------------
+// Transitive dependencies of this project determined from the
+// maven pom organized by organization.
+// ------------------------------------------------------------------
+
+Apache Jena - Distribution
+
+
+From: 'an unknown organization'
+  - dexx (https://github.com/andrewoma/dexx) com.github.andrewoma.dexx:collection:jar:0.7
+    License: MIT License  (http://www.opensource.org/licenses/mit-license.php)
+  - JSONLD Java :: Core (http://github.com/jsonld-java/jsonld-java/jsonld-java/) com.github.jsonld-java:jsonld-java:bundle:0.12.1
+    License: Revised BSD License  (https://raw.github.com/jsonld-java/jsonld-java/master/LICENCE)
+  - Apache Thrift (http://thrift.apache.org) org.apache.thrift:libthrift:pom:0.10.0
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+
+From: 'Apache Jena' (http://jena.apache.org/)
+  - Apache Jena - Command line tools (http://jena.apache.org/) org.apache.jena:jena-cmds:jar:3.10.0-SNAPSHOT
+    License: Apache 2.0 License  (http://www.apache.org/licenses/LICENSE-2.0)
+  - Apache Jena - Command line tools (http://jena.apache.org/) org.apache.jena:jena-cmds:jar:3.10.0-SNAPSHOT
+    License: Apache 2.0 License  (http://www.apache.org/licenses/LICENSE-2.0)
+  - Apache Jena - Command line tools (http://jena.apache.org/) org.apache.jena:jena-cmds:jar:3.10.0-SNAPSHOT
+    License: Apache 2.0 License  (http://www.apache.org/licenses/LICENSE-2.0)
+
+From: 'Apache Software Foundation' (http://www.apache.org)
+  - Apache Log4j (http://logging.apache.org/log4j/1.2/) log4j:log4j:bundle:1.2.17
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+
+From: 'FasterXML' (http://fasterxml.com/)
+  - Jackson-annotations (http://github.com/FasterXML/jackson) com.fasterxml.jackson.core:jackson-annotations:bundle:2.9.0
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Jackson-core (https://github.com/FasterXML/jackson-core) com.fasterxml.jackson.core:jackson-core:bundle:2.9.6
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - jackson-databind (http://github.com/FasterXML/jackson) com.fasterxml.jackson.core:jackson-databind:bundle:2.9.6
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+
+From: 'QOS.ch' (http://www.qos.ch)
+  - JCL 1.2 implemented over SLF4J (http://www.slf4j.org) org.slf4j:jcl-over-slf4j:jar:1.7.25
+    License: MIT License  (http://www.opensource.org/licenses/mit-license.php)
+  - SLF4J API Module (http://www.slf4j.org) org.slf4j:slf4j-api:jar:1.7.25
+    License: MIT License  (http://www.opensource.org/licenses/mit-license.php)
+  - SLF4J LOG4J-12 Binding (http://www.slf4j.org) org.slf4j:slf4j-log4j12:jar:1.7.25
+    License: MIT License  (http://www.opensource.org/licenses/mit-license.php)
+
+From: 'The Apache Software Foundation' (http://www.apache.org/)
+  - Apache Commons Lang (http://commons.apache.org/proper/commons-lang/) org.apache.commons:commons-lang3:jar:3.4
+    License: Apache License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Apache HttpClient (http://hc.apache.org/httpcomponents-client) org.apache.httpcomponents:httpclient:jar:4.5.5
+    License: Apache License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Apache HttpClient Cache (http://hc.apache.org/httpcomponents-client) org.apache.httpcomponents:httpclient-cache:jar:4.5.5
+    License: Apache License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Apache HttpCore (http://hc.apache.org/httpcomponents-core-ga) org.apache.httpcomponents:httpcore:jar:4.4.9
+    License: Apache License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Apache Jena - Libraries POM (http://jena.apache.org/apache-jena-libs/) org.apache.jena:apache-jena-libs:pom:3.10.0-SNAPSHOT
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Apache Jena - ARQ (SPARQL 1.1 Query Engine) (http://jena.apache.org/jena-arq/) org.apache.jena:jena-arq:jar:3.10.0-SNAPSHOT
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Apache Jena - ARQ (SPARQL 1.1 Query Engine) (http://jena.apache.org/jena-arq/) org.apache.jena:jena-arq:jar:3.10.0-SNAPSHOT
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Apache Jena - ARQ (SPARQL 1.1 Query Engine) (http://jena.apache.org/jena-arq/) org.apache.jena:jena-arq:jar:3.10.0-SNAPSHOT
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Apache Jena - Base Common Environment (http://jena.apache.org/jena-base/) org.apache.jena:jena-base:jar:3.10.0-SNAPSHOT
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Apache Jena - Core (http://jena.apache.org/jena-core/) org.apache.jena:jena-core:jar:3.10.0-SNAPSHOT
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Apache Jena - Core (http://jena.apache.org/jena-core/) org.apache.jena:jena-core:jar:3.10.0-SNAPSHOT
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Apache Jena - Core (http://jena.apache.org/jena-core/) org.apache.jena:jena-core:jar:3.10.0-SNAPSHOT
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Apache Jena - DBOE Base (http://jena.apache.org/jena-dboe-base/) org.apache.jena:jena-dboe-base:jar:3.10.0-SNAPSHOT
+    License: Apache License 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
+  - Apache Jena - DBOE Indexes (http://jena.apache.org/jena-dboe-index/) org.apache.jena:jena-dboe-index:jar:3.10.0-SNAPSHOT
+    License: Apache License 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
+  - Apache Jena - DBOE Transactional Datastructures (http://jena.apache.org/jena-dboe-trans-data/) org.apache.jena:jena-dboe-trans-data:jar:3.10.0-SNAPSHOT
+    License: Apache License 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
+  - Apache Jena - DBOE Transactions (http://jena.apache.org/jena-dboe-transaction/) org.apache.jena:jena-dboe-transaction:jar:3.10.0-SNAPSHOT
+    License: Apache License 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
+  - Apache Jena - IRI (http://jena.apache.org/jena-iri/) org.apache.jena:jena-iri:jar:3.10.0-SNAPSHOT
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Apache Jena - RDF Connection (http://jena.apache.org/jena-rdfconnection/) org.apache.jena:jena-rdfconnection:jar:3.10.0-SNAPSHOT
+    License: Apache 2.0 License  (http://www.apache.org/licenses/LICENSE-2.0)
+  - Apache Jena - RDF Connection (http://jena.apache.org/jena-rdfconnection/) org.apache.jena:jena-rdfconnection:jar:3.10.0-SNAPSHOT
+    License: Apache 2.0 License  (http://www.apache.org/licenses/LICENSE-2.0)
+  - Apache Jena - RDF Connection (http://jena.apache.org/jena-rdfconnection/) org.apache.jena:jena-rdfconnection:jar:3.10.0-SNAPSHOT
+    License: Apache 2.0 License  (http://www.apache.org/licenses/LICENSE-2.0)
+  - Apache Jena - Shadowed external libraries (http://jena.apache.org/jena-shaded-guava/) org.apache.jena:jena-shaded-guava:jar:3.10.0-SNAPSHOT
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Apache Jena - TDB1 (Native Triple Store) (http://jena.apache.org/jena-tdb/) org.apache.jena:jena-tdb:jar:3.10.0-SNAPSHOT
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Apache Jena - TDB1 (Native Triple Store) (http://jena.apache.org/jena-tdb/) org.apache.jena:jena-tdb:jar:3.10.0-SNAPSHOT
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Apache Jena - TDB1 (Native Triple Store) (http://jena.apache.org/jena-tdb/) org.apache.jena:jena-tdb:jar:3.10.0-SNAPSHOT
+    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Apache Jena - TDB2 (http://jena.apache.org/jena-tdb2/) org.apache.jena:jena-tdb2:jar:3.10.0-SNAPSHOT
+    License: Apache License 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
+
+From: 'The Apache Software Foundation' (https://www.apache.org/)
+  - Apache Commons CLI (http://commons.apache.org/proper/commons-cli/) commons-cli:commons-cli:jar:1.4
+    License: Apache License, Version 2.0  (https://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Apache Commons Codec (http://commons.apache.org/proper/commons-codec/) commons-codec:commons-codec:jar:1.11
+    License: Apache License, Version 2.0  (https://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Apache Commons IO (http://commons.apache.org/proper/commons-io/) commons-io:commons-io:jar:2.6
+    License: Apache License, Version 2.0  (https://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Apache Commons Compress (https://commons.apache.org/proper/commons-compress/) org.apache.commons:commons-compress:jar:1.17
+    License: Apache License, Version 2.0  (https://www.apache.org/licenses/LICENSE-2.0.txt)
+  - Apache Commons CSV (http://commons.apache.org/proper/commons-csv/) org.apache.commons:commons-csv:jar:1.5
+    License: Apache License, Version 2.0  (https://www.apache.org/licenses/LICENSE-2.0.txt)
+
+
+
+
