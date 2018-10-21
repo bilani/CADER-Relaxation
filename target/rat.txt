@@ -2,14 +2,14 @@
 *****************************************************
 Summary
 -------
-Generated at: 2018-10-21T03:10:43-07:00
+Generated at: 2018-10-21T03:39:41-07:00
 
 Notes: 3
-Binaries: 0
+Binaries: 1
 Archives: 0
-Standards: 45
+Standards: 46
 
-Apache Licensed: 45
+Apache Licensed: 46
 Generated Documents: 0
 
 JavaDocs are generated, thus a license header is optional.
@@ -27,6 +27,8 @@ Generated files do not require license headers.
   N     dist/LICENSE
   AL    cmd-maker
   AL    template.bat
+  AL    src/queryRelax/Main.java
+  B     bin/queryRelax/Main.class
   AL    assembly-jena-zip.xml
   AL    template.bin
   AL    pom.xml
