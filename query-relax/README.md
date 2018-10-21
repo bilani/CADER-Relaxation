@@ -1,5 +1,5 @@
-# RUN THE APP USING : mvn exec:java -Dexec.mainClass="org.apache.jena.sparql.Education"
+# RUN THE APP USING : 
 
-### SPARQL
+### mvn exec:java -Dexec.mainClass="org.apache.jena.sparql.Education"
 
-Query using SPARQL, relying on RDF
+(Query using SPARQL, relying on RDF)
