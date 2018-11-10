@@ -41,9 +41,15 @@ import org.apache.jena.vocabulary.RDFS;
 public class Education extends Base {
 	
     // local data files => LUBM100.owl
+    /**
+     * 
+     */
     public static final String SOURCE = "./src/main/resources/data/";
 
     // EDucation ontology namespace
+    /**
+     * 
+     */
     public static final String EDUCATION_NS = "http://swat.cse.lehigh.edu/onto/univ-bench.owl#";
 
     @SuppressWarnings( value = "unused" )

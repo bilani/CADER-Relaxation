@@ -18,20 +18,9 @@
 
 package org.apache.jena.sparql;
 
-import org.apache.jena.sparql.Base;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.jena.sparql.CombinationGenerator;
 
 import java.util.*;
-
-import org.apache.jena.ontology.OntModel;
-import org.apache.jena.ontology.OntModelSpec;
-import org.apache.jena.query.*;
-import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.util.FileManager;
-import org.apache.jena.vocabulary.OWL;
-import org.apache.jena.vocabulary.RDFS;
 
 /**
  * local DB : University and professors example 
@@ -42,47 +31,152 @@ import org.apache.jena.vocabulary.RDFS;
 
 public class HittingSets {
 	
-	public void power_set() {
-		
-	}
-	
-	public void prepare_sets() {
-		
-	}
-	
-	public ArrayList<Character> reduce(ArrayList<ArrayList<Character>> sets){
-		//reduce multiple sets
-		ArrayList<Character> union = new ArrayList<Character>();
-		for(ArrayList<Character> oneSet : sets)
-			for(Character singleSet : oneSet)
-				if(!union.contains(singleSet))
-					union.add(singleSet);
-		return union;
-	}
-	
-	public void hitting_sets(ArrayList<ArrayList<Character>> sets) {
-		//should prepare the sets
-		
-		//reducing sets / or_
-		ArrayList<Character> union = new ArrayList<Character>();
-		union = reduce(sets);
-		
-	}
-	
-	public static String[] mhs(ArrayList<ArrayList<Character>> sets) {
-		//should prepare the sets
-		
-		//for H in  all Hitting Sets 
-		//
-		String[] result = null;  
+	/**
+	 * DONE
+	 * original is a frozenset
+	 * @param original 
+	 * @return poserset
+	 */
+	public static HashSet<HashSet<Character>> power_set(HashSet<Character> original) {
+		ArrayList<Character> it = new ArrayList<Character>(original);
+		HashSet<HashSet<Character>> result = new HashSet<HashSet<Character>>();
+		for(int i=0; i<it.size()+1; i++) {
+			int[] indices;
+			CombinationGenerator x = new CombinationGenerator (it.size(), i);
+			HashSet<Character> combination;
+			while (x.hasMore()) {
+			  combination = new HashSet<Character>();
+			  indices = x.getNext ();
+			  for (int j = 0; j < indices.length; j++) {
+				  combination.add(it.get(indices[j]));
+			  }
+			  result.add(combination);
+			  //System.out.println (combination.toString ());
+			}
+		}
 		return result;
 	}
 	
-	public static void mainMHS(String[] argv) {
-		//no need for the 1st arg
-		String[] tmp = Arrays.copyOfRange(argv, 1, argv.length);
+	/**
+	 * DONE
+	 * preparing sets by converting them into frozensets
+	 * @param sets
+	 * @return preparedset.
+	 */
+	public static HashSet<HashSet<Character>> prepare_sets(ArrayList<ArrayList<Character>> sets) {
+		HashSet<HashSet<Character>> result = new HashSet<HashSet<Character>>();
+		/**
+		 * converts sets to frozensets
+		 */
+		for(ArrayList<Character> tmp : sets) {
+			HashSet<Character> tmp2 = new HashSet<Character>(tmp);
+			result.add(tmp2);
+		}
+		return result;
+	}
+	
+	/**
+	 * DONE
+	 * Reduce sets using OR
+	 * @param sets 
+	 * @return set of reduced.
+	 */
+	public static HashSet<Character> reduce(HashSet<HashSet<Character>> sets){
+		//reduce multiple sets
+		HashSet<Character> union = new HashSet<Character>();
+		for(HashSet<Character> oneSet : sets)
+			for(Character singleSet : oneSet)
+				union.add(singleSet);
+		return union;
+	}
+	
+	/**
+	 * DONE
+	 * intersecting elements of all preparedElements with poweredElements (one by one)
+	 * @param onePow 
+	 * @param preparedSets 
+	 * @return flag
+	 */
+	public static Boolean verifyHittingSet(HashSet<Character> onePow, HashSet<HashSet<Character>> preparedSets) {
+		Boolean flag = true;
+		Set<Character> intersect = new HashSet<Character>(onePow);
+		for(HashSet<Character> s : preparedSets) {
+			intersect = new HashSet<Character>(onePow);
+			intersect.retainAll(s);
+			
+			if(intersect.size() == 0) {
+				flag = false;
+				break;
+			}
+		}
+		return flag;
+	}
+	
+	/**
+	 * DONE
+	 * in param : prepared sets
+	 * @param allsets 
+	 * @param sets
+	 * return hitting_sets 
+	 * @return hittingsets
+	 */
+	public static HashSet<HashSet<Character>> hitting_sets(HashSet<HashSet<Character>> allsets) {
+		/**
+		 * reducing sets using OR operator
+		 */
+		HashSet<HashSet<Character>> result = new HashSet<HashSet<Character>>();
 		
-		//91 23690 => [{1,9},{0,6,3,9,2}]
+		HashSet<Character> union = reduce(allsets);
+		HashSet<HashSet<Character>> powered_set = power_set(union);
+		
+		for(HashSet<Character> tmp : powered_set) {
+			if(verifyHittingSet(tmp, allsets)) {
+				result.add(tmp);
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * @param sets
+	 * @return mhs-set
+	 */
+	public static HashSet<HashSet<Character>> mhs(ArrayList<ArrayList<Character>> sets) {
+		/**
+		 * preparing sets => frozen set of (frozen sets)
+		 */
+		HashSet<HashSet<Character>> allSets = prepare_sets(sets);
+		HashSet<HashSet<Character>> allHittingSets = hitting_sets(allSets);
+		HashSet<HashSet<Character>> result = new HashSet<HashSet<Character>>();  
+		HashMap<HashSet<Character>, Boolean> statusOfHS = new HashMap<HashSet<Character>, Boolean>();
+		
+		for(HashSet<Character> h : allHittingSets) {
+			HashSet<HashSet<Character>> pwr = power_set(h);
+			Boolean flag = false;
+			for(HashSet<Character> p : pwr) {
+				if(!p.equals(h)) {
+					if(allHittingSets.contains(p)) {
+						flag = true;
+					}
+				}
+			}
+			statusOfHS.put(h, flag);
+		}
+		
+		statusOfHS.entrySet().removeIf(e -> e.getValue() == true);
+		statusOfHS.entrySet().forEach(e -> result.add(e.getKey()));
+		
+		return result;
+	}
+	
+	/**
+	 * @param argv
+	 */
+	public static void mainMHS(String[] argv) {
+		String[] tmp = Arrays.copyOfRange(argv, 0, argv.length);
+		
+		// 91 23690 => [{1,9},{0,6,3,9,2}]
 		ArrayList<ArrayList<Character>> decomposed = new ArrayList<ArrayList<Character>>();
 		for(int i=0; i<tmp.length; i++) {
 			ArrayList<Character> oneSet = new ArrayList<Character>();
@@ -91,9 +185,13 @@ public class HittingSets {
 			decomposed.add(oneSet);
 		}
 		
-		String[] result = mhs(decomposed);
-		for(String s : result)
-			System.out.println("," + s);
+		HashSet<HashSet<Character>> result = mhs(decomposed);
+		System.out.println(result);
+	}
+	
+	public static String[] prepareArgs(String tmp) {
+		String[] res = tmp.split(" ");
+		return res;
 	}
 	
 	/**
@@ -102,13 +200,14 @@ public class HittingSets {
 	 * @param argc
 	 * @param argv
 	 */
-	
-	
-	public static void main(int argc, String[] argv) {
+	public static void main(String[] argv) {
 		if(argv.length > 0) {
 			mainMHS(argv);
 		}else {
-			System.out.println("Call it with some values !");
+			System.out.println("Call it with some values ! (separate them with spaces)");
+			Scanner sc = new Scanner(System.in);
+			String tmp = sc.nextLine();
+			mainMHS(prepareArgs(tmp));
 		}
 	}
 	

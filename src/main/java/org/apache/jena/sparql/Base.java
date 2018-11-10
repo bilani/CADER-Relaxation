@@ -74,6 +74,7 @@ public abstract class Base implements Runnable {
      * Set up the command line arguments according to the options. If the
      * arguments do not parse, print an error message and exit with status 1.
      * @param args
+     * @return Base.
      */
     public Base setArgs( String[] args ) {
         if (args == null) {args = new String[] {};}
