@@ -51,7 +51,7 @@ public class HittingSets {
 				  combination.add(it.get(indices[j]));
 			  }
 			  result.add(combination);
-			  //System.out.println (combination.toString ());
+			  System.out.println (combination.toString ());
 			}
 		}
 		return result;
@@ -208,6 +208,7 @@ public class HittingSets {
 			Scanner sc = new Scanner(System.in);
 			String tmp = sc.nextLine();
 			mainMHS(prepareArgs(tmp));
+			sc.close();
 		}
 	}
 	
