@@ -23,11 +23,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
 
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
@@ -45,7 +43,7 @@ import org.apache.jena.vocabulary.RDFS;
  *
  */
 
-public class QuerryRelax extends Base {
+public class QueryRelax extends Base {
 	
     // local data files => LUBM100.owl
     /**
@@ -60,7 +58,7 @@ public class QuerryRelax extends Base {
     public static final String EDUCATION_NS = "http://swat.cse.lehigh.edu/onto/univ-bench.owl#";
 
     @SuppressWarnings( value = "unused" )
-    private static final Logger log = LoggerFactory.getLogger( QuerryRelax.class );
+    private static final Logger log = LoggerFactory.getLogger( QueryRelax.class );
 
     /**
      * 
@@ -251,7 +249,7 @@ public class QuerryRelax extends Base {
      * @param args
      */
     public static void main( String[] args ) {
-        new QuerryRelax().setArgs( args ).run();
+        new QueryRelax().setArgs( args ).run();
     }
     
     /**

@@ -32,26 +32,38 @@ import java.util.*;
 public class HittingSets {
 	
 	/**
+	 * Delimiter between keys
+	 */
+	public static final String DELIMITER_KEYS = "_";
+	
+	/**
+	 * Delimiter between sets 
+	 */
+	public static final String DELIMITER_SETS = " ";
+	
+	/**
 	 * DONE
 	 * original is a frozenset
 	 * @param original 
 	 * @return poserset
 	 */
-	public static HashSet<HashSet<Character>> power_set(HashSet<Character> original) {
-		ArrayList<Character> it = new ArrayList<Character>(original);
-		HashSet<HashSet<Character>> result = new HashSet<HashSet<Character>>();
+	public static HashSet<HashSet<Integer>> power_set(HashSet<Integer> original) {
+		ArrayList<Integer> it = new ArrayList<Integer>(original);
+		HashSet<HashSet<Integer>> result = new HashSet<HashSet<Integer>>();
+		
 		for(int i=0; i<it.size()+1; i++) {
 			int[] indices;
 			CombinationGenerator x = new CombinationGenerator (it.size(), i);
-			HashSet<Character> combination;
+			HashSet<Integer> combination;
+			
 			while (x.hasMore()) {
-			  combination = new HashSet<Character>();
+			  combination = new HashSet<Integer>();
 			  indices = x.getNext ();
-			  for (int j = 0; j < indices.length; j++) {
+			  
+			  for (int j = 0; j < indices.length; j++)
 				  combination.add(it.get(indices[j]));
-			  }
+			  
 			  result.add(combination);
-			  System.out.println (combination.toString ());
 			}
 		}
 		return result;
@@ -63,15 +75,14 @@ public class HittingSets {
 	 * @param sets
 	 * @return preparedset.
 	 */
-	public static HashSet<HashSet<Character>> prepare_sets(ArrayList<ArrayList<Character>> sets) {
-		HashSet<HashSet<Character>> result = new HashSet<HashSet<Character>>();
+	public static HashSet<HashSet<Integer>> prepare_sets(ArrayList<ArrayList<Integer>> sets) {
+		HashSet<HashSet<Integer>> result = new HashSet<HashSet<Integer>>();
 		/**
 		 * converts sets to frozensets
 		 */
-		for(ArrayList<Character> tmp : sets) {
-			HashSet<Character> tmp2 = new HashSet<Character>(tmp);
-			result.add(tmp2);
-		}
+		for(ArrayList<Integer> tmp : sets) 
+			result.add(new HashSet<Integer>(tmp));
+			
 		return result;
 	}
 	
@@ -81,12 +92,13 @@ public class HittingSets {
 	 * @param sets 
 	 * @return set of reduced.
 	 */
-	public static HashSet<Character> reduce(HashSet<HashSet<Character>> sets){
+	public static HashSet<Integer> reduce(HashSet<HashSet<Integer>> sets){
 		//reduce multiple sets
-		HashSet<Character> union = new HashSet<Character>();
-		for(HashSet<Character> oneSet : sets)
-			for(Character singleSet : oneSet)
+		HashSet<Integer> union = new HashSet<Integer>();
+		for(HashSet<Integer> oneSet : sets)
+			for(Integer singleSet : oneSet)
 				union.add(singleSet);
+		
 		return union;
 	}
 	
@@ -97,11 +109,11 @@ public class HittingSets {
 	 * @param preparedSets 
 	 * @return flag
 	 */
-	public static Boolean verifyHittingSet(HashSet<Character> onePow, HashSet<HashSet<Character>> preparedSets) {
+	public static Boolean verifyHittingSet(HashSet<Integer> onePow, HashSet<HashSet<Integer>> preparedSets) {
 		Boolean flag = true;
-		Set<Character> intersect = new HashSet<Character>(onePow);
-		for(HashSet<Character> s : preparedSets) {
-			intersect = new HashSet<Character>(onePow);
+		Set<Integer> intersect = new HashSet<Integer>(onePow);
+		for(HashSet<Integer> s : preparedSets) {
+			intersect = new HashSet<Integer>(onePow);
 			intersect.retainAll(s);
 			
 			if(intersect.size() == 0) {
@@ -120,19 +132,17 @@ public class HittingSets {
 	 * return hitting_sets 
 	 * @return hittingsets
 	 */
-	public static HashSet<HashSet<Character>> hitting_sets(HashSet<HashSet<Character>> allsets) {
+	public static HashSet<HashSet<Integer>> hitting_sets(HashSet<HashSet<Integer>> allsets) {
 		/**
 		 * reducing sets using OR operator
 		 */
-		HashSet<HashSet<Character>> result = new HashSet<HashSet<Character>>();
+		HashSet<HashSet<Integer>> result = new HashSet<HashSet<Integer>>();
+		HashSet<Integer> union = reduce(allsets);
+		HashSet<HashSet<Integer>> powered_set = power_set(union);
 		
-		HashSet<Character> union = reduce(allsets);
-		HashSet<HashSet<Character>> powered_set = power_set(union);
-		
-		for(HashSet<Character> tmp : powered_set) {
-			if(verifyHittingSet(tmp, allsets)) {
+		for(HashSet<Integer> tmp : powered_set) {
+			if(verifyHittingSet(tmp, allsets))
 				result.add(tmp);
-			}
 		}
 		
 		return result;
@@ -142,24 +152,23 @@ public class HittingSets {
 	 * @param sets
 	 * @return mhs-set
 	 */
-	public static HashSet<HashSet<Character>> mhs(ArrayList<ArrayList<Character>> sets) {
+	public static HashSet<HashSet<Integer>> mhs(ArrayList<ArrayList<Integer>> sets) {
 		/**
 		 * preparing sets => frozen set of (frozen sets)
 		 */
-		HashSet<HashSet<Character>> allSets = prepare_sets(sets);
-		HashSet<HashSet<Character>> allHittingSets = hitting_sets(allSets);
-		HashSet<HashSet<Character>> result = new HashSet<HashSet<Character>>();  
-		HashMap<HashSet<Character>, Boolean> statusOfHS = new HashMap<HashSet<Character>, Boolean>();
+		HashSet<HashSet<Integer>> allSets = prepare_sets(sets);
+		HashSet<HashSet<Integer>> allHittingSets = hitting_sets(allSets);
+		HashSet<HashSet<Integer>> result = new HashSet<HashSet<Integer>>();  
+		HashMap<HashSet<Integer>, Boolean> statusOfHS = new HashMap<HashSet<Integer>, Boolean>();
 		
-		for(HashSet<Character> h : allHittingSets) {
-			HashSet<HashSet<Character>> pwr = power_set(h);
+		for(HashSet<Integer> h : allHittingSets) {
+			HashSet<HashSet<Integer>> pwr = power_set(h);
 			Boolean flag = false;
-			for(HashSet<Character> p : pwr) {
-				if(!p.equals(h)) {
-					if(allHittingSets.contains(p)) {
+			for(HashSet<Integer> p : pwr) {
+				if(!p.equals(h)) 
+					if(allHittingSets.contains(p)) 
 						flag = true;
-					}
-				}
+					
 			}
 			statusOfHS.put(h, flag);
 		}
@@ -171,26 +180,31 @@ public class HittingSets {
 	}
 	
 	/**
-	 * @param argv
+	 * @param tmp
 	 */
-	public static void mainMHS(String[] argv) {
-		String[] tmp = Arrays.copyOfRange(argv, 0, argv.length);
-		
-		// 91 23690 => [{1,9},{0,6,3,9,2}]
-		ArrayList<ArrayList<Character>> decomposed = new ArrayList<ArrayList<Character>>();
+	public static void mainMHS(String[] tmp) {
+		// 91 23690 
+		ArrayList<ArrayList<Integer>> decomposed = new ArrayList<ArrayList<Integer>>();
 		for(int i=0; i<tmp.length; i++) {
-			ArrayList<Character> oneSet = new ArrayList<Character>();
-			for(int j=0; j<tmp[i].length(); j++)
-				oneSet.add(tmp[i].charAt(j));
+			ArrayList<Integer> oneSet = new ArrayList<Integer>();
+			String[] noDots = tmp[i].split(DELIMITER_KEYS);
+
+			for(int j=0; j<noDots.length; j++) 
+				oneSet.add(Integer.parseInt(noDots[j]));
+			
 			decomposed.add(oneSet);
 		}
 		
-		HashSet<HashSet<Character>> result = mhs(decomposed);
+		HashSet<HashSet<Integer>> result = mhs(decomposed);
 		System.out.println(result);
 	}
 	
+	/**
+	 * @param tmp
+	 * @return res
+	 */
 	public static String[] prepareArgs(String tmp) {
-		String[] res = tmp.split(" ");
+		String[] res = tmp.split(DELIMITER_SETS);
 		return res;
 	}
 	
@@ -201,10 +215,11 @@ public class HittingSets {
 	 * @param argv
 	 */
 	public static void main(String[] argv) {
+		
 		if(argv.length > 0) {
 			mainMHS(argv);
 		}else {
-			System.out.println("Call it with some values ! (separate them with spaces)");
+			System.out.println("Call it with some values ! (separate sets with '" + DELIMITER_SETS + "', seperate keys with '"+ DELIMITER_KEYS +"') \n>example : 10_5_11 2_10");
 			Scanner sc = new Scanner(System.in);
 			String tmp = sc.nextLine();
 			mainMHS(prepareArgs(tmp));
