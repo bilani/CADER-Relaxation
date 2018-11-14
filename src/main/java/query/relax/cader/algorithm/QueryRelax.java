@@ -21,6 +21,7 @@ import static common.Log.GEN;
 import static common.Log.LOG_ON;
 import static common.Log.RELAX;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -425,26 +426,35 @@ public class QueryRelax extends Base {
 
 	/**
 	 * @param args
+	 * @throws IOException 
 	 */
-	public static void main( String[] args ) {
+	public static void main( String[] args ) throws IOException {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Log levels available :\n" + logLevels);
 		System.out.println("Please choose the log level : ");
 		int level = Integer.parseInt(sc.nextLine());
 		setLoggersLevel(level);
-
-		System.out.println("Prefixes are already defined : " + "\n" + prefix);
+		
 		m = getModel();
 		loadData( m );
-		System.out.println("Please enter a query (enter 'exit' or 'quit' to leave the application : ");
-		String query = sc.nextLine();
-		if(query.toLowerCase().equals("exit") || query.toLowerCase().equals("quit")) {
-			System.out.println("Application exiting");
-			System.exit(0);
+		System.out.println("Prefixes are already defined : " + "\n" + prefix);
+		
+		loop : while(true) {
+			
+			System.out.println("Please enter a query (enter 'exit' or 'quit' to leave the application : ");
+			String query = sc.nextLine();
+			if(query.toLowerCase().equals("exit") || query.toLowerCase().equals("quit")) {
+				System.out.println("Application exiting. Do you want to flush the console (yes or no) : ");
+				String answer = sc.nextLine(); 
+				if(answer.toLowerCase().equals("yes")) {
+					
+				}
+				sc.close();
+				System.exit(0);
+			}
+			System.out.println("Processing the querry : " + query);
+			relaxRequest(m, query);
 		}
-		System.out.println("Processing the querry : " + query);
-		relaxRequest(m, query);
-		sc.close();
 	}
 
 	/**
