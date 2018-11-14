@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map.Entry;
 
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
@@ -69,12 +70,12 @@ public class QueryRelax extends Base {
     /**
      * 
      */
-    public static HashMap<Integer, String> triplets;
+    public static HashMap<Integer, String> triplets = new HashMap<Integer, String>();
     
     /**
      * 
      */
-    public static HashSet<HashSet<Integer>> MFS;
+    public static HashSet<HashSet<Integer>> MFS = new HashSet<HashSet<Integer>>();
     
     /**
      * 
@@ -84,32 +85,44 @@ public class QueryRelax extends Base {
     /**
      * Model of the onthology.
      */
-    public static Model model;
+    public static OntModel m;
     
     /**
      * 
+     */
+    public String prefix = "prefix univ: <" + EDUCATION_NS + ">\n" +
+            				"prefix rdfs: <" + RDFS.getURI() + ">\n" +
+            				"prefix owl: <" + OWL.getURI() + ">\n";
+    
+    /**
+     * Formatting a SPARQL query => formatting and gathering Triplets
      * @param querry
      */
-    protected static void parseQuerry(String querry) {
-    	System.out.println("Querry : " + querry.replace("\t", "").replace("\n", ""));
-    	String[] parts = querry.split("\\{");
-    	String heading = parts[0];
+    protected static void parseQuery(String query) {
+    	System.out.println("Query : " + query.replace("\t", "").replace("\n", ""));
+    	
+    	String[] parts = query.split("\\{"), subtriplets, words;
     	String[] intermediate = (parts[1].split("\\}"))[0].split("\\.");
-    	String[] subtriplets;
-		String[] words;
+    	
+    	//SELECT ?univ where 
+    	HEADER = parts[0];
+    	
 		String subject = "";
 		int indice = 0;
+		
     	for(int i = 0; i<intermediate.length; i++) {
     		intermediate[i] = intermediate[i].replace("\n", "");
     		intermediate[i] = intermediate[i].replace("\t", "");
     		intermediate[i] = intermediate[i].replace("( )+", " ");
     		intermediate[i] = intermediate[i].replaceFirst("( )*", "");
+    		
     		if(intermediate[i].contains(";")) {
     			subtriplets = intermediate[i].split(";");
     			words = subtriplets[0].split("( )+");
     			subject = words[0];
     			triplets.put(indice, subtriplets[0]);
     			indice++;
+    			
     			for(int j=1; j<subtriplets.length; j++) {
     				subtriplets[j] = subtriplets[j].replaceFirst("( )*", "");
     				triplets.put(indice, subject + " " + subtriplets[j]);
@@ -119,7 +132,8 @@ public class QueryRelax extends Base {
     			triplets.put(indice, intermediate[i]);
     		}
     	}
-    	System.out.println("Formated Querry : " + heading + " { " + triplets.toString() + " } ");
+    	
+    	//System.out.println("Formated Query : " + heading + " " + triplets.toString() + " ");
     }
 
     protected OntModel getModel() {
@@ -134,12 +148,13 @@ public class QueryRelax extends Base {
         FileManager.get().readModel( m, SOURCE + "LUBM100.owl" );
     }
     
-    protected boolean executeQuerry(String q) {
+    protected boolean executeQuery(String q) {
+    	
+    	System.out.println("EXECUTING : " + q);
     	Query query = QueryFactory.create( q );
-        QueryExecution qexec = QueryExecutionFactory.create( query, model );
+        QueryExecution qexec = QueryExecutionFactory.create( query, m);
         try {
             ResultSet results = qexec.execSelect();
-            //ResultSetFormatter.out( results, model );
             if(results.hasNext()) {
             	return true;
             } else {
@@ -151,15 +166,22 @@ public class QueryRelax extends Base {
         }
     }
     
-    protected boolean buildAndExecuteQuerry(HashSet<Integer> subset) {
+    protected boolean buildAndExecuteQuery(HashSet<Integer> subset) {
     	String query = HEADER + " { ";
-    	Iterator<Integer> iterator = subset.iterator();
+    	/*Iterator<Integer> iterator = subset.iterator();
     	while(iterator.hasNext()) {
     		int numberOfTriplets = (int) iterator.next();
     		query = query + triplets.get(numberOfTriplets);
+    	}*/
+    	
+    	Iterator<Entry<Integer, String>> it = triplets.entrySet().iterator();
+    	while(it.hasNext()) {
+    		Entry<Integer, String> pair = it.next();
+    		query = query + triplets.get(pair.getKey()) + ".";
     	}
+    	
     	query = query + "}";
-    	return executeQuerry(query);
+    	return executeQuery(prefix + query);
     }
     
     protected void searchMFS (HashSet<Integer> mfsSearch) {
@@ -169,7 +191,7 @@ public class QueryRelax extends Base {
     	while(iterator.hasNext()) {
     		int indice = (int) iterator.next();
     		mfsSet = new HashSet<Integer>(indice);
-    		if(!buildAndExecuteQuerry(mfsSet)){
+    		if(!buildAndExecuteQuery(mfsSet)){
     			mfsSearch.remove(indice);
     			MFS.add(mfsSet);
     		}
@@ -207,7 +229,7 @@ public class QueryRelax extends Base {
 					}
 				}
 				if(!mfs) {
-					if(!buildAndExecuteQuerry(resultSet)){
+					if(!buildAndExecuteQuery(resultSet)){
 		    			MFS.add(resultSet);
 		    		}
 				}
@@ -220,11 +242,12 @@ public class QueryRelax extends Base {
      * 
      * @param querry
      */
-    protected void relaxRequest(String querry) {
-    	parseQuerry(querry);
+    protected void relaxRequest(Model m, String query) {
+    	parseQuery(query);
+    	System.out.println("TRIPLETS : " + triplets);
     	HashSet<Integer> mfsSearch = new HashSet<Integer>(triplets.keySet());
     	searchMFS(mfsSearch);
-    	
+    	System.out.println("Found MFS : " + MFS);
     }
 
     /**
@@ -256,18 +279,21 @@ public class QueryRelax extends Base {
      * run with example query 
      */
     public void run() {
-        OntModel m = getModel();
+        m = getModel();
         loadData( m );
-        String prefix = "prefix univ: <" + EDUCATION_NS + ">\n" +
-                        "prefix rdfs: <" + RDFS.getURI() + ">\n" +
-                        "prefix owl: <" + OWL.getURI() + ">\n";
 
-        String quer = "SELECT ?univ where { ?univ a owl:Class ; rdfs:subClassOf ?restriction.\n"
+        /*String quer = "SELECT ?univ where { ?univ a owl:Class ; rdfs:subClassOf ?restriction.\n"
         		+ "						?restriction owl:onProperty univ:headOf ;"
-        		+ "						owl:someValuesFrom univ:Department"
-        		+ "} ";
-        parseQuerry(quer);
+        		+ "						owl:someValuesFrom univ:Department\n"
+        		+ "} ";*/
         
+        String quer = "SELECT ?univ where { ?univ a owl:Class.\n"
+        		+ "						?restriction owl:onProperty univ:headOf.\n"
+        		+ "						?Not rdfs:label 'okay'"
+        		+ "} ";
+        //parseQuery(quer);
+        
+        //relaxRequest(m, quer);
         showQuery( m, prefix + quer );
     }
     
