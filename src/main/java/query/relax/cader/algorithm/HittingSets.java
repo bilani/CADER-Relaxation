@@ -16,11 +16,11 @@
  * limitations under the License.
  */
 
-package org.apache.jena.sparql;
-
-import org.apache.jena.sparql.CombinationGenerator;
+package query.relax.cader.algorithm;
 
 import java.util.*;
+
+import query.relax.cader.algorithm.CombinationGenerator;
 
 /**
  * local DB : University and professors example 

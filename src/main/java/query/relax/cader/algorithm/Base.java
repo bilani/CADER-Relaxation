@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package org.apache.jena.sparql;
+package query.relax.cader.algorithm;
 
 import org.apache.commons.cli.*;
 import org.slf4j.Logger;

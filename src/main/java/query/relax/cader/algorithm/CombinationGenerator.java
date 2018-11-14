@@ -1,4 +1,4 @@
-package org.apache.jena.sparql;
+package query.relax.cader.algorithm;
 
 import java.math.BigInteger;
 

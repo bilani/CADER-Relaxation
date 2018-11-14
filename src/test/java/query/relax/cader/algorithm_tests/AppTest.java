@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package org.apache.jena_examples;
+package query.relax.cader.algorithm_tests;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

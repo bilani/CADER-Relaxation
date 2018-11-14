@@ -1,37 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
-   Licensed to the Apache Software Foundation (ASF) under one or more
-   contributor license agreements.  See the NOTICE file distributed with
-   this work for additional information regarding copyright ownership.
-   The ASF licenses this file to You under the Apache License, Version 2.0
-   (the "License"); you may not use this file except in compliance with
-   the License.  You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
--->
-
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.apache.jena</groupId>
-  <artifactId>jena-examples</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <groupId>eu.telecomsudparis.pfe</groupId>
+  <artifactId>cader</artifactId>
+  <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>Apache Jena - Code Examples</name>
-  <description>A collection of example code illustrating uses of Apache Jena</description>
-  <url>http://jena.apache.org/</url>
+  <name>Query Relaxtion - CADER</name>
+  <description>CADER algorithm for query relaxation</description>
 
   <properties>
-    <ver.jena>[3.1.0,)</ver.jena>
+    <ver.jena>3.1.0</ver.jena>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -59,6 +39,137 @@
       <artifactId>commons-cli</artifactId>
       <version>1.2</version>
     </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.17</version>
+    </dependency>
   </dependencies>
-
+  
+  <build>
+    <plugins>
+      <!-- maven-eclipse configuration -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-eclipse-plugin</artifactId>
+        <version>2.10</version>
+        <configuration>
+          <downloadSources>true</downloadSources>
+          <downloadJavadocs>true</downloadJavadocs>
+        </configuration>
+      </plugin>
+      <!-- java compiler configuration -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.0</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+      <!-- surefire configuration -->
+      <plugin>
+  		<groupId>org.apache.maven.plugins</groupId>
+  		<artifactId>maven-surefire-plugin</artifactId>
+  		<version>2.19.1</version>
+  		<configuration>
+  			<enableAssertions>true</enableAssertions>
+	    	<reuseForks>false</reuseForks>
+	  		</configuration>
+	  </plugin>
+      <!-- classes packaging configuration -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.0.2</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>test-jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- source packaging configuration -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.0.1</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+              <goal>test-jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- spotbugs configuration -->
+      <plugin>
+      	<groupId>com.github.spotbugs</groupId>
+      	<artifactId>spotbugs-maven-plugin</artifactId>
+      	<version>3.1.1</version>
+      </plugin>
+      <!-- checkstyle configuration -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>3.0.0</version>
+      </plugin>
+      <!-- site configuration -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.7.1</version>
+        <configuration>
+          <locales>fr</locales>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  
+  <!-- reports in the maven site -->
+  <reporting>
+    <plugins>
+      <plugin>
+      	<groupId>org.apache.maven.plugins</groupId>
+      	<artifactId>maven-project-info-reports-plugin</artifactId>
+      	<version>2.4</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.9.1</version>
+        <configuration>
+          <docfilessubdirs>true</docfilessubdirs>
+          <excludedocfilessubdir>.svn</excludedocfilessubdir>
+          <detectOfflineLinks>false</detectOfflineLinks>
+          <detectJavaApiLink>false</detectJavaApiLink>
+        </configuration>
+      </plugin>
+      <plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-javadoc-plugin</artifactId>
+	<version>2.9.1</version>
+      </plugin>
+      <plugin>
+      	<groupId>com.github.spotbugs</groupId>
+      	<artifactId>spotbugs-maven-plugin</artifactId>
+      	<version>3.1.1</version>
+      </plugin>
+      <plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-checkstyle-plugin</artifactId>
+	<version>3.0.0</version>
+	<configuration>
+	  <encoding>UTF-8</encoding>
+	  <consoleOutput>true</consoleOutput>
+	  <failsOnError>false</failsOnError>
+	  <linkXRef>false</linkXRef>
+	</configuration>
+      </plugin>
+    </plugins>
+  </reporting>
 </project>
