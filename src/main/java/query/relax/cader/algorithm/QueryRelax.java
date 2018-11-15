@@ -439,7 +439,7 @@ public class QueryRelax extends Base {
 		loadData( m );
 		System.out.println("Prefixes are already defined : " + "\n" + prefix);
 		
-		loop : while(true) {
+		while(true) {
 			
 			System.out.println("Please enter a query (enter 'exit' or 'quit' to leave the application : ");
 			String query = sc.nextLine();
@@ -447,7 +447,7 @@ public class QueryRelax extends Base {
 				System.out.println("Application exiting. Do you want to flush the console (yes or no) : ");
 				String answer = sc.nextLine(); 
 				if(answer.toLowerCase().equals("yes")) {
-					
+					//TODO
 				}
 				sc.close();
 				System.exit(0);
