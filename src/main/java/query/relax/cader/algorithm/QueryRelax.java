@@ -20,10 +20,8 @@ package query.relax.cader.algorithm;
 import static common.Log.GEN;
 import static common.Log.LOG_ON;
 import static common.Log.RELAX;
-
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -43,8 +41,6 @@ import org.apache.jena.util.FileManager;
 import org.apache.jena.vocabulary.OWL;
 import org.apache.jena.vocabulary.RDFS;
 import org.apache.log4j.Level;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import common.Log;
 
@@ -78,12 +74,11 @@ public class QueryRelax extends Base {
 			"[3] -> WARN Level " + "\n" +
 			"[4] -> ERROR Level " + "\n" +
 			"[5] -> FATAL Level " + "\n" +
-			"[6] -> FATAL Level";
+			"[6] -> OFF Level";
 
 	/**
 	 * 
 	 */
-
 	public static String HEADER;
 
 	/**
@@ -96,6 +91,11 @@ public class QueryRelax extends Base {
 	 */
 	public static HashSet<HashSet<Integer>> MFS = new HashSet<HashSet<Integer>>();
 
+	/**
+	 * 
+	 */
+	public static HashSet<HashSet<Integer>> XSS = new HashSet<HashSet<Integer>>();
+	
 	/**
 	 * 
 	 */
@@ -113,6 +113,11 @@ public class QueryRelax extends Base {
 			"prefix rdfs: <" + RDFS.getURI() + ">\n" +
 			"prefix owl: <" + OWL.getURI() + ">\n";
 
+	/**
+	 * 
+	 */
+	public static final String DEFAULTQUERY = "SELECT ?univ where { ?univ a owl:Class. ?restriction owl:onProperty univ:headOf. ?Not rdfs:label 'okay'}";
+	
 	/**
 	 * Formatting a SPARQL query => formatting and gathering Triplets
 	 * @param querry
@@ -273,7 +278,7 @@ public class QueryRelax extends Base {
 				//System.out.println("New MFS : " + mfsSet);
 			}
 		}
-
+		
 		int size = mfsSearch.size();
 		ArrayList<Integer> it = new ArrayList<Integer>(mfsSearch);
 		HashSet<HashSet<Integer>> result = new HashSet<HashSet<Integer>>();
@@ -333,6 +338,54 @@ public class QueryRelax extends Base {
 				}
 			}
 		}
+		
+		ArrayList<ArrayList<Integer>> MFSconverted = new ArrayList<ArrayList<Integer>>();
+		for(HashSet<Integer> tmp : MFS) {
+			MFSconverted.add(new ArrayList<>(tmp));
+		}
+		MFS = HittingSets.mhs(MFSconverted);
+		if(LOG_ON && RELAX.isInfoEnabled()) {
+			RELAX.info("MFS Reduced : " + MFS);
+		}
+	}
+	
+
+	protected static void generateXSS(){
+		HashSet<Integer> mfsSet;
+		HashSet<Integer> xssSet;
+		Iterator<HashSet<Integer>> mfsIterator = MFS.iterator();
+		Iterator<Integer> tripletsIterator = triplets.keySet().iterator();
+		int indice = 0;
+		while(mfsIterator.hasNext()) {
+			mfsSet = (HashSet<Integer>) mfsIterator.next();
+			xssSet = new HashSet<>();
+			while(tripletsIterator.hasNext()) {
+				indice = (int) tripletsIterator.next();
+				if(!mfsSet.contains(indice)) {
+					xssSet.add(indice);
+				}
+			}
+			XSS.add(xssSet);
+		}
+	}
+	
+	protected static HashSet<String> buildRelaxedQuery() {
+		HashSet<String> relaxedQueries = new HashSet<>();
+		Iterator<HashSet<Integer>> xssIterator = XSS.iterator();
+		HashSet<Integer> xssSet;
+		while(xssIterator.hasNext()) {
+			String relaxedQuery = "HEADER" + "{ " ;
+			xssSet = (HashSet<Integer>) xssIterator.next();
+			Iterator<Integer> iterator = xssSet.iterator();
+			while(iterator.hasNext()) {
+				relaxedQuery += triplets.get(iterator.next());
+				if(iterator.hasNext()) {
+					relaxedQuery += " . ";
+				}
+			}
+			relaxedQueries.add(relaxedQuery);
+		}
+		return relaxedQueries;
 	}
 
 	/**
@@ -349,7 +402,7 @@ public class QueryRelax extends Base {
 			//System.out.println("The Querry has failed, relaxing the request :");
 			parseQuery(query);
 			if (LOG_ON && RELAX.isInfoEnabled()) {
-				RELAX.info("TRIPLETS : " + triplets);
+				RELAX.info("Triplets : " + triplets);
 			}
 			//System.out.println("TRIPLETS : " + triplets);
 			HashSet<Integer> mfsSearch = new HashSet<Integer>(triplets.keySet());
@@ -357,7 +410,14 @@ public class QueryRelax extends Base {
 			if (LOG_ON && RELAX.isInfoEnabled()) {
 				RELAX.info("Found MFS : " + MFS);
 			}
-			//System.out.println("Found MFS : " + MFS);
+			generateXSS();
+			if (LOG_ON && RELAX.isInfoEnabled()) {
+				RELAX.info("Generated XSS : " + XSS);
+			}
+			HashSet<String> relaxedQueries = buildRelaxedQuery(); 
+			if (LOG_ON && RELAX.isInfoEnabled()) {
+				RELAX.info("Relaxed Queries : " + relaxedQueries);
+			}
 		}
 
 		long stopTime = System.currentTimeMillis();
@@ -434,27 +494,26 @@ public class QueryRelax extends Base {
 		System.out.println("Please choose the log level : ");
 		int level = Integer.parseInt(sc.nextLine());
 		setLoggersLevel(level);
-		
+
 		m = getModel();
 		loadData( m );
 		System.out.println("Prefixes are already defined : " + "\n" + prefix);
-		
+
 		while(true) {
-			
-			System.out.println("Please enter a query (enter 'exit' or 'quit' to leave the application : ");
+
+			System.out.println("Please enter a query, enter default to launch with the default query enter, enter 'exit' or 'quit' to leave the application : ");
 			String query = sc.nextLine();
 			if(query.toLowerCase().equals("exit") || query.toLowerCase().equals("quit")) {
-				System.out.println("Application exiting. Do you want to flush the console (yes or no) : ");
-				String answer = sc.nextLine(); 
-				if(answer.toLowerCase().equals("yes")) {
-					//TODO
-				}
+				System.out.println("Application exiting.");
 				sc.close();
 				System.exit(0);
+			} else if(query.toLowerCase().equals("default")) {
+				query = DEFAULTQUERY; 
 			}
-			System.out.println("Processing the querry : " + query);
+			System.out.println("Processing the query : " + query);
 			relaxRequest(m, query);
 		}
+		
 	}
 
 	/**

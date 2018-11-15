@@ -19,6 +19,9 @@
 package query.relax.cader.algorithm;
 
 import java.util.*;
+import static common.Log.LOG_ON;
+import static common.Log.GEN;
+import static common.Log.HITTINGSET;
 
 import query.relax.cader.algorithm.CombinationGenerator;
 
@@ -64,6 +67,9 @@ public class HittingSets {
 				  combination.add(it.get(indices[j]));
 			  
 			  result.add(combination);
+			  if(LOG_ON && HITTINGSET.isTraceEnabled()) {
+				  HITTINGSET.trace("Combination : " + combination);
+			  }
 			}
 		}
 		return result;
@@ -175,6 +181,10 @@ public class HittingSets {
 		
 		statusOfHS.entrySet().removeIf(e -> e.getValue() == true);
 		statusOfHS.entrySet().forEach(e -> result.add(e.getKey()));
+		
+		if(LOG_ON && HITTINGSET.isInfoEnabled()) {
+			HITTINGSET.info("Reduced MFS : " + result);
+		}
 		
 		return result;
 	}
