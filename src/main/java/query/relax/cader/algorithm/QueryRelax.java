@@ -116,7 +116,8 @@ public class QueryRelax extends Base {
 	/**
 	 * 
 	 */
-	public static final String DEFAULTQUERY = "SELECT ?univ where { ?univ a owl:Class. ?restriction owl:onProperty univ:headOf. ?Not rdfs:label 'okay'}";
+	public static final String DEFAULTQUERY = 
+			"SELECT ?univ where { ?univ a owl:Class. ?restriction owl:onProperty univ:headOf. ?Not rdfs:label 'okay'. ?Not2 rdfs:label 'nokay'} LIMIT 1";
 	
 	/**
 	 * Formatting a SPARQL query => formatting and gathering Triplets
@@ -254,13 +255,14 @@ public class QueryRelax extends Base {
 
 	@SuppressWarnings("unlikely-arg-type")
 	protected static void searchMFS (HashSet<Integer> mfsSearch) {
-		Iterator<Integer> iterator = mfsSearch.iterator();
+		
 		HashSet<Integer> mfsSet;
 		HashSet<Integer> resultSet;
 		if (LOG_ON && RELAX.isTraceEnabled()) {
 			RELAX.trace("Combinaison de taille 1");
 		}
 		//System.out.println("Combinaison de taille 1");
+		Iterator<Integer> iterator = mfsSearch.iterator();
 		while(iterator.hasNext()) {
 			int indice = (int) iterator.next();
 			mfsSet = new HashSet<Integer>();
@@ -270,7 +272,8 @@ public class QueryRelax extends Base {
 			}
 			//System.out.println("Triplet atomique testé n°" + mfsSet);
 			if(!buildAndExecuteQuery(mfsSet)){
-				mfsSearch.remove(indice);
+				iterator.remove();
+				//mfsSearch.remove(indice);
 				MFS.add(mfsSet);
 				if (LOG_ON && RELAX.isDebugEnabled()) {
 					RELAX.debug("New MFS : " + mfsSet);

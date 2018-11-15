@@ -182,9 +182,9 @@ public class HittingSets {
 		statusOfHS.entrySet().removeIf(e -> e.getValue() == true);
 		statusOfHS.entrySet().forEach(e -> result.add(e.getKey()));
 		
-		if(LOG_ON && HITTINGSET.isInfoEnabled()) {
+		/*if(LOG_ON && HITTINGSET.isInfoEnabled()) {
 			HITTINGSET.info("Reduced MFS : " + result);
-		}
+		}*/
 		
 		return result;
 	}
