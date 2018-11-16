@@ -20,6 +20,9 @@ package query.relax.cader.algorithm;
 import static common.Log.GEN;
 import static common.Log.LOG_ON;
 import static common.Log.RELAX;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -177,17 +180,37 @@ public class QueryRelax extends Base {
 		}
 	}
 
-	protected static OntModel getModel() {
-		return ModelFactory.createOntologyModel( OntModelSpec.OWL_MEM );
-	}
 
 	/**
 	 * Chargement des données de notre BD local
-	 * @param m
+	 * @param onthologySize
+	 * @param sc
 	 */
-	protected static void loadData( Model m ) {
-		FileManager.get().readModel( m, SOURCE + "LUBM100.owl" );
+	protected static void loadModel(int onthologySize) {
+		m = ModelFactory.createOntologyModel( OntModelSpec.OWL_MEM );
+		switch(onthologySize) {
+			case 100 :
+				if(LOG_ON && GEN.isInfoEnabled()) {
+					GEN.info("Loading the database LUBM100.owl");
+				}
+				FileManager.get().readModel( m, SOURCE + "LUBM100.owl" );
+				break;
+			case 1000 :
+				if(LOG_ON && GEN.isInfoEnabled()) {
+					GEN.info("Loading the database LUBM1K.owl");
+				}
+				FileManager.get().readModel( m, SOURCE + "LUBM1K.owl" );
+				break;
+			case 10000 :
+				if(LOG_ON && GEN.isInfoEnabled()) {
+					GEN.info("Loading the database LUBM10K.owl");
+				}
+				FileManager.get().readModel( m, SOURCE + "LUBM10K.owl" );
+				break;
+		}
+
 	}
+
 
 	protected static boolean executeQuery(String q) {
 		if(LOG_ON && GEN.isInfoEnabled()) {
@@ -438,7 +461,7 @@ public class QueryRelax extends Base {
 	 * @param m
 	 * @param q
 	 */
-	protected void showQuery( Model m, String q ) {
+	protected void showQuery( String q ) {
 		Query query = QueryFactory.create( q );
 		QueryExecution qexec = QueryExecutionFactory.create( query, m );
 		try {
@@ -488,8 +511,55 @@ public class QueryRelax extends Base {
 	}
 
 	/**
+	 *
+	 * @param location
+	 */
+	protected static void readQueriesFromFile(String location) {
+		BufferedReader reader;
+		try {
+			reader = new BufferedReader(new FileReader(location));
+			String query = "";
+			while (query != null) {
+				// read next line
+				query = reader.readLine();
+				if(query != null && !query.isEmpty()) {
+					if(LOG_ON && GEN.isInfoEnabled()) {
+						GEN.info("Processing the query : " + query);
+					}
+					relaxRequest(m, query);
+				}
+			}
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 *
+	 * @param sc
+	 */
+	protected static void readQueryFromConsole(Scanner sc) {
+		System.out.println("Enter default to launch with the default query enter \nEnter 'exit' or 'quit' to leave the application \nEnter a query: ");
+		String query = sc.nextLine();
+		if(query.toLowerCase().equals("exit") || query.toLowerCase().equals("quit")) {
+			System.out.println("Application exiting.");
+			sc.close();
+			System.exit(0);
+		} else if(query.toLowerCase().equals("default")) {
+			query = DEFAULTQUERY;
+		}
+		if(LOG_ON && GEN.isInfoEnabled()) {
+			GEN.info("Processing the query : " + query);
+		}
+
+		relaxRequest(m, query);
+	}
+
+	
+	/**
 	 * @param args
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	public static void main( String[] args ) throws IOException {
 		Scanner sc = new Scanner(System.in);
@@ -497,40 +567,34 @@ public class QueryRelax extends Base {
 		System.out.println("Please choose the log level : ");
 		int level = Integer.parseInt(sc.nextLine());
 		setLoggersLevel(level);
-
-		m = getModel();
-		loadData( m );
+		System.out.println("Please choose the database size : \n[100] -> LUBM100.owl \n[1000] -> LUBM1K.owl \n[10000] LUBM10K.owl");
+		int size = Integer.parseInt(sc.nextLine());
+		loadModel(size);
 		System.out.println("Prefixes are already defined : " + "\n" + prefix);
 
 		while(true) {
-
-			System.out.println("Please enter a query, enter default to launch with the default query enter, enter 'exit' or 'quit' to leave the application : ");
-			String query = sc.nextLine();
-			if(query.toLowerCase().equals("exit") || query.toLowerCase().equals("quit")) {
-				System.out.println("Application exiting.");
-				sc.close();
-				System.exit(0);
-			} else if(query.toLowerCase().equals("default")) {
-				query = DEFAULTQUERY; 
+			System.out.println("Choose either a file or enter manualy a query : \n[0] -> Console Input \n[1] File Input");
+			int choice = Integer.parseInt(sc.nextLine());
+			switch(choice) {
+				case 0 :
+					readQueryFromConsole(sc);
+					break;
+				case 1 :
+					System.out.println("Warning : one query per line in the file. Please enter the file location : ");
+					String location = sc.nextLine();
+					System.out.println("You have choosed the file : " + location);
+					readQueriesFromFile(location);
+					break;
+				default :
+					System.err.println("Bad arguments : choose 0 or 1");
+					System.exit(1);
 			}
-			System.out.println("Processing the query : " + query);
-			relaxRequest(m, query);
 		}
+	}
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
 		
 	}
-
-	/**
-	 * run with example query 
-	 */
-	public void run() {
-		m = getModel();
-		loadData( m );
-
-		String quer = "SELECT ?univ where { ?univ a owl:Class.\n"
-				+ "?restriction owl:onProperty univ:headOf.\n"
-				+ "?Not rdfs:label 'okay'" + "} ";
-
-		showQuery( m, prefix + quer );
-	}
-
 }
