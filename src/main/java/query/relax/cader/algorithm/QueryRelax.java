@@ -41,8 +41,6 @@ import org.apache.jena.query.ResultSetFormatter;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.util.FileManager;
-import org.apache.jena.vocabulary.OWL;
-import org.apache.jena.vocabulary.RDFS;
 import org.apache.log4j.Level;
 
 import common.Log;
@@ -61,12 +59,6 @@ public class QueryRelax extends Base {
 	 * 
 	 */
 	public static final String SOURCE = "./src/main/resources/data/";
-
-	// EDucation ontology namespace
-	/**
-	 * 
-	 */
-	public static final String EDUCATION_NS = "http://swat.cse.lehigh.edu/onto/univ-bench.owl#";
 
 	/**
 	 * 	
@@ -87,17 +79,21 @@ public class QueryRelax extends Base {
 	/**
 	 * 
 	 */
-	public static HashMap<Integer, String> triplets = new HashMap<Integer, String>();
+	public static HashMap<String, String> PREFIXES;
+	/**
+	 * 
+	 */
+	public static HashMap<Integer, String> triplets;
 
 	/**
 	 * 
 	 */
-	public static HashSet<HashSet<Integer>> MFS = new HashSet<HashSet<Integer>>();
+	public static HashSet<HashSet<Integer>> MFS;
 
 	/**
 	 * 
 	 */
-	public static HashSet<HashSet<Integer>> XSS = new HashSet<HashSet<Integer>>();
+	public static HashSet<HashSet<Integer>> XSS;
 	
 	/**
 	 * 
@@ -112,25 +108,141 @@ public class QueryRelax extends Base {
 	/**
 	 * 
 	 */
-	public static String prefix = "prefix univ: <" + EDUCATION_NS + ">\n" +
-			"prefix rdfs: <" + RDFS.getURI() + ">\n" +
-			"prefix owl: <" + OWL.getURI() + ">\n";
+	public static String prefix = "";
 
 	/**
 	 * 
 	 */
-	public static final String DEFAULTQUERY = 
-			"SELECT ?univ where { ?univ a owl:Class. ?restriction owl:onProperty univ:headOf. ?Not rdfs:label 'okay'. ?Not2 rdfs:label 'nokay'} LIMIT 1";
+	public static final String DEFAULTQUERY = "SELECT DISTINCT ?mission where { ?mission a owl:Class . ?restriction owl:onProperty univ:headOf . ?Not rdfs:label 'okay' . ?Not2 rdfs:label 'nokay' . ?adv univ:emailAddress 'GraduateStudent29@Department1.University0.edu'} LIMIT 1";
+	//"SELECT DISTINCT ?mission where { ?mission a Class. ?restriction <http://www.w3.org/2002/07/owlonProperty> <http://swat.cse.lehigh.edu/onto/univ-bench.owlheadOf>. ?Not <http://www.w3.org/2000/01/rdf-schemalabel> 'okay'. ?Not2 <http://www.w3.org/2000/01/rdf-schemalabel> 'nokay'. ?adv <http://swat.cse.lehigh.edu/onto/univ-bench.owlemailAddress> 'GraduateStudent29@Department1.University0.edu'} LIMIT 1";
+	//"SELECT DISTINCT ?mission where { ?mission a owl:Class . ?restriction owl:onProperty univ:headOf . ?Not rdfs:label 'okay' . ?Not2 rdfs:label 'nokay' . ?adv univ:emailAddress 'GraduateStudent29@Department1.University0.edu'} LIMIT 1";
+	
+	
+	/**
+	 * Chargement des données de notre BD local
+	 * @param onthologySize
+	 */
+	protected static void loadModel(int onthologySize) {
+		m = ModelFactory.createOntologyModel( OntModelSpec.OWL_MEM );
+		switch(onthologySize) {
+			case 0 :
+				if(LOG_ON && GEN.isInfoEnabled()) {
+					GEN.info("Loading the database LUBM100.owl");
+				}
+				FileManager.get().readModel( m, SOURCE + "LUBM100.owl" );
+				break;
+			case 1 :
+				if(LOG_ON && GEN.isInfoEnabled()) {
+					GEN.info("Loading the database LUBM1K.owl");
+				}
+				FileManager.get().readModel( m, SOURCE + "LUBM1K.owl" );
+				break;
+			case 2 :
+				if(LOG_ON && GEN.isInfoEnabled()) {
+					GEN.info("Loading the database LUBM10K.owl");
+				}
+				FileManager.get().readModel( m, SOURCE + "LUBM10K.owl" );
+				break;
+		}
+
+	}
+
+	/**
+	 * Build the prefix part for the query.
+	 */
+	protected static void loadPrefixes() {
+		PREFIXES = new HashMap<>();
+		PREFIXES.put("rdfs" , "http://www.w3.org/2000/01/rdf-schema#");
+		PREFIXES.put("univ" , "http://swat.cse.lehigh.edu/onto/univ-bench.owl#");
+		PREFIXES.put("owl"  , "http://www.w3.org/2002/07/owl#");
+		PREFIXES.put("xsd" , "http://www.w3.org/2001/XMLSchema#");
+		PREFIXES.put("rdf" , "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
+		
+		Iterator<String> part1 = PREFIXES.keySet().iterator();
+		Iterator<String> part2 = PREFIXES.values().iterator();
+		
+		while(part1.hasNext() && part2.hasNext()) {
+			prefix += "prefix " + part1.next() + ": <" + part2.next() + ">\n";
+		}
+	}
+	
+	
+	
+	protected static String formatWord(String word) {
+		String formatedWord= "";
+		word = word.replace("( )+", "");
+		word = word.replace("<", "");
+		word = word.replace(">", "");
+		if(LOG_ON && GEN.isDebugEnabled()) {
+			GEN.debug("Word after replacement of the characters : " + word);
+		}
+		Iterator<String> part1 = PREFIXES.keySet().iterator();
+		Iterator<String> part2 = PREFIXES.values().iterator();
+		boolean foundURi = false;
+		String univbench = "http://swat.cse.lehigh.edu/onto/univbench.owl";
+		if(word.contains(univbench)) {
+			foundURi = true;
+			formatedWord = "univ:" + word.replace(univbench, "");
+		} else {
+			while(part1.hasNext() && part2.hasNext()) {
+				String namespace = part1.next();
+				String uri = part2.next();
+				uri = uri.replace("<" , "");
+				uri = uri.replace(">" , "");
+				uri = uri.replace("#" , "");
+				if(LOG_ON && GEN.isDebugEnabled()) {
+					GEN.debug("Tested URI : " + uri);
+				}
+				if(word.contains(uri)){
+					if(LOG_ON && GEN.isDebugEnabled()) {
+						GEN.debug("URI detected : " + uri);
+					}
+					formatedWord = namespace + ":" + word.replace(uri, "");
+					foundURi = true;
+					break;
+				}
+			}
+		}
+		if(foundURi) {
+			if(LOG_ON && GEN.isDebugEnabled()) {
+				GEN.debug("Formated word : " + formatedWord);
+			}
+			return formatedWord;
+		} else {
+			return "<" + word + ">";
+		}
+		
+	}
+	
+	protected static String formatTriplet(String triplet) {
+		String formatedTriplet = "";
+		String[] words = triplet.split("( )+");
+		for(int i = 0; i<words.length; i++) {
+			if(words[i].contains("<")) {
+				formatedTriplet += formatWord(words[i]); 
+			} else {
+				formatedTriplet += words[i];
+			}
+			if(i < words.length-1) {
+				formatedTriplet += " ";
+			}
+		}
+		if(LOG_ON && GEN.isDebugEnabled()) {
+			GEN.debug("Formated Triplet : " + formatedTriplet);
+		}
+		return formatedTriplet;
+	}
 	
 	/**
 	 * Formatting a SPARQL query => formatting and gathering Triplets
 	 * @param querry
 	 */
 	protected static void parseQuery(String query) {
+		triplets = new HashMap<>();
 		System.out.println("Query : " + query.replace("\t", "").replace("\n", ""));
 
 		String[] parts = query.split("\\{");
-		String[] intermediate = (parts[1].split("\\}"))[0].split("\\.");
+		String[] intermediate = (parts[1].split("\\}"))[0].split(" \\. ");
 
 		//SELECT ?univ where 
 		HEADER = parts[0];
@@ -138,17 +250,22 @@ public class QueryRelax extends Base {
 		if(LOG_ON && GEN.isDebugEnabled()) {
 			GEN.debug("HEADER : " + HEADER);
 		}
-		//System.out.println("HEADER : " + HEADER);
 
 		String subject = "";
 		String[] subtriplets, words;
 		int indice = 0;
-
+		
 		for(int i = 0; i<intermediate.length; i++) {
-			intermediate[i] = intermediate[i].replace("\n", "");
-			intermediate[i] = intermediate[i].replace("\t", "");
-			intermediate[i] = intermediate[i].replace("( )+", " ");
-			intermediate[i] = intermediate[i].replaceFirst("( )*", "");
+			intermediate[i] = intermediate[i].replace("\n", "").replace("\t", "").replace("( )+", " ").replaceFirst("( )*", "");
+			if(LOG_ON && GEN.isDebugEnabled()) {
+				GEN.debug("Triplet : " + intermediate[i]);
+			}
+			if(intermediate[i].contains("<")) {
+				if(LOG_ON && GEN.isDebugEnabled()) {
+					GEN.debug("Formating the triplet : " + intermediate[i]);
+				}
+				intermediate[i] = formatTriplet(intermediate[i]);
+			}
 
 			if(intermediate[i].contains(";")) {
 				subtriplets = intermediate[i].split(";");
@@ -159,7 +276,6 @@ public class QueryRelax extends Base {
 				if(LOG_ON && GEN.isDebugEnabled()) {
 					GEN.debug("Triplets n°" + indice + " : " + subtriplets[0]);
 				}
-				//System.out.println("Triplets n°" + indice + " : " + subtriplets[0]);
 				for(int j=1; j<subtriplets.length; j++) {
 					subtriplets[j] = subtriplets[j].replaceFirst("( )*", "");
 					triplets.put(indice, subject + " " + subtriplets[j]);
@@ -167,7 +283,6 @@ public class QueryRelax extends Base {
 					if(LOG_ON && GEN.isDebugEnabled()) {
 						GEN.debug("Triplets n°" + indice + " : " + subject + " " +  subtriplets[j]);
 					}
-					//System.out.println("Triplets n°" + indice + " : " + subject + " " +  subtriplets[j]);
 				}
 			} else {
 				triplets.put(indice, intermediate[i]);
@@ -175,50 +290,23 @@ public class QueryRelax extends Base {
 				if(LOG_ON && GEN.isDebugEnabled()) {
 					GEN.debug("Triplets n°" + indice + " : " + subject + " " +  intermediate[i]);
 				}
-				//System.out.println("Triplets n°" + indice + " : " + subject + " " +  intermediate[i]);
 			}
 		}
 	}
 
 
-	/**
-	 * Chargement des données de notre BD local
-	 * @param onthologySize
-	 * @param sc
-	 */
-	protected static void loadModel(int onthologySize) {
-		m = ModelFactory.createOntologyModel( OntModelSpec.OWL_MEM );
-		switch(onthologySize) {
-			case 100 :
-				if(LOG_ON && GEN.isInfoEnabled()) {
-					GEN.info("Loading the database LUBM100.owl");
-				}
-				FileManager.get().readModel( m, SOURCE + "LUBM100.owl" );
-				break;
-			case 1000 :
-				if(LOG_ON && GEN.isInfoEnabled()) {
-					GEN.info("Loading the database LUBM1K.owl");
-				}
-				FileManager.get().readModel( m, SOURCE + "LUBM1K.owl" );
-				break;
-			case 10000 :
-				if(LOG_ON && GEN.isInfoEnabled()) {
-					GEN.info("Loading the database LUBM10K.owl");
-				}
-				FileManager.get().readModel( m, SOURCE + "LUBM10K.owl" );
-				break;
+	protected static boolean executeQuery(String q, boolean setLimit) {
+		if(LOG_ON && GEN.isDebugEnabled()) {
+			GEN.debug("Executing : " + q);
 		}
-
-	}
-
-
-	protected static boolean executeQuery(String q) {
-		if(LOG_ON && GEN.isInfoEnabled()) {
-			GEN.info("Executing : " + q);
+		if(setLimit) {
+			q += "LIMIT 1";
 		}
-		//System.out.println("Executing : " + q);
 		Query query = QueryFactory.create( prefix + q );
 		QueryExecution qexec = QueryExecutionFactory.create( query, m);
+		if(LOG_ON && GEN.isTraceEnabled()) {
+			GEN.trace("SPARQL query : " + query.toString());
+		}
 		try {
 			ResultSet results = qexec.execSelect();
 			if(results.hasNext()) {
@@ -263,22 +351,23 @@ public class QueryRelax extends Base {
 			RELAX.debug("Built query : " + query);
 		}
 		//System.out.println("Built query : " + query);
-		boolean success = executeQuery(query);
+		boolean success = executeQuery(query, true);
 		if (LOG_ON && RELAX.isDebugEnabled()) {
 			if(success) {
 				RELAX.debug(query + " has succeded");
-				//System.out.println(query + " has succeded");
 			} else {
 				RELAX.debug(query + " has failed");
-				//System.out.println(query + " has failed");
 			}
 		}
 		return success;
 	}
-
+	
+	/**
+	 * 
+	 * @param mfsSearch
+	 */
 	@SuppressWarnings("unlikely-arg-type")
 	protected static void searchMFS (HashSet<Integer> mfsSearch) {
-		
 		HashSet<Integer> mfsSet;
 		HashSet<Integer> resultSet;
 		if (LOG_ON && RELAX.isTraceEnabled()) {
@@ -370,37 +459,43 @@ public class QueryRelax extends Base {
 			MFSconverted.add(new ArrayList<>(tmp));
 		}
 		MFS = HittingSets.mhs(MFSconverted);
-		if(LOG_ON && RELAX.isInfoEnabled()) {
-			RELAX.info("MFS Reduced : " + MFS);
-		}
 	}
 	
-
+	/**
+	 * 
+	 */
 	protected static void generateXSS(){
 		HashSet<Integer> mfsSet;
 		HashSet<Integer> xssSet;
 		Iterator<HashSet<Integer>> mfsIterator = MFS.iterator();
-		Iterator<Integer> tripletsIterator = triplets.keySet().iterator();
 		int indice = 0;
 		while(mfsIterator.hasNext()) {
 			mfsSet = (HashSet<Integer>) mfsIterator.next();
 			xssSet = new HashSet<>();
+			Iterator<Integer> tripletsIterator = triplets.keySet().iterator();
 			while(tripletsIterator.hasNext()) {
 				indice = (int) tripletsIterator.next();
 				if(!mfsSet.contains(indice)) {
 					xssSet.add(indice);
 				}
 			}
+			if(LOG_ON && GEN.isInfoEnabled()) {
+				GEN.info("XSSet : " + xssSet);
+			}
 			XSS.add(xssSet);
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	protected static HashSet<String> buildRelaxedQuery() {
 		HashSet<String> relaxedQueries = new HashSet<>();
 		Iterator<HashSet<Integer>> xssIterator = XSS.iterator();
 		HashSet<Integer> xssSet;
 		while(xssIterator.hasNext()) {
-			String relaxedQuery = "HEADER" + "{ " ;
+			String relaxedQuery = HEADER + "{ " ;
 			xssSet = (HashSet<Integer>) xssIterator.next();
 			Iterator<Integer> iterator = xssSet.iterator();
 			while(iterator.hasNext()) {
@@ -409,7 +504,9 @@ public class QueryRelax extends Base {
 					relaxedQuery += " . ";
 				}
 			}
+			relaxedQuery += " }";
 			relaxedQueries.add(relaxedQuery);
+			showQuery(prefix + relaxedQuery);
 		}
 		return relaxedQueries;
 	}
@@ -419,9 +516,13 @@ public class QueryRelax extends Base {
 	 * @param querry
 	 */
 	private static void relaxRequest(Model m, String query) {
+		query = query.replaceAll("`", "'").replaceAll("’", "'");
+		System.out.println("Query : " + query);
 		long startTime = System.currentTimeMillis();
+		XSS = new HashSet<HashSet<Integer>>();
+		MFS = new HashSet<HashSet<Integer>>();
 
-		if(!executeQuery(query)) {
+		if(!executeQuery(query, false)) {
 			if (LOG_ON && GEN.isInfoEnabled()) {
 				GEN.info("The Querry has failed, relaxing the request :");
 			}
@@ -433,10 +534,13 @@ public class QueryRelax extends Base {
 			//System.out.println("TRIPLETS : " + triplets);
 			HashSet<Integer> mfsSearch = new HashSet<Integer>(triplets.keySet());
 			searchMFS(mfsSearch);
-			if (LOG_ON && RELAX.isInfoEnabled()) {
-				RELAX.info("Found MFS : " + MFS);
-			}
 			generateXSS();
+			if(LOG_ON && RELAX.isInfoEnabled()) {
+				RELAX.info("Triplets : " + triplets.keySet());
+			}
+			if(LOG_ON && RELAX.isInfoEnabled()) {
+				RELAX.info("MFS Reduced : " + MFS);
+			}
 			if (LOG_ON && RELAX.isInfoEnabled()) {
 				RELAX.info("Generated XSS : " + XSS);
 			}
@@ -452,8 +556,6 @@ public class QueryRelax extends Base {
 		if (LOG_ON && GEN.isInfoEnabled()) {
 			GEN.info("Elapsed Time : " + elapsedTime + " ms.");
 		}
-		//System.out.println("Elapsed Time : " + elapsedTime + " ms.");
-
 	}
 
 	/**
@@ -461,8 +563,8 @@ public class QueryRelax extends Base {
 	 * @param m
 	 * @param q
 	 */
-	protected void showQuery( String q ) {
-		Query query = QueryFactory.create( q );
+	protected static void showQuery( String q ) {
+		Query query = QueryFactory.create( q  +" LIMIT 1");
 		QueryExecution qexec = QueryExecutionFactory.create( query, m );
 		try {
 			ResultSet results = qexec.execSelect();
@@ -514,8 +616,31 @@ public class QueryRelax extends Base {
 	 *
 	 * @param location
 	 */
-	protected static void readQueriesFromFile(String location) {
+	protected static void readQueriesFromFile(Scanner sc) {
 		BufferedReader reader;
+		System.out.println("Choose the file : \n[0] -> Star Queries \n[1] -> Chain Queries \n[2] -> Composite Queries \n[3] -> Your own file");
+		int choice = Integer.parseInt(sc.nextLine());
+		String location = "";
+		switch(choice) {
+			case 0 :
+				location = "./StarQueries.txt";
+				break;
+			case 1 :
+				location = "./ChainQueries.txt";
+				break;
+			case 2 :
+				location = "./CompositeQueries.txt";
+				break;
+			case 3 :
+				System.out.println("Please enter the location of the file : ");
+				location = sc.nextLine();
+				break;
+			default :
+				System.err.println("Bad arguments : enter a number between 0 and 3");
+				System.exit(1);
+		}
+		
+		System.out.println("You have choosed the file : " + location);
 		try {
 			reader = new BufferedReader(new FileReader(location));
 			String query = "";
@@ -567,13 +692,14 @@ public class QueryRelax extends Base {
 		System.out.println("Please choose the log level : ");
 		int level = Integer.parseInt(sc.nextLine());
 		setLoggersLevel(level);
-		System.out.println("Please choose the database size : \n[100] -> LUBM100.owl \n[1000] -> LUBM1K.owl \n[10000] LUBM10K.owl");
+		System.out.println("Please choose the database size : \n[0] -> LUBM100.owl \n[1] -> LUBM1K.owl \n[2] -> LUBM10K.owl");
 		int size = Integer.parseInt(sc.nextLine());
 		loadModel(size);
+		loadPrefixes();
 		System.out.println("Prefixes are already defined : " + "\n" + prefix);
 
 		while(true) {
-			System.out.println("Choose either a file or enter manualy a query : \n[0] -> Console Input \n[1] File Input");
+			System.out.println("Choose either a file or enter manualy a query : \n[0] -> Console Input \n[1] -> File Input");
 			int choice = Integer.parseInt(sc.nextLine());
 			switch(choice) {
 				case 0 :
@@ -581,9 +707,7 @@ public class QueryRelax extends Base {
 					break;
 				case 1 :
 					System.out.println("Warning : one query per line in the file. Please enter the file location : ");
-					String location = sc.nextLine();
-					System.out.println("You have choosed the file : " + location);
-					readQueriesFromFile(location);
+					readQueriesFromFile(sc);
 					break;
 				default :
 					System.err.println("Bad arguments : choose 0 or 1");
