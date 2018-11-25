@@ -234,6 +234,82 @@ public class QueryRelax extends Base {
 	}
 	
 	/**
+	 * @param oneCombination
+	 * @return true if there's an MFS.
+	 */
+	public static Boolean containsMFS(HashSet<Integer> oneCombination){
+		Boolean flag = false;
+		Iterator<HashSet<Integer>> iter = MFS.iterator();
+		
+		while (iter.hasNext()) {
+			HashSet<Integer> tmp = iter.next();
+			if(oneCombination.containsAll(tmp)) 
+				return true;
+			
+		}
+		return flag;
+	}
+	
+	/**
+     * Recursive composer
+     * Data : temporary arr to store combinations until we reach target Level
+     * returns nothing : Recursive storage on allTmp
+     */
+    static void myComposer(Integer arr[], Integer data[], int start, int end, int current, int level, HashSet<HashSet<Integer>> allTmp) { 
+        HashSet<Integer> tmp = new HashSet<Integer>();
+        
+        //End of one successfull combination
+        if (current == level) { 
+            for (int j=0; j < level ; j++) {
+                tmp.add(data[j]);
+            }
+            
+            // add the combination if it doesn't contain an MFS
+            if(!containsMFS(tmp))
+            	allTmp.add(tmp);
+            
+            return; 
+        } 
+  
+        // For every INDEX i replace it with all possible elements
+        // END-i+1 >= R-INDEX : include one element
+        // combine INDEX with rest of elements
+        for (int i=start; i <= end ; i++) { 
+            if(end-i+1 >= level-current){
+                data[current] = arr[i]; 
+            
+                //go to i+1
+                myComposer(arr, data, i+1, end, current+1, level, allTmp);    
+            }
+        } 
+    } 
+    
+    /**
+     * Call it with the target level :
+     * example : level = 4 => [1,2,3,4]
+     * @param X 
+     * @param Y 
+     * @param level 
+     * @return Collection of combinations
+     */
+    public static HashSet<HashSet<Integer>> QueryComposition(ArrayList<Integer> X, ArrayList<Integer> Y, int level){
+        HashSet<Integer> tmp = new HashSet<Integer>(X);
+        tmp.addAll(Y);
+        
+        Integer arr[] = tmp.toArray(new Integer[tmp.size()]); 
+        int n = arr.length; 
+
+        Integer data[]=new Integer[level]; 
+        
+        //All combinations are in : allTmp
+        HashSet<HashSet<Integer>> allTmp = new HashSet<HashSet<Integer>>();
+ 
+        myComposer(arr, data, 0, n-1, 0, level, allTmp); 
+        return allTmp;
+    }
+
+	
+	/**
 	 * Formatting a SPARQL query => formatting and gathering Triplets
 	 * @param querry
 	 */
