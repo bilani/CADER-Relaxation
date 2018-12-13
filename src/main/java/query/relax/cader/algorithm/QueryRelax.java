@@ -17,9 +17,9 @@
  */
 
 package query.relax.cader.algorithm;
-import static common.Log.GEN;
-import static common.Log.LOG_ON;
-import static common.Log.RELAX;
+import static cader.logger.Log.GEN;
+import static cader.logger.Log.LOG_ON;
+import static cader.logger.Log.RELAX;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -43,7 +43,8 @@ import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.util.FileManager;
 import org.apache.log4j.Level;
 
-import common.Log;
+import cader.logger.Log;
+import objects.CombinationGenerator;
 
 /**
  * local DB : University and professors example 

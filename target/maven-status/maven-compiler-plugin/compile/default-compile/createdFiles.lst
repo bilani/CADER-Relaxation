@@ -1,6 +1,4 @@
-query/relax/cader/algorithm/CombinationGenerator.class
-query/relax/cader/algorithm/HittingSets.class
 query/relax/cader/algorithm/Cader.class
-query/relax/cader/algorithm/QueryRelax.class
 query/relax/cader/algorithm/Base.class
-common/Log.class
+query/relax/cader/algorithm/HittingSets.class
+query/relax/cader/algorithm/QueryRelax.class

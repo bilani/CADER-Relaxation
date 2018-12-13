@@ -1,0 +1,36 @@
+# Test 11 (Query 3TP-1)
+Query 1 : SELECT * WHERE { ?X <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://swat.cse.lehigh.edu/onto/univ-bench.owl#FullProfessor> . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#doctoralDegreeFrom> ?Y1 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#memberOf> ?Y2 }
+ totalTemps 33 ms, Time MFS 33 ms, Time XSS 1544709572732 ms
+nbRequête: 6 Relaxées | 2 MFS | 2 XSS 
+
+
+# Test 21 (Query 5TP-1)
+Query 2 : SELECT * WHERE { ?X <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://swat.cse.lehigh.edu/onto/univ-bench.owl#FullProfessor> . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#doctoralDegreeFrom> ?Y1 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#memberOf> ?Y2 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#headOf> ?Y3 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#title> ?Y4 }
+ totalTemps 82 ms, Time MFS 81 ms, Time XSS 1544709572824 ms
+nbRequête: 12 Relaxées | 4 MFS | 2 XSS 
+
+
+# Test 36 (Query 8TP-1)
+Query 3 : SELECT * WHERE { ?X <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://swat.cse.lehigh.edu/onto/univ-bench.owl#FullProfessor> . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#doctoralDegreeFrom> ?Y1 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#memberOf> ?Y2 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#headOf> ?Y3 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#title> ?Y4 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#officeNumber> ?Y5 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#researchInterest> ?Y6 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#name> 'FullProfessor3' }
+ totalTemps 163 ms, Time MFS 162 ms, Time XSS 1544709572986 ms
+nbRequête: 32 Relaxées | 8 MFS | 3 XSS 
+
+
+# Test 46 (Query 10TP-1)
+Query 4 : SELECT * WHERE { ?X <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://swat.cse.lehigh.edu/onto/univ-bench.owl#FullProfessor> . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#doctoralDegreeFrom> ?Y1 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#memberOf> ?Y2 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#headOf> ?Y3 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#title> ?Y4 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#officeNumber> ?Y5 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#researchInterest> ?Y6 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#name> 'FullProfessor3' . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#emailAddress> ?Y7 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#age> ?Y8 }
+ totalTemps 206 ms, Time MFS 205 ms, Time XSS 1544709573195 ms
+nbRequête: 58 Relaxées | 9 MFS | 3 XSS 
+
+
+# Test 61 (Query 13TP-1)
+Query 5 : SELECT * WHERE { ?X <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://swat.cse.lehigh.edu/onto/univ-bench.owl#FullProfessor> . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#doctoralDegreeFrom> ?Y1 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#memberOf> ?Y2 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#headOf> ?Y3 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#title> ?Y4 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#officeNumber> ?Y5 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#researchInterest> ?Y6 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#name> 'FullProfessor3' . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#emailAddress> ?Y7 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#age> ?Y8 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#mastersDegreeFrom> <http://www.Department2.University1.edu> . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#undergraduateDegreeFrom> ?Y9 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#teacherOf> <http://www.Department0.University0.edu/Course42> }
+ totalTemps 442 ms, Time MFS 442 ms, Time XSS 1544709573526 ms
+nbRequête: 110 Relaxées | 11 MFS | 3 XSS 
+
+
+# Test 71 (Query 15TP-1)
+Query 6 : SELECT * WHERE { ?X <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://swat.cse.lehigh.edu/onto/univ-bench.owl#FullProfessor> . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#doctoralDegreeFrom> ?Y1 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#memberOf> ?Y2 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#headOf> ?Y3 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#title> ?Y4 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#officeNumber> ?Y5 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#researchInterest> ?Y6 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#name> 'FullProfessor3' . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#emailAddress> ?Y7 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#age> ?Y8 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#mastersDegreeFrom> <http://www.Department2.University1.edu> . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#undergraduateDegreeFrom> ?Y9 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#teacherOf> <http://www.Department0.University0.edu/Course42> . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#advisor> ?Y10 . ?X <http://swat.cse.lehigh.edu/onto/univ-bench.owl#tenured> ?Y11 }
+ totalTemps 980 ms, Time MFS 979 ms, Time XSS 1544709574003 ms
+nbRequête: 124 Relaxées | 17 MFS | 3 XSS 
+
+

@@ -1,7 +1,8 @@
 package query.relax.cader.algorithm;
-import static common.Log.GEN;
-import static common.Log.LOG_ON;
-import static common.Log.RELAX;
+import static cader.logger.Log.GEN;
+import static cader.logger.Log.LOG_ON;
+import static cader.logger.Log.RELAX;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -13,6 +14,10 @@ import java.util.Scanner;
 import org.apache.commons.cli.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import cader.logger.Log;
+import objects.CombinationGenerator;
+
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
 import org.apache.jena.query.Query;
@@ -25,7 +30,6 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.util.FileManager;
 import org.apache.log4j.Level;
-import common.Log;
 
 
 
@@ -34,7 +38,7 @@ public class Cader {
 	/**
 	 * 
 	 */
-	public static final String SOURCE = "./src/main/resources/data/";
+	public static final String SOURCE = "./src/main/resources/databases/";
 
 	/**
 	 * 	

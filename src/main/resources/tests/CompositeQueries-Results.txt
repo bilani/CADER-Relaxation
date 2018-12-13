@@ -1,0 +1,18 @@
+# Test 11 (Query 3TP-1)
+Query 1 : SELECT * WHERE { ?Y1 <http://swat.cse.lehigh.edu/onto/univ-bench.owl#publicationAuthor> ?Y2 . ?Y3 <http://swat.cse.lehigh.edu/onto/univ-bench.owl#publicationAuthor> ?Y2 . <http://www.University829.edu> <http://swat.cse.lehigh.edu/onto/univ-bench.owl#orgPublication> ?Y3 }
+ totalTemps 53 ms, Time MFS 53 ms, Time XSS 1544709575023 ms
+nbRequête: 4 Relaxées | 1 MFS | 1 XSS 
+
+
+# Test 21 (Query 5TP-1)
+Query 2 : SELECT * WHERE { ?Y1 <http://swat.cse.lehigh.edu/onto/univ-bench.owl#publicationAuthor> ?Y2 . ?Y3 <http://swat.cse.lehigh.edu/onto/univ-bench.owl#publicationAuthor> ?Y2 . <http://www.University829.edu> <http://swat.cse.lehigh.edu/onto/univ-bench.owl#orgPublication> ?Y3 . ?Y3 <http://swat.cse.lehigh.edu/onto/univ-bench.owl#publicationAuthor> ?Y4 . ?Y5 <http://swat.cse.lehigh.edu/onto/univ-bench.owl#hasAlumnus> ?Y4 }
+ totalTemps 74 ms, Time MFS 74 ms, Time XSS 1544709575604 ms
+nbRequête: 9 Relaxées | 2 MFS | 1 XSS 
+
+
+# Test 36 (Query 8TP-1)
+Query 3 : SELECT * WHERE { ?Y1 <http://swat.cse.lehigh.edu/onto/univ-bench.owl#publicationAuthor> ?Y2 . ?Y3 <http://swat.cse.lehigh.edu/onto/univ-bench.owl#publicationAuthor> ?Y2 . <http://www.University829.edu> <http://swat.cse.lehigh.edu/onto/univ-bench.owl#orgPublication> ?Y3 . ?Y3 <http://swat.cse.lehigh.edu/onto/univ-bench.owl#publicationAuthor> ?Y4 . ?Y5 <http://swat.cse.lehigh.edu/onto/univ-bench.owl#hasAlumnus> ?Y4 . ?Y6 <http://swat.cse.lehigh.edu/onto/univ-bench.owl#publicationAuthor> ?Y4 . ?Y7 <http://swat.cse.lehigh.edu/onto/univ-bench.owl#advisor> ?Y4 . ?Y4 <http://swat.cse.lehigh.edu/onto/univ-bench.owl#memberOf> ?Y8 }
+ totalTemps 127 ms, Time MFS 127 ms, Time XSS 1544709577048 ms
+nbRequête: 50 Relaxées | 3 MFS | 2 XSS 
+
+

@@ -18,12 +18,13 @@
 
 package query.relax.cader.algorithm;
 
-import java.util.*;
-import static common.Log.LOG_ON;
-import static common.Log.GEN;
-import static common.Log.HITTINGSET;
+import static cader.logger.Log.GEN;
+import static cader.logger.Log.HITTINGSET;
+import static cader.logger.Log.LOG_ON;
 
-import query.relax.cader.algorithm.CombinationGenerator;
+import java.util.*;
+
+import objects.CombinationGenerator;
 
 /**
  * local DB : University and professors example 

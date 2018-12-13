@@ -1,4 +1,4 @@
-package query.relax.cader.algorithm;
+package objects;
 
 import java.math.BigInteger;
 
