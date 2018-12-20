@@ -1,6 +1,7 @@
-# RUN THE APP USING : 
+### Query relaxation based on Minimal Hitting Sets calculation algorithm
 
-### mvn exec:java -Dexec.mainClass="org.apache.jena.sparql.Education"
+### Core of the relaxation : Calculating the XSS sets & MFS sets
+
 ### LUBM X RDF TRIPLESTORE DATABASE
 
 (Query using SPARQL, relying on RDF)
