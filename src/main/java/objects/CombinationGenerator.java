@@ -4,7 +4,7 @@ import java.math.BigInteger;
 
 /**
  * @author blackstorm
- *
+ * Generator of possible combinations
  */
 public class CombinationGenerator {
 

@@ -397,6 +397,14 @@ public class QueryRelax extends Base {
 		}
 	}
 
+	/**
+	 * build a SPARQL query from a set of triplets indexes (associated to triplets)
+	 * executes the query on the db
+	 * if result is empty => returns failed
+	 * else returns success
+	 * @param subset
+	 * @return
+	 */
 	protected static boolean buildAndExecuteQuery(HashSet<Integer> subset) {
 		int key = 0;
 		String query = HEADER + " { ";
@@ -690,7 +698,7 @@ public class QueryRelax extends Base {
 	}
 
 	/**
-	 *
+	 * Read queries from a given file
 	 * @param location
 	 */
 	protected static void readQueriesFromFile(Scanner sc) {
@@ -738,7 +746,7 @@ public class QueryRelax extends Base {
 	}
 
 	/**
-	 *
+	 * Read queries from console
 	 * @param sc
 	 */
 	protected static void readQueryFromConsole(Scanner sc) {

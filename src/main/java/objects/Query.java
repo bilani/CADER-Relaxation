@@ -14,6 +14,12 @@ import org.apache.jena.ontology.OntModel;
 import cader.services.QueryLauncher;
 import query.relax.cader.algorithm.HittingSets;
 
+/**
+ * @author blackstorm
+ *
+ * Contains personalized tools for Query & string manipulation
+ * as well as triplets processing
+ */
 public class Query {
 	/**
 	 * 
@@ -53,6 +59,7 @@ public class Query {
 	/**
 	 * 
 	 * @param query
+	 * @param model 
 	 */
 	public Query(String query, OntModel model) {
 		parseQuery(query);
@@ -67,6 +74,7 @@ public class Query {
 
 	/**
 	 * Formatting a SPARQL query => formatting and gathering Triplets
+	 * by processing special parts of the query (prefixes, ..) and getting contained triplets
 	 * @param querry
 	 */
 	protected static void parseQuery(String query) {
@@ -197,6 +205,16 @@ public class Query {
 		return allTmp;
 	}
 
+	/**
+	 *
+	 * build a SPARQL query from a set of triplets indexes (associated to triplets)
+	 * executes the query on the db
+	 * if result is empty => returns failed
+	 * else returns success
+	 * 
+	 * @param subset
+	 * @return
+	 */
 	protected boolean buildAndExecuteQuery(HashSet<Integer> subset) {
 		int key = 0;
 		String query = HEADER + " { ";
@@ -239,7 +257,8 @@ public class Query {
 	}
 
 	/**
-	 * 
+	 * To find the set of MFS's, by executing combinations of triplets (starting from ONE triplet, TWO, ...)
+	 * includes a triplet in the set of MFS's based on the result returned after executing the query.
 	 * @param mfsSearch
 	 */
 	public void searchMFSes () {
@@ -272,7 +291,7 @@ public class Query {
 			level++;
 
 			if(!S.isEmpty()) {
-				ArrayList<HashSet<Integer>> it = new ArrayList< >(S);
+				ArrayList<HashSet<Integer>> it = new ArrayList<>(S);
 				B = new HashSet<>();
 				int[] indices;
 				if(it.size() == 2) {
@@ -300,20 +319,15 @@ public class Query {
 
 	/**
 	 * 
-	 * @return
+	 * @return set of MFS's
 	 */
 	public HashSet<String> getMFSesQueries() {
 		return convertToQuery(MFSes);
 	}
 
 	/**
-	 * 
-	 * CALCULATING THE COXSSes !
-	 * 
-	 */
-
-	/**
-	 * 
+	 * Calculate CoXSS's from calculated MFS's
+	 * by applying MHS algorithm
 	 */
 	public void calculateCoXSSes() {
 		ArrayList<ArrayList<Integer>> convertedMFS = new ArrayList<ArrayList<Integer>>();
@@ -325,7 +339,7 @@ public class Query {
 
 	/**
 	 * 
-	 * @return
+	 * @return hashset<str>
 	 */
 	public HashSet<String> getCoXSSesQueries() {
 		return convertToQuery(CoXSSes);
@@ -334,11 +348,10 @@ public class Query {
 	/**
 	 * 
 	 * GENERATING THE XSSes !
-	 *  
-	 */
-
-	/**
+	 * Generate a set of XSS's from a set of CoXSS's
 	 * 
+	 * If the index of a given triplet is not contained in a the set of MFS's
+	 * it is to be included in the set of XSS's
 	 */
 	public void generateXSSes(){
 		HashSet<Integer> mfsSet;
@@ -365,14 +378,15 @@ public class Query {
 
 	/**
 	 * 
-	 * @return
+	 * @return hashset<str>
 	 */
 	public HashSet<String> getXSSesQueries() {
 		return convertToQuery(XSSes);
 	}
 
 	/**
-	 * 
+	 * to construct a complete query from a set of triplets (specified by their id's)
+	 * adds the HEADER as well as delimiters + other special chars .
 	 * @return
 	 */
 	protected static HashSet<String> convertToQuery(HashSet<HashSet<Integer>> hashSet) {
@@ -395,6 +409,10 @@ public class Query {
 		return relaxedQueries;
 	}
 
+	/**
+	 * Returns the number of executed queries
+	 * @return int
+	 */
 	public int getNumberOfExecutedQueries() {
 		return NumberOfExecutedQueries;
 	}

@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RestController
-public class FileUploader {
+public class QueryController {
 	private static String UPLOADED_FOLDER = "/tmp/";
 
 	@GetMapping("/insertQuery/{param}")

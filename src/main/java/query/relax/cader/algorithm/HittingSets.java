@@ -18,7 +18,6 @@
 
 package query.relax.cader.algorithm;
 
-import static cader.logger.Log.GEN;
 import static cader.logger.Log.HITTINGSET;
 import static cader.logger.Log.LOG_ON;
 
@@ -95,7 +94,7 @@ public class HittingSets {
 	
 	/**
 	 * DONE
-	 * Reduce sets using OR
+	 * Reduce sets using OR operator
 	 * @param sets 
 	 * @return set of reduced.
 	 */
@@ -112,6 +111,7 @@ public class HittingSets {
 	/**
 	 * DONE
 	 * intersecting elements of all preparedElements with poweredElements (one by one)
+	 * intersect.retainAll(s) => removes elements from "intersect" if they are not contained in "s"
 	 * @param onePow 
 	 * @param preparedSets 
 	 * @return flag
@@ -140,14 +140,12 @@ public class HittingSets {
 	 * @return hittingsets
 	 */
 	public static HashSet<HashSet<Integer>> hitting_sets(HashSet<HashSet<Integer>> allsets) {
-		/**
-		 * reducing sets using OR operator
-		 */
 		HashSet<HashSet<Integer>> result = new HashSet<HashSet<Integer>>();
 		HashSet<Integer> union = reduce(allsets);
 		HashSet<HashSet<Integer>> powered_set = power_set(union);
 		
 		for(HashSet<Integer> tmp : powered_set) {
+			//verify intersections for each powered set
 			if(verifyHittingSet(tmp, allsets))
 				result.add(tmp);
 		}
@@ -156,13 +154,11 @@ public class HittingSets {
 	}
 	
 	/**
+	 * Greedy implementation of MInimal Hitting Sets algo.
 	 * @param sets
 	 * @return mhs-set
 	 */
 	public static HashSet<HashSet<Integer>> mhs(ArrayList<ArrayList<Integer>> sets) {
-		/**
-		 * preparing sets => frozen set of (frozen sets)
-		 */
 		HashSet<HashSet<Integer>> allSets = prepare_sets(sets);
 		HashSet<HashSet<Integer>> allHittingSets = hitting_sets(allSets);
 		HashSet<HashSet<Integer>> result = new HashSet<HashSet<Integer>>();  
@@ -182,10 +178,6 @@ public class HittingSets {
 		
 		statusOfHS.entrySet().removeIf(e -> e.getValue() == true);
 		statusOfHS.entrySet().forEach(e -> result.add(e.getKey()));
-		
-		/*if(LOG_ON && HITTINGSET.isInfoEnabled()) {
-			HITTINGSET.info("Reduced MFS : " + result);
-		}*/
 		
 		return result;
 	}
@@ -211,6 +203,7 @@ public class HittingSets {
 	}
 	
 	/**
+	 * Ignore this method :: only for tests using console
 	 * @param tmp
 	 * @return res
 	 */
