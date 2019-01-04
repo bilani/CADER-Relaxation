@@ -4,9 +4,6 @@ import org.apache.jena.ontology.OntModel;
 
 import cader.services.QueryRelaxer;
 import cader.services.SetDatabase;
-import cader.services.TestStarQueries;
-import cader.services.TestChainQueries;
-import cader.services.TestCompositeQueries;
 
 /**
  * 

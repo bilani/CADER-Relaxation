@@ -1,4 +1,4 @@
-package cader.services;
+package cader.test;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -10,12 +10,14 @@ import java.util.Scanner;
 
 import org.apache.jena.ontology.OntModel;
 
-public class TestStarQueries {
-	public final static String StarQueries = "StarQueries.txt";
-	public final static String Location = "./src/main/resources/tests/";
-	public final static String Result = "StarQueries-Results.txt";
+import cader.services.QueryRelaxer;
 
-	public TestStarQueries(OntModel model) {
+public class TestChainQueries {
+	public final static String ChainQueries = "./ChainQueries.txt";
+	public final static String Location = "./src/main/resources/tests/";
+	public final static String Result = "ChainQueries-Results.txt";
+	
+	public TestChainQueries(OntModel model) {
 		int index = 0;
 		String line = "";
 		String query = "";
@@ -23,10 +25,10 @@ public class TestStarQueries {
 		try(FileWriter fw = new FileWriter(Location + Result, true);
 				BufferedWriter bw = new BufferedWriter(fw);
 				PrintWriter out = new PrintWriter(bw)) {
-			scanner = new Scanner(new File(Location + StarQueries));
+			scanner = new Scanner(new File(ChainQueries));
 			while (scanner.hasNextLine()) {
 				line = scanner.nextLine();
-				if(!line.isEmpty()) {
+				if(!line.isEmpty()){
 					index++;
 					query = scanner.nextLine();
 					System.out.println("Query : " + query);
@@ -35,7 +37,7 @@ public class TestStarQueries {
 					
 					String result = line + "\n"; 
 					result += "Query " + index + " : " + query + "\n";
-					result += relaxer.getQueryExecutionResults();
+					result += relaxer.getResults();
 					
 					//result += "MFSes Queries \n" + relaxer.getMFSesQueries() + "\n";
 					//result += "XSSes Queries \n" + relaxer.getXSSesQueries() + "\n";
@@ -48,8 +50,9 @@ public class TestStarQueries {
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
-			//exception handling left as an exercise for the reader
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 	}
 }

@@ -1,5 +1,9 @@
 package cader.services;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -8,6 +12,7 @@ import org.apache.jena.ontology.OntModel;
 import objects.Query;
 
 public class QueryRelaxer {
+	private String query;
 	private static QueryLauncher queryLauncher;
 	private Query relaxedQuery;
 	private long startTime, mfsTime, coXssTime, xssTime, totalTime;
@@ -15,8 +20,10 @@ public class QueryRelaxer {
 	private HashSet<String> CoXSSesQueries;
 	private HashSet<String> XSSesQueries;
 	private boolean relaxed = false;
+	private String result;
 
 	public QueryRelaxer(String query, OntModel model) {
+		this.query = query;
 		startTime = System.currentTimeMillis();
 		queryLauncher = new QueryLauncher(model);
 		query = query.replaceAll("`", "'").replaceAll("’", "'");
@@ -59,17 +66,12 @@ public class QueryRelaxer {
 				String relaxedQ = iterator.next();
 				queryLauncher.getResult(relaxedQ, false);
 			}
-
-
 		} else {
 			queryLauncher.getResult(query, false);
 			totalTime = System.currentTimeMillis() - startTime;
 			System.out.println("No relaxed - Total time : " + totalTime);
 		}
-	}
-
-	public String getQueryExecutionResults() {
-		String result = "";
+		result = "";
 		if(relaxed) {
 			result += " totalTemps " + totalTime + " ms,";
 			result+= " Time MFS " + mfsTime + " ms, Time XSS "+ xssTime + " ms\n";
@@ -79,7 +81,43 @@ public class QueryRelaxer {
 		} else {
 			result += "No relaxed - Total time : " + totalTime + "\n";
 		}
+	}
+
+	public String getResults() {
 		return result;
+	}
+	
+	public String getFullResults() throws IOException {
+		String filename = "/tmp/" + Integer.toString(this.query.hashCode()) + ".tmp";
+		try(FileWriter fw = new FileWriter(filename);
+				BufferedWriter bw = new BufferedWriter(fw);
+				PrintWriter out = new PrintWriter(bw)) {
+			out.println(this.query);
+			out.println(this.result);
+			
+			int indice = 0;
+			Iterator<String> iterator = getXSSesQueries().iterator();
+			while(iterator.hasNext()) {
+				String xss = iterator.next();
+				out.println("XSS n°" + indice);
+				indice++;
+				out.println(xss);
+				out.println(queryLauncher.getResult(xss, false));
+				out.println();
+			}
+			
+			indice = 0;
+			iterator = getMFSesQueries().iterator();
+			while(iterator.hasNext()) {
+				String mfs = iterator.next();
+				out.println("MFS n°" + indice);
+				indice++;
+				out.println(mfs);
+				out.println();
+			}
+			out.close();
+			return filename;
+		}
 	}
 
 	public HashSet<String> getMFSesQueries() {

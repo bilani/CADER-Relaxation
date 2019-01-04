@@ -1,4 +1,4 @@
-package cader.services;
+package cader.test;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -10,12 +10,14 @@ import java.util.Scanner;
 
 import org.apache.jena.ontology.OntModel;
 
-public class TestChainQueries {
-	public final static String ChainQueries = "./ChainQueries.txt";
+import cader.services.QueryRelaxer;
+
+public class TestCompositeQueries {
+	public final static String CompositeQueries = "./CompositeQueries.txt";
 	public final static String Location = "./src/main/resources/tests/";
-	public final static String Result = "ChainQueries-Results.txt";
-	
-	public TestChainQueries(OntModel model) {
+	public final static String Result = "CompositeQueries-Results.txt";
+
+	public TestCompositeQueries(OntModel model) {
 		int index = 0;
 		String line = "";
 		String query = "";
@@ -23,19 +25,19 @@ public class TestChainQueries {
 		try(FileWriter fw = new FileWriter(Location + Result, true);
 				BufferedWriter bw = new BufferedWriter(fw);
 				PrintWriter out = new PrintWriter(bw)) {
-			scanner = new Scanner(new File(ChainQueries));
+			scanner = new Scanner(new File(Location + CompositeQueries));
 			while (scanner.hasNextLine()) {
 				line = scanner.nextLine();
-				if(!line.isEmpty()){
+				if(!line.isEmpty()) {
 					index++;
 					query = scanner.nextLine();
 					System.out.println("Query : " + query);
 					System.out.println("Launching the query n°" + index + " : ");
 					QueryRelaxer relaxer = new QueryRelaxer(query, model);
-					
-					String result = line + "\n"; 
+
+					String result = line + "\n";
 					result += "Query " + index + " : " + query + "\n";
-					result += relaxer.getQueryExecutionResults();
+					result += relaxer.getResults();
 					
 					//result += "MFSes Queries \n" + relaxer.getMFSesQueries() + "\n";
 					//result += "XSSes Queries \n" + relaxer.getXSSesQueries() + "\n";

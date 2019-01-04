@@ -19,6 +19,7 @@ public class QueryLauncher {
 	}
 
 	public boolean hasResult(String q) {
+		q+= "LIMIT 1";
 		if(LOG_ON && GEN.isDebugEnabled()) {
 			GEN.debug("Executing : " + q);
 		}
@@ -41,7 +42,7 @@ public class QueryLauncher {
 		}
 	}
 	
-	public void getResult(String q, boolean setLimit) {
+	public String getResult(String q, boolean setLimit) {
 		if(LOG_ON && GEN.isDebugEnabled()) {
 			GEN.debug("Executing : " + q);
 		}
@@ -56,8 +57,10 @@ public class QueryLauncher {
 		try {
 			ResultSet results = qexec.execSelect();
 			if(results.hasNext()) {
-				ResultSetFormatter.out(results, this.model);
+				//ResultSetFormatter.out(results, this.model);
+				return ResultSetFormatter.asText(results);
 			}
+			return null;
 		}
 		finally {
 			qexec.close();
