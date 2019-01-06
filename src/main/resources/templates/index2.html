@@ -1,0 +1,111 @@
+<style>
+
+    label {
+        font-family: sans-serif;
+
+        padding-right: 10px;
+    }
+
+    select {
+    
+        padding: 2px 5px;
+    }
+
+    input[type="radio"]{
+        margin: 0 2px 0 20px;
+    }
+
+</style>
+
+<div class="row" ng-controller="InputController" style="margin-top: 30px; ">
+    <div class="col-md-6">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Input :</h3>
+                </div>
+                <div class="panel-body">
+                    <form class="form form-horizontal" ng-submit="ConfirmInput()">
+                        <!--<div class="form-group">
+                            <label class="control-label col-md-3" for="username">{{'username'|translate}}</label>
+                            <div class="col-md-6">
+                                <input class="form-control" id="username" ng-model="username" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3" for="password">{{'password'|translate}}</label>
+
+                            <div class="col-md-6">
+                                <input class="form-control " type="password" id="password"
+                                       ng-model="password" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-3 col-md-6">
+                                <button type="submit" ng-click="login()" class="btn btn-primary btn-lg">  {{'ok'|translate}}  
+                                </button>
+                            </div>
+                        </div>-->
+
+                        <div>
+                            <label for="db-select">Choose a database :</label>
+
+                            <select id="db-select" >
+                                <!-- Should get titles of found databases-->
+                                <option value="100">LUMB 100</option>
+                                <option value="10k">LUMB 10K</option>
+                                <option value="100k">LUMB 100K</option>
+                            </select>
+                        </div>
+                        <br>
+                        
+                        <div align="center">
+                            <input  class="inptFileRadio"  type="radio" name="test" ng-model="display" ng-value="1"><span>From a file</span>
+                            <input  class="inptFileRadio" type="radio" name="test" ng-model="display" ng-value="2"> <span>Write Request</span>
+                        </div>
+                      
+                        
+                        <div align="center" ng-show="display === 1">
+                            <br>
+                            <label for="db-select">Choose requests :</label>
+                            <input type="file" id="req-select" (change)="onFileChange($event)" ng-model="input.fileInput"/>
+                            <!--<button type="button" class="btn btn-sm btn-default" (click)="clearFile()">clear file</button>-->
+                        </div>
+                        <br>
+
+                        
+                        <div align="center" ng-show="display === 2">
+                            <label for="db-select">Enter request :</label>
+                            <textarea placeholder="Your SPARQL request here " cols="50" id="req-input" ng-model="input.requestInput"></textarea> 
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-3 col-md-6">
+                                <button ng-disabled="display != 1 && display != 2" type="submit" ng-click="ConfirmInput()" class="btn btn-primary btn-lg" > Confirm input  </button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!--<div class="col-md-12 ">
+            <p class="well-sm bg-info"> Login as: <br/>admin/test123(for ADMIN ROLE)<br/> testuser/test123.</p>
+        </div>-->
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Results after relaxation : </h3>
+            </div>
+            <div class="panel-body">
+
+                <!--<div class="text-center" style="padding-top:50px; padding-bottom: 50px;">
+                    <h5>Results :</h5>
+                </div>-->
+            </div>
+        </div>
+    </div>
+</div>
+

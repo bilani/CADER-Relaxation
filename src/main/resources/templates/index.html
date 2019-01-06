@@ -1,0 +1,501 @@
+<style>
+@import url("https://fonts.googleapis.com/css?family=Dosis:300,400,700,800");
+
+/** Styles for the 403 Page **/
+
+.particle-error,
+.permission_denied,
+#particles-js {
+  width: 100%;
+  height: 100%;
+  margin: 0px !important;
+}
+
+#particles-js {
+  position: fixed !important;
+  opacity: 0.23;
+}
+
+.permission_denied {
+  background: #24344c !important;
+}
+
+.permission_denied a {
+  text-decoration: none;
+}
+
+.denied__wrapper {
+  max-width: 390px;
+  width: 100%;
+  height: 390px;
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  margin-top: 8vh;
+}
+
+.permission_denied h1 {
+  text-align: center;
+  color: #fff;
+  font-family: "Dosis", sans-serif;
+  font-size: 100px;
+  margin-bottom: 0px;
+  font-weight: 800;
+}
+
+.permission_denied h3 {
+  text-align: center;
+  color: #fff;
+  font-size: 19px;
+  line-height: 23px;
+  max-width: 330px;
+  margin: 0px auto 30px auto;
+  font-family: "Dosis", sans-serif;
+  font-weight: 400;
+}
+
+.permission_denied h3 span {
+  position: relative;
+  width: 65px;
+  display: inline-block;
+}
+
+.permission_denied h3 span:after {
+  content: "";
+  border-bottom: 3px solid #ffbb39;
+  position: absolute;
+  left: 0;
+  top: 43%;
+  width: 100%;
+}
+
+.denied__link {
+  background: none;
+  color: #fff;
+  padding: 12px 0px 10px 0px;
+  border: 1px solid #fff;
+  outline: none;
+  border-radius: 7px;
+  width: 150px;
+  font-size: 15px;
+  text-align: center;
+  margin: 0 auto;
+  vertical-align: middle;
+  display: block;
+  margin-bottom: 40px;
+  margin-top: 25px;
+  font-family: "Dosis", sans-serif;
+  font-weight: 400;
+}
+
+.denied__link:hover {
+  color: #ffbb39;
+  border-color: #ffbb39;
+  cursor: pointer;
+  opacity: 1;
+}
+
+.permission_denied .stars {
+  animation: sparkle 1.6s infinite ease-in-out alternate;
+}
+
+@keyframes sparkle {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+
+#astronaut {
+  width: 43px;
+  position: absolute;
+  right: 20px;
+  top: 210px;
+  animation: spin 4.5s infinite linear;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
+
+@media (max-width: 600px) {
+  .permission_denied h1 {
+    font-size: 75px;
+  }
+  .permission_denied h3 {
+    font-size: 16px;
+    width: 200px;
+    margin: 0 auto;
+    line-height: 23px;
+  }
+  .permission_denied h3 span {
+    width: 60px;
+  }
+  #astronaut {
+    width: 35px;
+    right: 40px;
+    top: 170px;
+  }
+}
+
+.saturn,
+.saturn-2,
+.hover {
+  animation: hover 2s infinite ease-in-out alternate;
+}
+
+@keyframes hover {
+  0% {
+    transform: translateY(3px);
+  }
+  100% {
+    transform: translateY(-3px);
+  }
+}
+
+</style>
+
+<script>
+ var particles = {
+      "particles": {
+        "number": {
+          "value": 160,
+          "density": {
+            "enable": true,
+            "value_area": 800
+          }
+        },
+        "color": {
+          "value": "#ffffff"
+        },
+        "shape": {
+          "type": "circle",
+          "stroke": {
+            "width": 0,
+            "color": "#000000"
+          },
+          "polygon": {
+            "nb_sides": 5
+          },
+          "image": {
+            "src": "img/github.svg",
+            "width": 100,
+            "height": 100
+          }
+        },
+        "opacity": {
+          "value": 1,
+          "random": true,
+          "anim": {
+            "enable": true,
+            "speed": 1,
+            "opacity_min": 0,
+            "sync": false
+          }
+        },
+        "size": {
+          "value": 3,
+          "random": true,
+          "anim": {
+            "enable": false,
+            "speed": 4,
+            "size_min": 0.3,
+            "sync": false
+          }
+        },
+        "line_linked": {
+          "enable": false,
+          "distance": 150,
+          "color": "#ffffff",
+          "opacity": 0.4,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 0.17,
+          "direction": "none",
+          "random": true,
+          "straight": false,
+          "out_mode": "out",
+          "bounce": false,
+          "attract": {
+            "enable": false,
+            "rotateX": 600,
+            "rotateY": 600
+          }
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": {
+            "enable": false,
+            "mode": "bubble"
+          },
+          "onclick": {
+            "enable": false,
+            "mode": "repulse"
+          },
+          "resize": false
+        },
+        "modes": {
+          "grab": {
+            "distance": 400,
+            "line_linked": {
+              "opacity": 1
+            }
+          },
+          "bubble": {
+            "distance": 250,
+            "size": 0,
+            "duration": 2,
+            "opacity": 0,
+            "speed": 3
+          },
+          "repulse": {
+            "distance": 400,
+            "duration": 0.4
+          },
+          "push": {
+            "particles_nb": 4
+          },
+          "remove": {
+            "particles_nb": 2
+          }
+        }
+      },
+      "retina_detect": true
+   };
+   particlesJS('particles-js', particles, function() {
+     console.log('callback - particles.js config loaded');
+   });
+</script>
+
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body class="permission_denied">
+  <div id="particles-js"></div>
+	<div>
+	
+    <div class="row" style="margin-top: 40px; margin-left: 40px; margin-right: 40px;">
+    	<div align="center" class="col-md-5" style="background-color:white;">
+    		<div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 style="color:black;" class="panel-title">Input :</h3>
+                </div>
+                
+                <div class="panel-body">
+                    <form action="/processtest" class="form form-horizontal" id="relaxForm">
+                        <div>
+                            <label for="db-select">Choose a database :</label>
+
+                            <select id="db-select" >
+                                <option value="0" selected="selected">-- Select your database --</option>
+                                <option value="LUBM100">LUMB 100</option>
+                                <option value="LUBM10K">LUMB 10K</option>
+                                <option value="LUBM100k">LUMB 100K</option>
+                            </select>
+                        </div>
+                        <br>
+                        
+                        <div align="center">
+                            <input  class="inptFileRadio" type="radio" name="choice" value="1" checked><span>From a file</span>
+                            <input  class="inptFileRadio" type="radio" name="choice" value="2"> <span>Write Request</span>
+                        </div>
+                      
+                        <br>
+                        <div id="choiceFile">
+                        	<label for="req-select">Choose requests :</label>
+                        	<input type="file" id="req-select" (change)="onFileChange($event)" />
+                        </div>
+                           
+                        <br>
+                        <div id="choiceRequest">
+                        	<label for="request-select">Enter request :</label>
+                        	<textarea placeholder="Your SPARQL request here " cols="50" id="req-input" ></textarea> 
+                        </div>
+                        
+
+                        <div class="form-group">
+                            <div class="col-md-offset-3 col-md-6">
+                                <button type="submit" class="btn btn-primary btn-lg" id="idbtn"> Confirm input  </button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                
+            </div>
+    	</div>
+    	
+    	<style>
+    		.frame {
+		
+			    white-space: nowrap;
+			    text-align: center; margin: 1em 0;
+			}
+			
+			.helper {
+			    display: inline-block;
+			    height: 100%;
+			    vertical-align: middle;
+			}
+			
+			img {
+			    vertical-align: middle;
+			    max-height: 100px;
+			    max-width: 100px;
+			}
+    	</style>
+    	
+    	<div align="center" class="col-md-2">
+    		<div id="myFrame" class="frame">
+    			<span class="helper"></span>
+    			<img id="myImg" src="https://backgroundcheckall.com/wp-content/uploads/2017/12/ajax-loading-gif-transparent-background-2.gif" title="this slowpoke moves" />
+    		</div>
+    	</div>
+    	
+    	<div align="center" class="col-md-5" style="background-color:white;">
+    		<div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 style="color:black;" class="panel-title">Output (summary) :</h3>
+                </div>
+                
+                <div class="panel-body">
+                	<iframe id="downloadFrame" style="display:none"></iframe>
+                	<div id="result"></div>
+                    <button onClick="downloadAll()" class="btn" id="myDown" name="mydown">download</button>
+                </div>
+                
+            </div>
+    	
+    </div>
+
+	<script type='text/javascript'>
+		var choice = 1;
+		var selecteddb = 0;
+		var allResults = "";
+		
+		jQuery(document).ready(function(){
+		
+			$("#myFrame").hide();
+			$('#idbtn').prop( "disabled", true );
+			$('#myDown').prop( "disabled", true );
+			
+			if(choice == 1){
+				$('#choiceFile').show();
+			    $('#choiceRequest').hide();
+			}else{
+				$('#choiceRequest').show();
+			    $('#choiceFile').hide();
+			}
+			
+			$("#db-select").change(function() {
+				selecteddb = $(this).find(":selected").val();
+				if(selecteddb == 0){
+					activate = 1;
+					$('#idbtn').prop( "disabled", true );
+				}else{
+					activate = 0;
+					$('#idbtn').prop( "disabled", false );
+				}
+			});
+			
+			$('input:radio[name="choice"]').change(function(){
+			    if($(this).val() == '1'){
+			       //show file picker
+			       $('#choiceFile').show();
+			       $('#choiceRequest').hide();
+			       
+			       choice = 1;
+			    }
+			    
+			    if($(this).val() == '2'){
+			       //show request writer
+			       $('#choiceRequest').show();
+			       $('#choiceFile').hide();
+			       
+			       choice = 2;
+			    }
+			});
+			
+			$( "#relaxForm" ).submit(function( event ) {
+				event.preventDefault();
+				//ProcessViaAjax();
+				crunchifyAjax();
+			});
+			
+		});
+		
+	</script>
+	
+	<script type="text/javascript">
+	    function crunchifyAjax() {
+	   		var data = {}
+			
+			data["selecteddb"] = selecteddb;
+			data["choice"] = choice;
+			data["request"] = $('#req-input').val();
+			
+	        $.ajax({
+	            url : '/process',
+	            data : data,
+	            async : false,
+	            beforeSend: function(){
+			    	$("#myFrame").show();
+			    	$('#idbtn').prop( "disabled", true );
+			    },
+	            success : function(data) {
+	                $('#result').html("Results are ready, Please download the file from here");
+	                $('#myDown').prop( "disabled", false );
+	              	allResults = data;
+	            },
+	            complete:function(data){
+			    	$("#myFrame").hide();
+			    	$('#idbtn').prop( "disabled", false );
+			    },
+	            error : function(e) {
+					console.log("ERROR: ", e);
+					alert(e);
+				},
+				done : function(e) {
+					console.log("DONE");
+				}
+	        });
+	    }
+	    
+	    function downloadAll(){
+	    	 download('allResults.txt', allResults);
+	    }
+	    
+	    function download(filename, text) {
+		    var element = document.createElement('a');
+		    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+		    element.setAttribute('download', filename);
+		
+		    element.style.display = 'none';
+		    document.body.appendChild(element);
+		
+		    element.click();
+		
+		    document.body.removeChild(element);
+		}
+	</script>
+	    
+  </div>
