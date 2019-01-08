@@ -33,8 +33,8 @@ public class FileQuery {
 	 * @throws IOException 
 	 */
 	public FileQuery(String location, OntModel model) throws IOException {
-		zipPath = location.substring(0,location.lastIndexOf('.')) + "-Results.zip";
-		summary = "/tmp/" + String.valueOf(location.hashCode()) + ".txt";
+		zipPath = "tmp/Results.zip";
+		summary = "tmp/" + String.valueOf(location.hashCode()) + ".txt";
 		resultFileList = new HashSet<>();
 		int index = 0;
 		String query = "";
@@ -54,6 +54,8 @@ public class FileQuery {
 					resultFileList.add(relaxer.getFullResults());
 				}
 			}
+			
+			System.out.println(">>>>>>>>> Before generating ZIP");
 			generateZip();
 			scanner.close();
 		} catch (FileNotFoundException e) {
@@ -70,6 +72,7 @@ public class FileQuery {
 		FileOutputStream dest= new FileOutputStream(zipPath);
 		BufferedOutputStream buff = new BufferedOutputStream(dest);
 		ZipOutputStream out = new ZipOutputStream(buff);
+		
 		//We add the summary to the zip archive
 		try(FileWriter fw = new FileWriter(summary);
 				BufferedWriter bw = new BufferedWriter(fw);
@@ -81,6 +84,7 @@ public class FileQuery {
 		    ZipEntry entry= new ZipEntry("Summary.txt");
 		    out.putNextEntry(entry);
 		    int count;
+		   
 		    while((count = buffi.read(data, 0, BUFFER)) != -1) {
 		        out.write(data, 0, count);
 		    }

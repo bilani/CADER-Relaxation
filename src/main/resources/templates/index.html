@@ -279,12 +279,14 @@
 </script>
 
 <head>
-  <title>Bootstrap Example</title>
+  <title>Query Relaxer</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="dist/jszip.min.js"></script>
+  <script src="dist/FileSaver.min.js"></script>
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
@@ -301,7 +303,7 @@
                 </div>
                 
                 <div class="panel-body">
-                    <form action="/processtest" class="form form-horizontal" id="relaxForm">
+                    <form enctype="multipart/form-data" action="/processtest" class="form form-horizontal" id="relaxForm">
                         <div>
                             <label for="db-select">Choose a database :</label>
 
@@ -320,25 +322,25 @@
                         </div>
                       
                         <br>
-                        <div id="choiceFile">
-                        	<label for="req-select">Choose requests :</label>
-                        	<input type="file" id="req-select" (change)="onFileChange($event)" />
-                        </div>
-                           
-                        <br>
-                        <div id="choiceRequest">
-                        	<label for="request-select">Enter request :</label>
-                        	<textarea placeholder="Your SPARQL request here " cols="50" id="req-input" ></textarea> 
-                        </div>
-                        
 
                         <div class="form-group">
                             <div class="col-md-offset-3 col-md-6">
                                 <button type="submit" class="btn btn-primary btn-lg" id="idbtn"> Confirm input  </button>
                             </div>
                         </div>
+                        
+                          <div id="choiceRequest">
+                        	<label for="request-select">Enter request :</label>
+                        	<textarea placeholder="Your SPARQL request here " cols="50" id="req-input" ></textarea> 
+                        </div>
 
                     </form>
+                    
+                     <form id="choiceFile">
+					 	 <label for="upload-file-input">Upload your file:</label>
+					 	 <input id="upload-file-input" type="file" name="uploadfile" accept="*" />
+					 </form>
+                    
                 </div>
                 
             </div>
@@ -362,6 +364,7 @@
 			    max-height: 100px;
 			    max-width: 100px;
 			}
+
     	</style>
     	
     	<div align="center" class="col-md-2">
@@ -381,6 +384,10 @@
                 	<iframe id="downloadFrame" style="display:none"></iframe>
                 	<div id="result"></div>
                     <button onClick="downloadAll()" class="btn" id="myDown" name="mydown">download</button>
+                    
+                    <form action="/allResults">
+					    <input class="btn" type="submit" value="Download all" id="allDown" name="allDown" />
+					</form>
                 </div>
                 
             </div>
@@ -397,6 +404,8 @@
 			$("#myFrame").hide();
 			$('#idbtn').prop( "disabled", true );
 			$('#myDown').prop( "disabled", true );
+			$('#allDown').prop( "disabled", true );
+			$('#allDown').hide();
 			
 			if(choice == 1){
 				$('#choiceFile').show();
@@ -446,16 +455,25 @@
 	</script>
 	
 	<script type="text/javascript">
+	
 	    function crunchifyAjax() {
 	   		var data = {}
 			
 			data["selecteddb"] = selecteddb;
-			data["choice"] = choice;
+			data["choice"] = $('input:radio[name="choice"]').val();
 			data["request"] = $('#req-input').val();
+			data["uploadfile"] = $('#req-select').val();
 			
+			if(choice == 1){
+				uploadFile();
+			}
+			
+			//alert(choice);
 	        $.ajax({
 	            url : '/process',
 	            data : data,
+	            type: "POST",
+			    cache: false,
 	            async : false,
 	            beforeSend: function(){
 			    	$("#myFrame").show();
@@ -463,8 +481,20 @@
 			    },
 	            success : function(data) {
 	                $('#result').html("Results are ready, Please download the file from here");
+	                
 	                $('#myDown').prop( "disabled", false );
+	                if(choice == 1){
+	                	$('#allDown').prop( "disabled", false );
+	                	$('#myDown').hide();
+	                	$('#allDown').show();
+	                }else{
+	                	$('#myDown').prop( "disabled", false);
+	                	$('#allDown').hide();
+	                	$('#myDown').show();
+	                }
+	                
 	              	allResults = data;
+	              	//clientSideZip();
 	            },
 	            complete:function(data){
 			    	$("#myFrame").hide();
@@ -472,7 +502,7 @@
 			    },
 	            error : function(e) {
 					console.log("ERROR: ", e);
-					alert(e);
+					alert("Error occured :: Server side !");
 				},
 				done : function(e) {
 					console.log("DONE");
@@ -480,8 +510,32 @@
 	        });
 	    }
 	    
+	    function uploadFile() {		  
+		  $.ajax({
+		    url: "/uploadFile",
+		    type: "POST",
+		    data: new FormData($("#choiceFile")[0]),
+		    enctype: 'multipart/form-data',
+		    processData: false,
+		    contentType: false,
+		    cache: false,
+		    success: function () {
+		      // Handle upload success
+		      //alert('OK');
+		    },
+		    error: function () {
+		      // Handle upload error
+		      alert('Rejected by server !');
+		    }
+		  });
+		}
+	    
 	    function downloadAll(){
-	    	 download('allResults.txt', allResults);
+	    	if(choice == 1){
+	    		downloadZip('allResults.zip', allResults);
+	    	}else{
+	    		download('allResults.txt', allResults);
+	    	} 
 	    }
 	    
 	    function download(filename, text) {
@@ -495,6 +549,33 @@
 		    element.click();
 		
 		    document.body.removeChild(element);
+		}
+		
+		 function downloadZip(filename, text) {
+		    var element = document.createElement('a');
+		    element.setAttribute('href', 'data:application/zip,' + encodeURIComponent(text));
+		    element.setAttribute('download', filename);
+		
+		    element.style.display = 'none';
+		    document.body.appendChild(element);
+		
+		    element.click();
+		
+		    document.body.removeChild(element);
+		}
+		
+		function clientSideZip(){
+			var rand = Math.floor(Math.random() * 100);  
+			var zip = new JSZip();
+			
+			zip.file("Hello.txt", "Hello world\n");
+			
+			zip.generateAsync({type:"blob"}).then(function (blob) { 
+    			saveAs(blob, "results"+ rand +".zip");
+			}, function (err) {
+				alert('Error');
+			});
+						
 		}
 	</script>
 	    
