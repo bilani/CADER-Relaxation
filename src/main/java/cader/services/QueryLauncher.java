@@ -57,7 +57,9 @@ public class QueryLauncher {
 		try {
 			ResultSet results = qexec.execSelect();
 			if(results.hasNext()) {
-				//ResultSetFormatter.out(results, this.model);
+				//
+				//Heap exceeded
+				//return ResultSetFormatter.outputAsJSON(results);
 				return ResultSetFormatter.asText(results);
 			}
 			return null;

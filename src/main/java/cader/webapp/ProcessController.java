@@ -64,6 +64,8 @@ public class ProcessController {
 		
 		//SELECT * WHERE { ?Y13 <http://swat.cse.lehigh.edu/onto/univ-bench.owl#doctoralDegreeFrom> ?Y14 . ?Y14 <http://swat.cse.lehigh.edu/onto/univ-bench.owl#hasAlumnus> ?Y15 . ?Y15 <http://swat.cse.lehigh.edu/onto/univ-bench.owl#title> 'Dr' }
 		
+		//export _JAVA_OPTIONS=-Xmx4096m
+		
 		if(isQuery != null && database != null) {
 			OntModel modelOnt = (new SetDatabase(database)).getModel();
 		

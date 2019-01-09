@@ -33,7 +33,7 @@ public class QueryRelaxer {
 
 			relaxedQuery = new Query(query, model);
 
-			System.out.println("The Querry has failed, relaxing the request :");
+			System.out.println("The Query has failed, relaxing it :");
 
 			relaxedQuery.searchMFSes();
 			MFSesQueries = relaxedQuery.getMFSesQueries();
@@ -60,25 +60,16 @@ public class QueryRelaxer {
 			mfsTime = coXssTime - startTime;
 			xssTime -= mfsTime;
 
-
-			Iterator<String> iterator = XSSesQueries.iterator();
-			while(iterator.hasNext()) {
-				String relaxedQ = iterator.next();
-				queryLauncher.getResult(relaxedQ, false);
-			}
-		} else {
-			queryLauncher.getResult(query, false);
-			totalTime = System.currentTimeMillis() - startTime;
-			System.out.println("No relaxed - Total time : " + totalTime);
-		}
-		result = "";
-		if(relaxed) {
 			result += " totalTemps " + totalTime + " ms,";
 			result+= " Time MFS " + mfsTime + " ms, Time XSS "+ xssTime + " ms\n";
 			result+= "nbRequête: " + relaxedQuery.getNumberOfExecutedQueries() + " Relaxées | ";
 			result+= MFSesQueries.size() + " MFS | ";
 			result+= XSSesQueries.size() + " XSS \n";
+
 		} else {
+
+			totalTime = System.currentTimeMillis() - startTime;
+			System.out.println("No relaxed - Total time : " + totalTime);
 			result += "No relaxed - Total time : " + totalTime + "\n";
 		}
 	}
@@ -86,7 +77,7 @@ public class QueryRelaxer {
 	public String getSummary() {
 		return result;
 	}
-	
+
 	public String getFullResults() throws IOException {
 		String filename = "/tmp/" + Integer.toString(this.query.hashCode()) + ".tmp";
 		try(FileWriter fw = new FileWriter(filename);
@@ -94,7 +85,7 @@ public class QueryRelaxer {
 				PrintWriter out = new PrintWriter(bw)) {
 			out.println(this.query);
 			out.println(this.result);
-			
+
 			int indice = 0;
 			Iterator<String> iterator = getXSSesQueries().iterator();
 			while(iterator.hasNext()) {
@@ -102,7 +93,7 @@ public class QueryRelaxer {
 				out.println("XSS n°" + indice);
 				indice++;
 				out.println(xss);
-				out.println(queryLauncher.getResult(xss, false));
+				//out.println(queryLauncher.getResult(xss, false));
 				out.println();
 			}
 			
@@ -116,8 +107,9 @@ public class QueryRelaxer {
 				out.println();
 			}
 			out.close();
-			return filename;
 		}
+		return filename;
+
 	}
 
 	public HashSet<String> getMFSesQueries() {
