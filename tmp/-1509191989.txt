@@ -1,0 +1,6 @@
+ totalTemps 339 ms, Time MFS 338 ms, Time XSS 1547042016466 ms
+nbRequête: 3 Relaxées | 2 MFS | 1 XSS 
+ totalTemps 45 ms, Time MFS 45 ms, Time XSS 1547042016869 ms
+nbRequête: 8 Relaxées | 3 MFS | 2 XSS 
+ totalTemps 28 ms, Time MFS 28 ms, Time XSS 1547042017268 ms
+nbRequête: 16 Relaxées | 5 MFS | 2 XSS 

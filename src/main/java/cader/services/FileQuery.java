@@ -32,6 +32,7 @@ public class FileQuery {
 	 * @param location
 	 * @throws IOException 
 	 */
+	
 	public FileQuery(String location, OntModel model) throws IOException {
 		zipPath = "tmp/Results.zip";
 		summary = "tmp/" + String.valueOf(location.hashCode()) + ".txt";
