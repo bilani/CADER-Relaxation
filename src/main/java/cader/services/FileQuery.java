@@ -115,7 +115,7 @@ public class FileQuery {
 	/**
 	 * @return Summary of the relaxation.
 	 */
-	public String getResults() {
+	public String getSummary() {
 		return result;
 	}
 

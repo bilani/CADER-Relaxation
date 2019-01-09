@@ -83,7 +83,7 @@ public class QueryRelaxer {
 		}
 	}
 
-	public String getResults() {
+	public String getSummary() {
 		return result;
 	}
 	
