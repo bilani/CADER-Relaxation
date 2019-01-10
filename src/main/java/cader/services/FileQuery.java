@@ -12,8 +12,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -22,7 +21,7 @@ import org.apache.jena.ontology.OntModel;
 
 public class FileQuery {
 	private String result = "";
-	private HashSet<String> resultFileList;
+	private ArrayList<String> resultFileList;
 	private String zipPath;
 	private String summary;
 	private static final int BUFFER = 2048;
@@ -34,9 +33,10 @@ public class FileQuery {
 	 */
 	
 	public FileQuery(String location, OntModel model) throws IOException {
+		String hashCode = String.valueOf(location.hashCode());
 		zipPath = "tmp/Results.zip";
-		summary = "tmp/" + String.valueOf(location.hashCode()) + ".txt";
-		resultFileList = new HashSet<>();
+		summary = "tmp/" + hashCode + ".txt";
+		resultFileList = new ArrayList<String>();
 		int index = 0;
 		String query = "";
 		QueryRelaxer relaxer;
@@ -49,16 +49,16 @@ public class FileQuery {
 						GEN.info("Processing the query : " + query);
 					}
 					index++;
-					System.out.println("Launching the query n°" + index + " : ");
+					System.out.println("Launching the query n°" + index + ": ");
 					relaxer = new QueryRelaxer(query, model);
-					result += relaxer.getResults();
+					result += "Query n°" + index + ": \n";
+					result += relaxer.getSummary();
 					resultFileList.add(relaxer.getFullResults());
 				}
 			}
-			
+			scanner.close();
 			System.out.println(">>>>>>>>> Before generating ZIP");
 			generateZip();
-			scanner.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -94,13 +94,11 @@ public class FileQuery {
 		}
 		
 		//We add the results of each query
-		Iterator<String> iterator = resultFileList.iterator();
-		int index = 0;
-		while(iterator.hasNext()) {
-			String file = iterator.next();
+		int index = 1;
+		for(String file : resultFileList) {
 		    FileInputStream fi = new FileInputStream(file);
 		    BufferedInputStream buffi = new BufferedInputStream(fi, BUFFER);
-		    ZipEntry entry= new ZipEntry("query" + index + ".txt");
+		    ZipEntry entry= new ZipEntry("Query_" + index + ".txt");
 		    index++;
 		    out.putNextEntry(entry);
 		    int count;

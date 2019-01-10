@@ -19,7 +19,6 @@ public class QueryRelaxer {
 	private HashSet<String> MFSesQueries;
 	private HashSet<String> CoXSSesQueries;
 	private HashSet<String> XSSesQueries;
-	private boolean relaxed = false;
 	private String result;
 
 	public QueryRelaxer(String query, OntModel model) {
@@ -28,11 +27,8 @@ public class QueryRelaxer {
 		queryLauncher = new QueryLauncher(model);
 		query = query.replaceAll("`", "'").replaceAll("’", "'");
 		if(!queryLauncher.hasResult(query)) {
-			relaxed = true;
 			System.out.println("Query : " + query);
-
 			relaxedQuery = new Query(query, model);
-
 			System.out.println("The Query has failed, relaxing it :");
 
 			relaxedQuery.searchMFSes();
@@ -57,10 +53,10 @@ public class QueryRelaxer {
 			System.out.println("Relaxed Queries : " + XSSesQueries);
 
 			totalTime = System.currentTimeMillis() - startTime;
-			mfsTime = coXssTime - startTime;
 			xssTime -= mfsTime;
+			mfsTime = coXssTime - startTime;
 
-			result += " totalTemps " + totalTime + " ms,";
+			result = "TotalTemps " + totalTime + " ms,";
 			result+= " Time MFS " + mfsTime + " ms, Time XSS "+ xssTime + " ms\n";
 			result+= "nbRequête: " + relaxedQuery.getNumberOfExecutedQueries() + " Relaxées | ";
 			result+= MFSesQueries.size() + " MFS | ";
@@ -70,7 +66,7 @@ public class QueryRelaxer {
 
 			totalTime = System.currentTimeMillis() - startTime;
 			System.out.println("No relaxed - Total time : " + totalTime);
-			result += "No relaxed - Total time : " + totalTime + "\n";
+			result = "No relaxed - Total time : " + totalTime + "\n";
 		}
 	}
 
@@ -83,7 +79,7 @@ public class QueryRelaxer {
 		try(FileWriter fw = new FileWriter(filename);
 				BufferedWriter bw = new BufferedWriter(fw);
 				PrintWriter out = new PrintWriter(bw)) {
-			out.println(this.query);
+			out.println("Query : " + this.query);
 			out.println(this.result);
 
 			int indice = 0;
