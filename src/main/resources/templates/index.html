@@ -151,12 +151,212 @@
   animation: hover 2s infinite ease-in-out alternate;
 }
 
+    		.frame {
+		
+			    white-space: nowrap;
+			    text-align: center; margin: 1em 0;
+			}
+			
+			.helper {
+			    display: inline-block;
+			    height: 100%;
+			    vertical-align: middle;
+			}
+			
+			img {
+			    vertical-align: middle;
+			    max-height: 100px;
+			    max-width: 100px;
+			}
+
 @keyframes hover {
   0% {
     transform: translateY(3px);
   }
   100% {
     transform: translateY(-3px);
+  }
+}
+
+		body {font-family: Arial;}
+		
+		/* Style the tab */
+		.tab {
+		  overflow: hidden;
+		  border: 1px solid #ccc;
+		  background-color: #f1f1f1;
+		}
+		
+		/* Style the buttons inside the tab */
+		.tab button {
+		  background-color: inherit;
+		  float: left;
+		  border: none;
+		  outline: none;
+		  cursor: pointer;
+		  padding: 14px 16px;
+		  transition: 0.3s;
+		  font-size: 17px;
+		}
+		
+		/* Change background color of buttons on hover */
+		.tab button:hover {
+		  background-color: #ddd;
+		}
+		
+		/* Create an active/current tablink class */
+		.tab button.active {
+		  background-color: #ccc;
+		}
+		
+		/* Style the tab content */
+		.tabcontent {
+		  display: none;
+		  padding: 6px 12px;
+		  border: 1px solid #ccc;
+		  border-top: none;
+		}
+		
+		.loader {
+		  border: 16px solid #f3f3f3;
+		  border-radius: 50%;
+		  border-top: 16px solid #3498db;
+		  width: 120px;
+		  height: 120px;
+		  -webkit-animation: spin 2s linear infinite; /* Safari */
+		  animation: spin 2s linear infinite;
+		}
+		
+		/* Safari */
+		@-webkit-keyframes spin {
+		  0% { -webkit-transform: rotate(0deg); }
+		  100% { -webkit-transform: rotate(360deg); }
+		}
+		
+		@keyframes spin {
+		  0% { transform: rotate(0deg); }
+		  100% { transform: rotate(360deg); }
+		}
+		
+		
+		
+		/* Absolute Center Spinner */
+.loading {
+  position: fixed;
+  z-index: 999;
+  height: 2em;
+  width: 2em;
+  overflow: visible;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+/* Transparent Overlay */
+.loading:before {
+  content: '';
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.3);
+}
+
+/* :not(:required) hides these rules from IE9 and below */
+.loading:not(:required) {
+  /* hide "loading..." text */
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+
+.loading:not(:required):after {
+  content: '';
+  display: block;
+  font-size: 10px;
+  width: 1em;
+  height: 1em;
+  margin-top: -0.5em;
+  -webkit-animation: spinner 1500ms infinite linear;
+  -moz-animation: spinner 1500ms infinite linear;
+  -ms-animation: spinner 1500ms infinite linear;
+  -o-animation: spinner 1500ms infinite linear;
+  animation: spinner 1500ms infinite linear;
+  border-radius: 0.5em;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.5) -1.5em 0 0 0, rgba(0, 0, 0, 0.5) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
+  box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) -1.5em 0 0 0, rgba(0, 0, 0, 0.75) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
+}
+
+/* Animation */
+
+@-webkit-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-moz-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 
@@ -288,6 +488,12 @@
   <script src="dist/jszip.min.js"></script>
   <script src="dist/FileSaver.min.js"></script>
   
+  <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+  <link rel="stylesheet" type="text/css" href="css/demo.css" />
+  <link rel="stylesheet" type="text/css" href="css/component.css" />
+
+  <script src="js/custom-file-input.js"></script>
+		
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
@@ -296,111 +502,221 @@
 	<div>
 	
     <div class="row" style="margin-top: 40px; margin-left: 40px; margin-right: 40px;">
-    	<div align="center" class="col-md-5" style="background-color:white;">
+    	<div align="center" class="col-md-12" style="background-color:white;">
     		<div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 style="color:black;" class="panel-title">Input :</h3>
+                    <h3 style="color:black;" class="panel-title"><b>Evaluating SPARQL Queries On Massive RDF Datasets :</b></h3>
                 </div>
-                
-                <div class="panel-body">
-                    <form enctype="multipart/form-data" action="/processtest" class="form form-horizontal" id="relaxForm">
-                        <div>
-                            <label for="db-select">Choose a database :</label>
-
-                            <select id="db-select" >
-                                <option value="0" selected="selected">-- Select your database --</option>
-                                <option value="LUBM100">LUMB 100</option>
-                                <option value="LUBM10K">LUMB 10K</option>
-                                <option value="LUBM100k">LUMB 100K</option>
-                            </select>
-                        </div>
-                        <br>
-                        
-                        <div align="center">
-                            <input  class="inptFileRadio" type="radio" name="choice" value="1" checked><span>From a file</span>
-                            <input  class="inptFileRadio" type="radio" name="choice" value="2"> <span>Write Request</span>
-                        </div>
-                      
-                        <br>
-
-                        <div class="form-group">
-                            <div class="col-md-offset-3 col-md-6">
-                                <button type="submit" class="btn btn-primary btn-lg" id="idbtn"> Confirm input  </button>
-                            </div>
-                        </div>
-                        
-                          <div id="choiceRequest">
-                        	<label for="request-select">Enter request :</label>
-                        	<textarea placeholder="Your SPARQL request here " cols="50" id="req-input" ></textarea> 
-                        </div>
-
-                    </form>
-                    
-                     <form id="choiceFile">
-					 	 <label for="upload-file-input">Upload your file:</label>
-					 	 <input id="upload-file-input" type="file" name="uploadfile" accept="*" />
-					 </form>
-                    
-                </div>
-                
+               
+               <div class="tab">
+				  <button class="tablinks" onclick="openCity(event, 'loadDataset')">Dataset load</button>
+				  <button id="clickedDS" class="tablinks" onclick="openCity(event, 'queryEvaluation')">Query evaluation</button>
+				</div>
+				
+				<div id="queryEvaluation" class="tabcontent">
+				
+	                <div class="panel-body">
+	                    <form class="form form-horizontal" id="relaxForm">
+	                        <div class="row">
+		                        <style>
+		                        	.one {
+									  float: left;
+									  width: 125px;
+									  text-align: right;
+									  margin: 2px 10px;
+									  display: inline
+									}
+									.two {
+									  display: inline
+									}
+		                        </style>
+	                        
+	                            <div class="one" align="left" ><b>Dataset :</b></div>
+								
+								<div class="two" align="center" >
+		                            <select id="db-select" >
+		                                
+		                               
+		                            </select>
+	                            </div>
+	                        </div>
+	                        
+	                        <br><br>
+	                        
+	                         <style>
+	                        	.inptChoiceSpan{margin-right: 40px;}
+	                        </style>
+	                        
+	                        <div class="row">
+			                    <div id="choiceParam">
+			                     	<div class="one" align="left" ><b>Choice :</b></div>
+			                      
+			                        <div class="two" style="margin-bottom: 40px;">
+			                            <input style="margin-right: 6px;" class="inptFileRadio" type="radio" name="choice" value="1" checked><span class="inptChoiceSpan">From a file</span>
+			                            <input style="margin-right: 6px;" class="inptFileRadio" type="radio" name="choice" value="2"> <span class="inptChoiceSpan">Write Request</span>
+			                        </div>
+			                    </div>
+			                </div>
+			                    
+			                <br><br>
+			                  
+			                <div id="myFrame" class="loading"></div>
+				    		
+				    		<style>
+				    			.form-inline{
+								  display:inline-block;
+								  align:left;
+								}
+				    		</style>
+							
+							<div id="choiceFile" class="row">
+								<div class = "one" align="left" ><b>Load queries file :</b></div>
+							
+								<div align="center">	
+									<div class="box">
+										<input type="file" name="uploadfile" id="upload-file-input" class="inputfile inputfile-2" data-multiple-caption="{count} files selected" multiple accept=".txt"/>
+										<label for="upload-file-input"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="17" viewBox="0 0 30 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg> <span>Choose a file&hellip;</span></label>
+									</div>
+								</div>
+							</div>
+							
+							<!-- --------- -->
+							
+							<div id="choiceRequest">
+								<div class = "one" align="left" ><b>Enter request :</b></div>
+										
+								<div class = "form-inline" align="center" style="margin-left:40px;">
+	                        		<textarea placeholder="Your SPARQL request here " cols="50" id="req-input" ></textarea> 
+	                        	</div>
+	                        </div>
+    		
+	                        <br><br>
+	                        
+	                        <style>
+	                        	.inptEngSpan{margin-right: 40px;}
+	                        </style>
+	                        
+	                        <div class="row">
+			                    <div id="choiceEngine">
+			                     	<div class="one" align="left" ><b>Choose engine :</b></div>
+			                      
+			                        <div class="two" style="margin-bottom: 40px;">
+			                            <input  style="margin-right: 6px;" class="inptEngRadio" type="radio" name="engine" value="1" checked><span class="inptEngSpan">CADER</span>
+			                            <input  style="margin-right: 6px;" class="inptEngRadio" type="radio" name="engine" value="2"> <span class="inptEngSpan">LBA</span>
+			                            <input  style="margin-right: 6px;" class="inptEngRadio" type="radio" name="engine" value="3"> <span class="inptEngSpan">MBA</span>
+			                        </div>
+			                    </div>
+			                </div>
+			                    
+			                <br><br>
+	                        
+	                        <div class="form-group">
+	                            <div class="col-md-offset-3 col-md-6">
+	                                <button type="submit" class="btn btn-primary btn-lg" id="idbtn"> Run..  </button>
+	                            </div>
+	                        </div>
+	
+	                    </form>
+	                    
+	                    <style>
+		                    hr {
+							    display: block;
+							    height: 2px;
+							    border: 0;
+							    border-top: 1px solid #ccc;
+							    margin: 1em 0;
+							    padding: 0; 
+							}
+						</style>
+						
+	                     <br><hr style="color:black;"><br>
+	                     
+	                    <div class="row bg-info text-white">
+							<div class="col-md-2" align="left"><b>Response Time :</b></div>
+							<div class="col-md-1"></div>
+							<div id="totalTime" class="col-md-3">- sec</div>
+							<div id="xssTime" class="col-md-3">- sec</div>
+							<div id="mfsTime" class="col-md-3">- sec</div>
+						</div>
+	                
+		                <br><br>
+		                
+		                <iframe id="downloadFrame" style="display:none"></iframe>
+		                <div id="result"></div>
+		                <button onClick="downloadAll()" class="btn" id="myDown" name="mydown">Download all results</button>
+		                    
+		                <form action="/allResults">
+						    <input class="btn" type="submit" value="Download all results" id="allDown" name="allDown" />
+						</form>
+	                </div>
+	             </div>
+	             
+	             <div id="loadDataset" class="tabcontent">
+	             <br>
+					<div id="choiceFile" class="row">
+						
+						<style>
+							.inputfile {
+								width: 0.1px;
+								height: 0.1px;
+								opacity: 0;
+								overflow: hidden;
+								position: absolute;
+								z-index: -1;
+							}
+							
+							.inputfile + label {
+							    font-size: 1.25em;
+							    font-weight: 700;
+							    color: black;
+							    background-color: white;
+							    display: inline-block;
+							}
+							
+							.inputfile:focus + label,
+							.inputfile + label:hover {
+							    background-color: red;
+							}
+						</style>
+						
+						<!-- <div class = "one" align="left" ><b>Load queries file :</b></div>
+										
+						<div class = "form-inline" align="center" style="margin-left:60px;" >
+							<input id="dataset-upload" type="file" name="uploaddataset" accept=".owl" />
+						</div>-->
+						
+						<div class = "one" align="left" ><b>Load dataset :</b></div>
+						
+						<div align="center">	
+							<div class="box">
+								<input type="file" name="uploaddataset" id="dataset-upload" class="inputfile inputfile-2" data-multiple-caption="{count} files selected" multiple accept=".owl"/>
+								<label for="dataset-upload"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="17" viewBox="0 0 30 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg> <span>Choose a file&hellip;</span></label>
+							</div>
+						</div>
+						
+						<br><br>
+						<button class="btn btn-danger" onClick="uploadDataset()">Upload dataset ..</button>
+						
+					</div>
+	             	
+	             </div>
+	             
+	             <br><br>
             </div>
+
     	</div>
     	
-    	<style>
-    		.frame {
-		
-			    white-space: nowrap;
-			    text-align: center; margin: 1em 0;
-			}
-			
-			.helper {
-			    display: inline-block;
-			    height: 100%;
-			    vertical-align: middle;
-			}
-			
-			img {
-			    vertical-align: middle;
-			    max-height: 100px;
-			    max-width: 100px;
-			}
-
-    	</style>
     	
-    	<div align="center" class="col-md-2">
-    		<div id="myFrame" class="frame">
-    			<span class="helper"></span>
-    			<img id="myImg" src="https://backgroundcheckall.com/wp-content/uploads/2017/12/ajax-loading-gif-transparent-background-2.gif" title="this slowpoke moves" />
-    		</div>
-    	</div>
     	
-    	<div align="center" class="col-md-5" style="background-color:white;">
-    		<div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 style="color:black;" class="panel-title">Output (summary) :</h3>
-                </div>
-                
-                <div class="panel-body">
-                	<iframe id="downloadFrame" style="display:none"></iframe>
-                	<div id="result"></div>
-                    <button onClick="downloadAll()" class="btn" id="myDown" name="mydown">download</button>
-                    
-                    <form action="/allResults">
-					    <input class="btn" type="submit" value="Download all" id="allDown" name="allDown" />
-					</form>
-                </div>
-                
-            </div>
-    	
-    </div>
 
 	<script type='text/javascript'>
 		var choice = 1;
 		var selecteddb = 0;
 		var allResults = "";
-		
+
 		jQuery(document).ready(function(){
 		
+			$("#clickedDS")[0].click();		
 			$("#myFrame").hide();
 			$('#idbtn').prop( "disabled", true );
 			$('#myDown').prop( "disabled", true );
@@ -456,6 +772,7 @@
 	
 	<script type="text/javascript">
 	
+		var allDS = "";
 	    function crunchifyAjax() {
 	   		var data = {}
 			
@@ -494,7 +811,7 @@
 	                }
 	                
 	              	allResults = data;
-	              	//clientSideZip();
+	              
 	            },
 	            complete:function(data){
 			    	$("#myFrame").hide();
@@ -510,11 +827,14 @@
 	        });
 	    }
 	    
-	    function uploadFile() {		  
+	    function uploadFile() {	
+	      var data = new FormData();
+	      data.append("uploadfile",  $('#upload-file-input').prop('files')[0]);
+	      
 		  $.ajax({
 		    url: "/uploadFile",
 		    type: "POST",
-		    data: new FormData($("#choiceFile")[0]),
+		    data: data,
 		    enctype: 'multipart/form-data',
 		    processData: false,
 		    contentType: false,
@@ -528,6 +848,57 @@
 		      alert('Rejected by server !');
 		    }
 		  });
+		}
+	    
+	    function GetAllDatasets(){ 
+	    	allDS = "";
+			$.ajax({
+			    url: "/allDatasets",
+			    type: "GET",
+			    dataType : 'json',
+			    processData: false,
+			    cache: false,
+			    success: function (allDS) {
+			      
+			    	var o = new Option("0", "0");
+				    $(o).html("-- Select your dataset --");
+				    $("#db-select").append(o);
+				    	
+			    	$.each(allDS, function(k, v) {			    	    
+			    	    var o = new Option(v, v);
+				    	$(o).html(v);
+				    	$("#db-select").append(o);
+			    	    
+			    	});
+			      
+			    },
+			    error: function () {
+			      // Handle upload error
+			      alert('Oops !! No datasets !');
+			    }
+			});
+	    }
+	    
+	    function uploadDataset() {	
+		      var data = new FormData();
+		      data.append("uploadfile",  $('#dataset-upload').prop('files')[0]);
+		      
+			  $.ajax({
+			    url: "/uploadDataset",
+			    type: "POST",
+			    data: data,
+			    enctype: 'multipart/form-data',
+			    processData: false,
+			    contentType: false,
+			    cache: false,
+			    success: function () {
+			      alert('Dataset uploaded successfully !');
+			    },
+			    error: function () {
+			      // Handle upload error
+			      alert('Oops !! Rejected by server !');
+			    }
+			  });
 		}
 	    
 	    function downloadAll(){
@@ -564,19 +935,47 @@
 		    document.body.removeChild(element);
 		}
 		
-		function clientSideZip(){
-			var rand = Math.floor(Math.random() * 100);  
-			var zip = new JSZip();
-			
-			zip.file("Hello.txt", "Hello world\n");
-			
-			zip.generateAsync({type:"blob"}).then(function (blob) { 
-    			saveAs(blob, "results"+ rand +".zip");
-			}, function (err) {
-				alert('Error');
-			});
-						
+		function openCity(evt, cityName) {
+		  var i, tabcontent, tablinks;
+		  
+		  $('#db-select').empty();
+		  GetAllDatasets();
+		 
+		  tabcontent = document.getElementsByClassName("tabcontent");
+		  for (i = 0; i < tabcontent.length; i++) {
+		    tabcontent[i].style.display = "none";
+		  }
+		  tablinks = document.getElementsByClassName("tablinks");
+		  for (i = 0; i < tablinks.length; i++) {
+		    tablinks[i].className = tablinks[i].className.replace(" active", "");
+		  }
+		  document.getElementById(cityName).style.display = "block";
+		  evt.currentTarget.className += " active";
 		}
+
+	</script>
+	
+	<script>
+		var inputs = document.querySelectorAll( '.inputfile' );
+		Array.prototype.forEach.call( inputs, function( input )
+		{
+			var label	 = input.nextElementSibling,
+				labelVal = label.innerHTML;
+	
+			input.addEventListener( 'change', function( e )
+			{
+				var fileName = '';
+				if( this.files && this.files.length > 1 )
+					fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
+				else
+					fileName = e.target.value.split( '\\' ).pop();
+	
+				if( fileName )
+					label.querySelector( 'span' ).innerHTML = fileName;
+				else
+					label.innerHTML = labelVal;
+			});
+		});
 	</script>
 	    
   </div>

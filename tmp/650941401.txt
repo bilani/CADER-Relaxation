@@ -1,12 +1,12 @@
-null totalTemps 8 ms, Time MFS 8 ms, Time XSS 1547047633687 ms
+null totalTemps 3 ms, Time MFS 3 ms, Time XSS 0 ms
 nbRequête: 3 Relaxées | 2 MFS | 1 XSS 
-null totalTemps 4 ms, Time MFS 4 ms, Time XSS 1547047633695 ms
+null totalTemps 22 ms, Time MFS 22 ms, Time XSS 0 ms
 nbRequête: 8 Relaxées | 3 MFS | 2 XSS 
-null totalTemps 5 ms, Time MFS 5 ms, Time XSS 1547047633699 ms
+null totalTemps 17 ms, Time MFS 17 ms, Time XSS 0 ms
 nbRequête: 16 Relaxées | 5 MFS | 2 XSS 
-null totalTemps 17 ms, Time MFS 17 ms, Time XSS 1547047633705 ms
+null totalTemps 30 ms, Time MFS 30 ms, Time XSS 2 ms
 nbRequête: 41 Relaxées | 6 MFS | 4 XSS 
-null totalTemps 84 ms, Time MFS 84 ms, Time XSS 1547047633722 ms
+null totalTemps 110 ms, Time MFS 110 ms, Time XSS 4 ms
 nbRequête: 150 Relaxées | 7 MFS | 4 XSS 
-null totalTemps 244 ms, Time MFS 244 ms, Time XSS 1547047633806 ms
+null totalTemps 253 ms, Time MFS 253 ms, Time XSS 12 ms
 nbRequête: 295 Relaxées | 8 MFS | 4 XSS 

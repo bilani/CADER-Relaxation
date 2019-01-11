@@ -37,7 +37,7 @@ public class TestStarQueries {
 					
 					String result = line + "\n"; 
 					result += "Query " + index + " : " + query + "\n";
-					result += relaxer.getResults();
+					result += relaxer.getSummary();
 					
 					//result += "MFSes Queries \n" + relaxer.getMFSesQueries() + "\n";
 					//result += "XSSes Queries \n" + relaxer.getXSSesQueries() + "\n";

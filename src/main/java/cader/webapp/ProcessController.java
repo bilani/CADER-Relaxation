@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,6 +47,8 @@ import cader.services.SetDatabase;
  */
 @Controller
 public class ProcessController {
+	
+	public ArrayList<String> allDatasets = new ArrayList<>();
 
 	public String lastUploaded;
 	/**
@@ -187,6 +190,32 @@ public class ProcessController {
 	  
 	  return new ResponseEntity<>(HttpStatus.OK);
 	} 
+	
+	@RequestMapping(value = "/uploadDataset", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<?> uploadDataset(
+	    @RequestParam("uploadfile") MultipartFile uploadfile) {
+	  
+	  try {
+	  
+	    String filename = uploadfile.getOriginalFilename();
+	    String directory = "src/main/resources/databases/uploaded";
+	    String filepath = Paths.get(directory, filename).toString();
+	    
+	    // Save the file 
+	    BufferedOutputStream stream =
+	        new BufferedOutputStream(new FileOutputStream(new File(filepath)));
+	    stream.write(uploadfile.getBytes());
+	    stream.close();
+
+	  }
+	  catch (Exception e) {
+	    System.out.println(e.getMessage());
+	    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	  }
+	  
+	  return new ResponseEntity<>(HttpStatus.OK);
+	} 
 
 	@GetMapping(value = "/allResults", produces="application/zip")
     public @ResponseBody byte[] getFile() throws IOException {
@@ -200,4 +229,28 @@ public class ProcessController {
 		}
 
     }
+	
+	@RequestMapping(value = "/allDatasets", method = RequestMethod.GET,
+            produces="application/json")
+	public @ResponseBody ArrayList<?> getDatasets() {
+		//get your datasets list here
+		File folder = new File("src/main/resources/databases/uploaded");
+		File[] listOfFiles = folder.listFiles();
+		allDatasets = new ArrayList<>();
+
+		for (int i = 0; i < listOfFiles.length; i++) {
+		  if (listOfFiles[i].isFile()) {
+			  int ind = listOfFiles[i].getName().lastIndexOf('.');
+			  if(ind > 0) {
+				  String ext = listOfFiles[i].getName().substring(ind+1);
+				  if(ext.equals("owl") || ext.equals("rdf")) {
+					  allDatasets.add(listOfFiles[i].getName().substring(0, ind));
+				  }
+			  }
+			 
+		  }
+		}
+		
+		return allDatasets;
+	}
 }
