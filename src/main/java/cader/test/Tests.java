@@ -2,8 +2,8 @@ package cader.test;
 
 import org.apache.jena.ontology.OntModel;
 
-import cader.services.QueryRelaxer;
-import cader.services.SetDatabase;
+import cader.services.Cader;
+import cader.services.GetOntModel;
 
 /**
  * 
@@ -21,8 +21,8 @@ public class Tests {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		OntModel model = (new SetDatabase("LUBM100")).getModel();
-		new QueryRelaxer(DefaultQuery, model);
+		OntModel model = (new GetOntModel("LUBM100")).getModel();
+		new Cader(DefaultQuery, model);
 		new TestStarQueries(model);
 		new TestChainQueries(model);
 		new TestCompositeQueries(model);

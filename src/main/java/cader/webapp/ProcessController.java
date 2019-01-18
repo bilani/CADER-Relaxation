@@ -29,8 +29,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import cader.services.FileQuery;
-import cader.services.QueryRelaxer;
-import cader.services.SetDatabase;
+import cader.services.Cader;
+import cader.services.GetOntModel;
 
 /**
  * @author blackstorm
@@ -70,13 +70,13 @@ public class ProcessController {
 		//export _JAVA_OPTIONS=-Xmx4096m
 		
 		if(isQuery != null && database != null) {
-			OntModel modelOnt = (new SetDatabase(database)).getModel();
+			OntModel modelOnt = (new GetOntModel(database)).getModel();
 		
 			if(isQuery == 2) { //it's a query
 				System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++ ONE SPARQL QUERY PROCESSING ");
 				
 				String query = myrequest;
-				QueryRelaxer relaxer = new QueryRelaxer(query, modelOnt);
+				Cader relaxer = new Cader(query, modelOnt);
 				File processingResult = new File(relaxer.getFullResults());
 				if(processingResult.exists() && !processingResult.isDirectory()) { 
 					System.out.println("File found & OKAY !!");

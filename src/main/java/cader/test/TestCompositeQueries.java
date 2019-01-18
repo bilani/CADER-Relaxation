@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 import org.apache.jena.ontology.OntModel;
 
-import cader.services.QueryRelaxer;
+import cader.services.Cader;
 
 public class TestCompositeQueries {
 	public final static String CompositeQueries = "./CompositeQueries.txt";
@@ -33,7 +33,7 @@ public class TestCompositeQueries {
 					query = scanner.nextLine();
 					System.out.println("Query : " + query);
 					System.out.println("Launching the query n°" + index + " : ");
-					QueryRelaxer relaxer = new QueryRelaxer(query, model);
+					Cader relaxer = new Cader(query, model);
 
 					String result = line + "\n";
 					result += "Query " + index + " : " + query + "\n";

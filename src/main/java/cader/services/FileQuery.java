@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-
 import org.apache.jena.ontology.OntModel;
+import objects.Algorithms;
 
 public class FileQuery {
 	private String result = "";
@@ -31,15 +31,32 @@ public class FileQuery {
 	 * @param location
 	 * @throws IOException 
 	 */
-	
-	public FileQuery(String location, OntModel model) throws IOException {
+
+	public FileQuery(Algorithms choosedAlgorithm, String location, String database) throws IOException {
 		String hashCode = String.valueOf(location.hashCode());
 		zipPath = "tmp/Results.zip";
 		summary = "tmp/" + hashCode + ".txt";
 		resultFileList = new ArrayList<String>();
+		switch(choosedAlgorithm) {
+			case CADER:
+				OntModel model = (new GetOntModel(database)).getModel();
+				Cader(location, model);
+				break;
+			case LBA:
+				qarsAlgorithms(location, database, true);
+				break;
+			case MBA:
+				qarsAlgorithms(location, database, true);
+				break;
+			default:
+				break;
+		}
+	}
+
+	public void Cader(String location, OntModel model) throws IOException {
 		int index = 0;
 		String query = "";
-		QueryRelaxer relaxer;
+		Cader relaxer;
 		try {
 			Scanner scanner = new Scanner(new File(location));
 			while (scanner.hasNextLine()) {
@@ -48,9 +65,38 @@ public class FileQuery {
 					if(LOG_ON && GEN.isInfoEnabled()) {
 						GEN.info("Processing the query : " + query);
 					}
-					index++;
 					System.out.println("Launching the query n°" + index + ": ");
-					relaxer = new QueryRelaxer(query, model);
+					index++;
+					relaxer = new Cader(query, model);
+					result += "Query n°" + index + ": \n";
+					result += relaxer.getSummary();
+					resultFileList.add(relaxer.getFullResults());
+				}
+			}
+			scanner.close();
+			System.out.println(">>>>>>>>> Before generating ZIP");
+			generateZip();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void qarsAlgorithms(String location, String database, boolean isLBA) throws IOException {
+		int index = 0;
+		String query = "";
+		QARSMFSCompute relaxer;
+		try {
+			new QARSInitialization(database, database.contains("uploaded"));
+			Scanner scanner = new Scanner(new File(location));
+			while (scanner.hasNextLine()) {
+				query = scanner.nextLine();
+				if(query.startsWith("SELECT")){
+					if(LOG_ON && GEN.isInfoEnabled()) {
+						GEN.info("Processing the query : " + query);
+					}
+					System.out.println("Launching the query n°" + index + ": ");
+					index++;
+					relaxer = new QARSMFSCompute(query, isLBA);
 					result += "Query n°" + index + ": \n";
 					result += relaxer.getSummary();
 					resultFileList.add(relaxer.getFullResults());
@@ -73,7 +119,7 @@ public class FileQuery {
 		FileOutputStream dest= new FileOutputStream(zipPath);
 		BufferedOutputStream buff = new BufferedOutputStream(dest);
 		ZipOutputStream out = new ZipOutputStream(buff);
-		
+
 		//We add the summary to the zip archive
 		try(FileWriter fw = new FileWriter(summary);
 				BufferedWriter bw = new BufferedWriter(fw);
@@ -81,32 +127,32 @@ public class FileQuery {
 			writer.print(result);
 			writer.close();
 			FileInputStream fi = new FileInputStream(summary);
-		    BufferedInputStream buffi = new BufferedInputStream(fi, BUFFER);
-		    ZipEntry entry= new ZipEntry("Summary.txt");
-		    out.putNextEntry(entry);
-		    int count;
-		   
-		    while((count = buffi.read(data, 0, BUFFER)) != -1) {
-		        out.write(data, 0, count);
-		    }
-		    out.closeEntry();
-		    buffi.close();
+			BufferedInputStream buffi = new BufferedInputStream(fi, BUFFER);
+			ZipEntry entry= new ZipEntry("Summary.txt");
+			out.putNextEntry(entry);
+			int count;
+
+			while((count = buffi.read(data, 0, BUFFER)) != -1) {
+				out.write(data, 0, count);
+			}
+			out.closeEntry();
+			buffi.close();
 		}
-		
+
 		//We add the results of each query
-		int index = 1;
+		int index = 0;
 		for(String file : resultFileList) {
-		    FileInputStream fi = new FileInputStream(file);
-		    BufferedInputStream buffi = new BufferedInputStream(fi, BUFFER);
-		    ZipEntry entry= new ZipEntry("Query_" + index + ".txt");
-		    index++;
-		    out.putNextEntry(entry);
-		    int count;
-		    while((count = buffi.read(data, 0, BUFFER)) != -1) {
-		        out.write(data, 0, count);
-		    }
-		    out.closeEntry();
-		    buffi.close();
+			FileInputStream fi = new FileInputStream(file);
+			BufferedInputStream buffi = new BufferedInputStream(fi, BUFFER);
+			index++;
+			ZipEntry entry= new ZipEntry("Query_" + index + ".txt");
+			out.putNextEntry(entry);
+			int count;
+			while((count = buffi.read(data, 0, BUFFER)) != -1) {
+				out.write(data, 0, count);
+			}
+			out.closeEntry();
+			buffi.close();
 		}
 		out.close();
 	}
