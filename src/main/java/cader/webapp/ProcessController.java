@@ -55,10 +55,12 @@ public class ProcessController {
     public @ResponseBody
     ResponseEntity<byte[]> process(@RequestParam(name="selecteddb", required=false, defaultValue="100") String selecteddb,
     		@RequestParam(name="choice", required=false, defaultValue="1") String choice,
+    		@RequestParam(name="algo", required=false, defaultValue="1") String choice_algo,
     		@RequestParam(name="request", required=false, defaultValue="") String myrequest,
     		Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
     	
         model.addAttribute("name", "Query Relxation" );
+        Algorithms algo = choice_algo.equals("1")?(Algorithms.CADER):(choice_algo.equals("2")?(Algorithms.LBA):(Algorithms.MBA));
         
 		Integer isQuery = Integer.parseInt(choice); //to determine if the request is about a file or a query
 		if(myrequest != null && !myrequest.equals("")) {
@@ -103,7 +105,7 @@ public class ProcessController {
 				if(lastUploaded != null && !lastUploaded.equals("")) {
 					System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++ QUERIES FILE PROCESSING ");
 					
-					FileQuery fQuery = new FileQuery(Algorithms.CADER, "tmp/" + lastUploaded, database);
+					FileQuery fQuery = new FileQuery(algo, "tmp/" + lastUploaded, database);
 					// ZIP is in Results.zip
 					File resultsZip = new File("tmp/Results.zip");
 					byte[] array = Files.readAllBytes(resultsZip.toPath());
