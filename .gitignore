@@ -1,1 +1,5 @@
 /target/
+*.log
+/src/main/resources/tdb/*
+/tmp/*
+/src/main/resources/databases/qars/*

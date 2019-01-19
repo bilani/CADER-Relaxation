@@ -31,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 import cader.services.FileQuery;
 import cader.services.Cader;
 import cader.services.GetOntModel;
+import objects.Algorithms;
 
 /**
  * @author blackstorm
@@ -102,7 +103,7 @@ public class ProcessController {
 				if(lastUploaded != null && !lastUploaded.equals("")) {
 					System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++ QUERIES FILE PROCESSING ");
 					
-					FileQuery fQuery = new FileQuery("tmp/" + lastUploaded, modelOnt);
+					FileQuery fQuery = new FileQuery(Algorithms.CADER, "tmp/" + lastUploaded, database);
 					// ZIP is in Results.zip
 					File resultsZip = new File("tmp/Results.zip");
 					byte[] array = Files.readAllBytes(resultsZip.toPath());

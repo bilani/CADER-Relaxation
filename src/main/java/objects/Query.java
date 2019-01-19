@@ -361,18 +361,20 @@ public class Query {
 		int indice = 0;
 		while(coxssIterator.hasNext()) {
 			mfsSet = (HashSet<Integer>) coxssIterator.next();
-			xssSet = new HashSet<>();
-			Iterator<Integer> tripletsIterator = triplets.keySet().iterator();
-			while(tripletsIterator.hasNext()) {
-				indice = (int) tripletsIterator.next();
-				if(!mfsSet.contains(indice)) {
-					xssSet.add(indice);
+			if(mfsSet.size() != triplets.size()) {
+				xssSet = new HashSet<>();
+				Iterator<Integer> tripletsIterator = triplets.keySet().iterator();
+				while(tripletsIterator.hasNext()) {
+					indice = (int) tripletsIterator.next();
+					if(!mfsSet.contains(indice)) {
+						xssSet.add(indice);
+					}
 				}
+				if(LOG_ON && GEN.isInfoEnabled()) {
+					GEN.info("XSSet : " + xssSet);
+				}
+				XSSes.add(xssSet);
 			}
-			if(LOG_ON && GEN.isInfoEnabled()) {
-				GEN.info("XSSet : " + xssSet);
-			}
-			XSSes.add(xssSet);
 		}
 	}
 

@@ -37,15 +37,19 @@ public class FileQuery {
 		zipPath = "tmp/Results.zip";
 		summary = "tmp/" + hashCode + ".txt";
 		resultFileList = new ArrayList<String>();
+		result = "Used algorithm: ";
 		switch(choosedAlgorithm) {
 			case CADER:
 				OntModel model = (new GetOntModel(database)).getModel();
+				result += "CADER\n";
 				Cader(location, model);
 				break;
 			case LBA:
+				result += "LBA\n";
 				qarsAlgorithms(location, database, true);
 				break;
 			case MBA:
+				result += "MBA\n";
 				qarsAlgorithms(location, database, true);
 				break;
 			default:

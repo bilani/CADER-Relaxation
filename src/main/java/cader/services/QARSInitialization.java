@@ -14,7 +14,7 @@ public class QARSInitialization {
 	
 	public QARSInitialization(String database, boolean isUploaded) throws IOException {
 		String usedDatabase = getCurrentUsedDatabase();
-		if(usedDatabase == null || usedDatabase != database) {
+		if(usedDatabase == null || !usedDatabase.equals(database)) {
 			cleanQarsFolders();
 			String path = databaseFolder;
 			if(isUploaded) path += "uploaded/";
@@ -38,6 +38,7 @@ public class QARSInitialization {
 	public String getCurrentUsedDatabase() {
 		File[] files = new File(qarsDataFolder).listFiles();
 		if(files.length == 1) {
+			System.out.println("Database currently in the folder : " + files[0].getName());
 			return files[0].getName();
 		} else {
 			return null;
@@ -45,6 +46,7 @@ public class QARSInitialization {
 	}
 	
 	public void cleanQarsFolders() throws IOException {
+		System.out.println("Cleaning the directory to use another database");
 		FileUtils.cleanDirectory(new File(qarsDataFolder));
 		FileUtils.cleanDirectory(new File(qarsTdbFolder));
 	}
