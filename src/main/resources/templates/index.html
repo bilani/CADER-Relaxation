@@ -505,7 +505,7 @@
     	<div align="center" class="col-md-12" style="background-color:white;">
     		<div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 style="color:black;" class="panel-title"><b>Evaluating SPARQL Queries On Massive RDF Datasets :</b></h3>
+                    <h3 style="color:black;" class="panel-title"><b>Evaluating SPARQL Queries On Massive RDF Datasets </b></h3>
                 </div>
                
                <div class="tab">
@@ -531,7 +531,7 @@
 									}
 		                        </style>
 	                        
-	                            <div class="one" align="left" ><b>Dataset :</b></div>
+	                            <div class="one" align="left" ><b>Dataset </b></div>
 								
 								<div class="two" align="center" >
 		                            <select id="db-select" >
@@ -549,7 +549,7 @@
 	                        
 	                        <div class="row">
 			                    <div id="choiceParam">
-			                     	<div class="one" align="left" ><b>Choice :</b></div>
+			                     	<div class="one" align="left" ><b>Choice </b></div>
 			                      
 			                        <div class="two" style="margin-bottom: 40px;">
 			                            <input style="margin-right: 6px;" class="inptFileRadio" type="radio" name="choice" value="1" checked><span class="inptChoiceSpan">From a file</span>
@@ -570,7 +570,7 @@
 				    		</style>
 							
 							<div id="choiceFile" class="row">
-								<div class = "one" align="left" ><b>Load queries file :</b></div>
+								<div class = "one" align="left" ><b>Load queries file </b></div>
 							
 								<div align="center">	
 									<div class="box">
@@ -583,7 +583,7 @@
 							<!-- --------- -->
 							
 							<div id="choiceRequest">
-								<div class = "one" align="left" ><b>Enter request :</b></div>
+								<div class = "one" align="left" ><b>Enter request </b></div>
 										
 								<div class = "form-inline" align="center" style="margin-left:40px;">
 	                        		<textarea placeholder="Your SPARQL request here " cols="50" id="req-input" ></textarea> 
@@ -598,7 +598,7 @@
 	                        
 	                        <div class="row">
 			                    <div id="choiceEngine">
-			                     	<div class="one" align="left" ><b>Choose engine :</b></div>
+			                     	<div class="one" align="left" ><b>Choose engine </b></div>
 			                      
 			                        <div class="two" style="margin-bottom: 40px;">
 			                            <input  style="margin-right: 6px;" class="inptEngRadio" type="radio" name="engine" value="1" checked><span class="inptEngSpan">CADER</span>
@@ -632,7 +632,7 @@
 	                     <br><hr style="color:black;"><br>
 	                     
 	                    <div class="row bg-info text-white">
-							<div class="col-md-2" align="left"><b>Response Time :</b></div>
+							<div class="col-md-2" align="left"><b>Response Time </b></div>
 							<div class="col-md-1"></div>
 							<div id="totalTime" class="col-md-3">- sec</div>
 							<div id="xssTime" class="col-md-3">- sec</div>
@@ -679,13 +679,13 @@
 							}
 						</style>
 						
-						<!-- <div class = "one" align="left" ><b>Load queries file :</b></div>
+						<!-- <div class = "one" align="left" ><b>Load queries file </b></div>
 										
 						<div class = "form-inline" align="center" style="margin-left:60px;" >
 							<input id="dataset-upload" type="file" name="uploaddataset" accept=".owl" />
 						</div>-->
 						
-						<div class = "one" align="left" ><b>Load dataset :</b></div>
+						<div class = "one" align="left" ><b>Load dataset </b></div>
 						
 						<div align="center">	
 							<div class="box">
@@ -780,7 +780,9 @@
 			data["choice"] = $('input:radio[name="choice"]').val();
 			data["request"] = $('#req-input').val();
 			data["uploadfile"] = $('#req-select').val();
-			data["algo"] = $('input:radio[name="engine"]').val();
+			data["algo"] = $('input:radio[name="engine"]:checked').val();
+			
+			//alert($('input:radio[name="engine"]:checked').val());
 			
 			if(choice == 1){
 				uploadFile();

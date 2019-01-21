@@ -1,6 +1,5 @@
 /home/anass-jouhri/Desktop/query-relaxation/src/main/java/objects/Algorithms.java
 /home/anass-jouhri/Desktop/query-relaxation/src/main/java/cader/services/QueryLauncher.java
-/home/anass-jouhri/Desktop/query-relaxation/src/main/java/cader/console/CaderConsole.java
 /home/anass-jouhri/Desktop/query-relaxation/src/main/java/query/relax/cader/algorithm/HittingSets.java
 /home/anass-jouhri/Desktop/query-relaxation/src/main/java/cader/services/SetLoggerLevel.java
 /home/anass-jouhri/Desktop/query-relaxation/src/main/java/query/relax/cader/algorithm/Cader.java
@@ -13,6 +12,7 @@
 /home/anass-jouhri/Desktop/query-relaxation/src/main/java/cader/test/TestCompositeQueries.java
 /home/anass-jouhri/Desktop/query-relaxation/src/main/java/cader/test/Tests.java
 /home/anass-jouhri/Desktop/query-relaxation/src/main/java/cader/services/Cader.java
+/home/anass-jouhri/Desktop/query-relaxation/src/main/java/cader/console/Console.java
 /home/anass-jouhri/Desktop/query-relaxation/src/main/java/cader/services/GetOntModel.java
 /home/anass-jouhri/Desktop/query-relaxation/src/main/java/cader/logger/Log.java
 /home/anass-jouhri/Desktop/query-relaxation/src/main/java/cader/webapp/GreetingController.java

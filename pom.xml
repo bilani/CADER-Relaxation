@@ -28,7 +28,6 @@
 	</organization>
 
 	<dependencies>
-
 		<!-- Need this for json to/from object -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -77,15 +76,21 @@
 			<artifactId>apache-jena-libs</artifactId>
 			<version>${ver.jena}</version>
 			<type>pom</type>
-			
-			<exclusions>
-        		<exclusion>
-          			<groupId>log4j</groupId>
-          			<artifactId>log4j</artifactId>
-        		</exclusion>
-      		</exclusions> 
-      		
+		
 		</dependency>
+		
+		<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-api</artifactId>
+    <version>1.6.4</version>
+</dependency>
+
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-log4j12</artifactId>
+    <version>1.6.4</version>
+</dependency>
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

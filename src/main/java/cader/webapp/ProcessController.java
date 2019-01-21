@@ -61,6 +61,8 @@ public class ProcessController {
     		@RequestParam(name="request", required=false, defaultValue="") String myrequest,
     		Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
     	
+    	System.out.println("*************************************  ************ ALGO : " + choice_algo + " ********* **************************************************");
+    	
         model.addAttribute("name", "Query Relxation" );
         Algorithms algo = choice_algo.equals("1")?(Algorithms.CADER):(choice_algo.equals("2")?(Algorithms.LBA):(Algorithms.MBA));
         
