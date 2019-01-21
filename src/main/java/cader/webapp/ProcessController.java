@@ -31,6 +31,8 @@ import org.springframework.web.multipart.MultipartFile;
 import cader.services.FileQuery;
 import cader.services.Cader;
 import cader.services.GetOntModel;
+import cader.services.QARSInitialization;
+import cader.services.QARSMFSCompute;
 import objects.Algorithms;
 
 /**
@@ -79,8 +81,19 @@ public class ProcessController {
 				System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++ ONE SPARQL QUERY PROCESSING ");
 				
 				String query = myrequest;
-				Cader relaxer = new Cader(query, modelOnt);
-				File processingResult = new File(relaxer.getFullResults());
+				File processingResult = null;
+				if(algo == Algorithms.CADER){
+					Cader relaxer = new Cader(query, modelOnt);
+					processingResult = new File(relaxer.getFullResults());
+				} else if(algo == Algorithms.LBA) {
+					new QARSInitialization(database, false);
+					QARSMFSCompute qars = new QARSMFSCompute(query, true);
+					processingResult = new File(qars.getFullResults());
+				} else if (algo == Algorithms.MBA) {
+					new QARSInitialization(database, false);
+					QARSMFSCompute qars = new QARSMFSCompute(query, true);
+					processingResult = new File(qars.getFullResults());
+				}
 				if(processingResult.exists() && !processingResult.isDirectory()) { 
 					System.out.println("File found & OKAY !!");
 					
