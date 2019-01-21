@@ -54,12 +54,12 @@ public class Console {
 					break;
 				case 1:
 					System.out.println("Choosed Database :" + owlDatabase);
-					initQars = new QARSInitialization(owlDatabase, owlDatabase.contains("uploaded"));
+					initQars = new QARSInitialization(owlDatabase);
 					choosedAlgorithm = Algorithms.LBA;
 					break;
 				case 2:
 					System.out.println("Choosed Database :" + owlDatabase + ".owl");
-					initQars = new QARSInitialization(owlDatabase, owlDatabase.contains("uploaded"));
+					initQars = new QARSInitialization(owlDatabase);
 					choosedAlgorithm = Algorithms.MBA;
 					break;
 				case 3:

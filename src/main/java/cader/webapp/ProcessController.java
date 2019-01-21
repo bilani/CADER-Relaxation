@@ -67,12 +67,7 @@ public class ProcessController {
         Algorithms algo = choice_algo.equals("1")?(Algorithms.CADER):(choice_algo.equals("2")?(Algorithms.LBA):(Algorithms.MBA));
         
 		Integer isQuery = Integer.parseInt(choice); //to determine if the request is about a file or a query
-		if(myrequest != null && !myrequest.equals("")) {
-			isQuery = 2;
-		}
 		String database = "" + selecteddb + ".owl";
-		
-		//SELECT * WHERE { ?Y13 <http://swat.cse.lehigh.edu/onto/univ-bench.owl#doctoralDegreeFrom> ?Y14 . ?Y14 <http://swat.cse.lehigh.edu/onto/univ-bench.owl#hasAlumnus> ?Y15 . ?Y15 <http://swat.cse.lehigh.edu/onto/univ-bench.owl#title> 'Dr' }
 		
 		//export _JAVA_OPTIONS=-Xmx4096m
 		
@@ -88,11 +83,11 @@ public class ProcessController {
 					Cader relaxer = new Cader(query, modelOnt);
 					processingResult = new File(relaxer.getFullResults());
 				} else if(algo == Algorithms.LBA) {
-					new QARSInitialization(database, false);
+					new QARSInitialization(database);
 					QARSMFSCompute qars = new QARSMFSCompute(query, true);
 					processingResult = new File(qars.getFullResults());
 				} else if (algo == Algorithms.MBA) {
-					new QARSInitialization(database, false);
+					new QARSInitialization(database);
 					QARSMFSCompute qars = new QARSMFSCompute(query, true);
 					processingResult = new File(qars.getFullResults());
 				}
@@ -120,9 +115,9 @@ public class ProcessController {
 				if(lastUploaded != null && !lastUploaded.equals("")) {
 					System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++ QUERIES FILE PROCESSING ");
 					
-					new FileQuery(algo, "tmp/" + lastUploaded, database);
 					// ZIP is in Results.zip
-					File resultsZip = new File("tmp/Results.zip");
+					FileQuery fquery = new FileQuery(algo, "tmp/" + lastUploaded, database);
+					File resultsZip = new File(fquery.getPathOfZipResultsFile());
 					byte[] array = Files.readAllBytes(resultsZip.toPath());
 					String fileName = "attachment; filename=Results.zip";
 
@@ -134,7 +129,6 @@ public class ProcessController {
 					//------------
 					
 					File f = new File("tmp/" + lastUploaded);
-					
 					if(f.delete()) {
 						System.out.println("File used & deleted");
 					}else {
@@ -206,7 +200,7 @@ public class ProcessController {
 	  try {
 	  
 	    String filename = uploadfile.getOriginalFilename();
-	    String directory = "src/main/resources/databases/uploaded";
+	    String directory = "src/main/resources/databases";
 	    String filepath = Paths.get(directory, filename).toString();
 	    
 	    // Save the file 
@@ -241,7 +235,7 @@ public class ProcessController {
             produces="application/json")
 	public @ResponseBody ArrayList<?> getDatasets() {
 		//get your datasets list here
-		File folder = new File("src/main/resources/databases/uploaded");
+		File folder = new File("src/main/resources/databases");
 		File[] listOfFiles = folder.listFiles();
 		allDatasets = new ArrayList<>();
 

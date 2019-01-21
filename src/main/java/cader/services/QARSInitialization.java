@@ -17,15 +17,13 @@ public class QARSInitialization {
 	private static String newDatabase;
 	private String oldDatabase = null;
 	
-	public QARSInitialization(String database, boolean isUploaded) throws IOException {
+	public QARSInitialization(String database) throws IOException {
 		newDatabase = database;
 		System.out.println("Received database : " + newDatabase);
 		getCurrentUsedDatabase();
 		if(oldDatabase == null || !oldDatabase.equals(newDatabase)) {
 			cleanQarsFolders();
-			String path = databaseFolder;
-			if(isUploaded) path += "uploaded/";
-			path += newDatabase;
+			String path = databaseFolder + newDatabase;
 			System.out.println("Path to the database : " + path);
 			useDatabase(path);
 			System.out.println("Path of the database : " + path);
@@ -54,6 +52,10 @@ public class QARSInitialization {
 	public void cleanQarsFolders() throws IOException {
 		System.out.println("Cleaning the directory to replace " + oldDatabase +" by " + newDatabase);
 		FileUtils.cleanDirectory(new File(qarsDataFolder));
-		FileUtils.cleanDirectory(new File(qarsTdbFolder));
+		File tdb = new File(qarsTdbFolder);
+		FileUtils.cleanDirectory(tdb);
+		for(File tempFile : tdb.listFiles()) {
+		    tempFile.delete();
+		}
 	}
 }

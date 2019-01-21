@@ -93,7 +93,7 @@ public class FileQuery {
 		String query = "";
 		QARSMFSCompute relaxer;
 		try {
-			new QARSInitialization(database, database.contains("uploaded"));
+			new QARSInitialization(database);
 			Scanner scanner = new Scanner(new File(location));
 			while (scanner.hasNextLine()) {
 				query = scanner.nextLine();

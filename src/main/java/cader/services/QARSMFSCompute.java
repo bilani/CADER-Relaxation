@@ -62,14 +62,14 @@ public class QARSMFSCompute {
 			out.println();
 			out.println(summary);
 
-			int index = 0;
+			int index = 1;
 			for(CQuery mfs : allMFS) {
 				index++;
 				out.println("MFS n°" + index);
 				out.println(mfs.toString());
 			}
 
-			index = 0;
+			index = 1;
 			for(CQuery xss : allXSS) {
 				index++;
 				out.println("XSS n°" + index);

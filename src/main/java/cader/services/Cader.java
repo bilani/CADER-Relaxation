@@ -88,7 +88,7 @@ public class Cader {
 			out.println();
 			out.println(this.result);
 			if (wasRelaxed) {
-				int indice = 0;
+				int indice = 1;
 				Iterator<String> iterator = getMFSesQueries().iterator();
 				while(iterator.hasNext()) {
 					String mfs = iterator.next();
@@ -98,7 +98,7 @@ public class Cader {
 					out.println();
 				}
 
-				indice = 0;
+				indice = 1;
 				iterator = getXSSesQueries().iterator();
 				while(iterator.hasNext()) {
 					String xss = iterator.next();
