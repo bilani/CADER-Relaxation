@@ -25,14 +25,15 @@ public class FileQuery {
 	private String zipPath;
 	private String summary;
 	private static final int BUFFER = 2048;
+	private static long time = 0;
 
 	/**
 	 *
 	 * @param location
-	 * @throws IOException 
+	 * @throws Exception 
 	 */
 
-	public FileQuery(Algorithms choosedAlgorithm, String location, String database) throws IOException {
+	public FileQuery(Algorithms choosedAlgorithm, String location, String database) throws Exception {
 		String hashCode = String.valueOf(location.hashCode());
 		zipPath = "tmp/Results.zip";
 		summary = "tmp/" + hashCode + ".txt";
@@ -74,9 +75,11 @@ public class FileQuery {
 					relaxer = new Cader(query, model);
 					result += "Query n°" + index + ": \n";
 					result += relaxer.getSummary();
+					time += relaxer.getTotalTime();
 					resultFileList.add(relaxer.getFullResults());
 				}
 			}
+			result += "\n" + "TOTAL TIME: " + time + "ms" + "\n";
 			scanner.close();
 			System.out.println(">>>>>>>>> Before generating ZIP");
 			generateZip();
@@ -85,7 +88,7 @@ public class FileQuery {
 		}
 	}
 	
-	public void qarsAlgorithms(String location, String database, boolean isLBA) throws IOException {
+	public void qarsAlgorithms(String location, String database, boolean isLBA) throws Exception {
 		int index = 0;
 		String query = "";
 		QARSMFSCompute relaxer;
@@ -103,9 +106,11 @@ public class FileQuery {
 					relaxer = new QARSMFSCompute(query, isLBA);
 					result += "Query n°" + index + ": \n";
 					result += relaxer.getSummary();
+					time += relaxer.getTotalTime();
 					resultFileList.add(relaxer.getFullResults());
 				}
 			}
+			result += "\n" + "TOTAL TIME: " + time + "ms" + "\n";
 			scanner.close();
 			System.out.println(">>>>>>>>> Before generating ZIP");
 			generateZip();

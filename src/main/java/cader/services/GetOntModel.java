@@ -19,21 +19,21 @@ public class GetOntModel {
 
 	public GetOntModel(String database) {
 		m = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
-		
+		System.out.println("Database received: " + database);
 		switch(database) {
-			case "LUBM100" :
+			case "LUBM100.owl" :
 				if(LOG_ON && GEN.isInfoEnabled()) {
 					GEN.info("Loading the database LUBM100.owl");
 				}
 				FileManager.get().readModel( m, SOURCE + "LUBM100.owl" );
 				break;
-			case "LUBM1K" :
+			case "LUBM1K.owl" :
 				if(LOG_ON && GEN.isInfoEnabled()) {
 					GEN.info("Loading the database LUBM1K.owl");
 				}
 				FileManager.get().readModel( m, SOURCE + "LUBM1K.owl" );
 				break;
-			case "LUBM10K" :
+			case "LUBM10K.owl" :
 				if(LOG_ON && GEN.isInfoEnabled()) {
 					GEN.info("Loading the database LUBM10K.owl");
 				}

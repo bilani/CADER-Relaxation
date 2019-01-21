@@ -49,7 +49,7 @@ public class ProcessController {
 	 * @param request
 	 * @param response
 	 * @return
-	 * @throws IOException
+	 * @throws Exception 
 	 */
 	@RequestMapping(value = "/process", method = RequestMethod.POST)
     public @ResponseBody
@@ -57,7 +57,7 @@ public class ProcessController {
     		@RequestParam(name="choice", required=false, defaultValue="1") String choice,
     		@RequestParam(name="algo", required=false, defaultValue="1") String choice_algo,
     		@RequestParam(name="request", required=false, defaultValue="") String myrequest,
-    		Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    		Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
     	
         model.addAttribute("name", "Query Relxation" );
         Algorithms algo = choice_algo.equals("1")?(Algorithms.CADER):(choice_algo.equals("2")?(Algorithms.LBA):(Algorithms.MBA));
@@ -105,7 +105,7 @@ public class ProcessController {
 				if(lastUploaded != null && !lastUploaded.equals("")) {
 					System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++ QUERIES FILE PROCESSING ");
 					
-					FileQuery fQuery = new FileQuery(algo, "tmp/" + lastUploaded, database);
+					new FileQuery(algo, "tmp/" + lastUploaded, database);
 					// ZIP is in Results.zip
 					File resultsZip = new File("tmp/Results.zip");
 					byte[] array = Files.readAllBytes(resultsZip.toPath());

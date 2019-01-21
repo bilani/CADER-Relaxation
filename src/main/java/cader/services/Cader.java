@@ -74,6 +74,10 @@ public class Cader {
 	public String getSummary() {
 		return result;
 	}
+	
+	public long getTotalTime() {
+		return totalTime;
+	}
 
 	public String getFullResults() throws IOException {
 		String filename = "/tmp/" + Integer.toString(this.query.hashCode()) + ".tmp";
