@@ -2,23 +2,31 @@ package cader.services;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 
 import org.apache.commons.io.FileUtils;
 
 import fr.ensma.lias.qarscore.loader.JenaBulkLoader;
 
 public class QARSInitialization {
-	private static final String databaseFolder = "/home/conspiracy/PFE/query-relaxation/src/main/resources/databases/";
+	private static final String databaseFolder = Paths.get(".").toAbsolutePath().normalize().toString()
+												 + "/src/main/resources/databases/";
 	private static final String qarsDataFolder = databaseFolder + "qarsData";
-	private static final String qarsTdbFolder = "./src/main/resources/tdb";
+	private static final String qarsTdbFolder = Paths.get(".").toAbsolutePath().normalize().toString()
+			 									+ "/src/main/resources/tdb";
+	private static String newDatabase;
+	private String oldDatabase = null;
 	
 	public QARSInitialization(String database, boolean isUploaded) throws IOException {
-		String usedDatabase = getCurrentUsedDatabase();
-		if(usedDatabase == null || !usedDatabase.equals(database)) {
+		newDatabase = database;
+		System.out.println("Received database : " + newDatabase);
+		getCurrentUsedDatabase();
+		if(oldDatabase == null || !oldDatabase.equals(newDatabase)) {
 			cleanQarsFolders();
 			String path = databaseFolder;
 			if(isUploaded) path += "uploaded/";
-			path += database;
+			path += newDatabase;
+			System.out.println("Path to the database : " + path);
 			useDatabase(path);
 			System.out.println("Path of the database : " + path);
 			String[] params = new String[5];
@@ -35,18 +43,16 @@ public class QARSInitialization {
 		FileUtils.copyFileToDirectory(new File(path), new File(qarsDataFolder));
 	}
 	
-	public String getCurrentUsedDatabase() {
+	public void getCurrentUsedDatabase() {
 		File[] files = new File(qarsDataFolder).listFiles();
 		if(files.length == 1) {
 			System.out.println("Database currently in the folder : " + files[0].getName());
-			return files[0].getName();
-		} else {
-			return null;
+			oldDatabase = files[0].getName();
 		}
 	}
 	
 	public void cleanQarsFolders() throws IOException {
-		System.out.println("Cleaning the directory to use another database");
+		System.out.println("Cleaning the directory to replace " + oldDatabase +" by " + newDatabase);
 		FileUtils.cleanDirectory(new File(qarsDataFolder));
 		FileUtils.cleanDirectory(new File(qarsTdbFolder));
 	}

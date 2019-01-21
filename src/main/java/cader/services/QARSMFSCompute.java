@@ -18,13 +18,15 @@ public class QARSMFSCompute {
 	private static final String qarsTdb = "./src/main/resources/tdb";
 	private static String summary;
 	private String query;
+	private long totalTime;
 	private static List<CQuery> allMFS, allXSS;
 	private static long startTime;
+	private static Session session;
 
-	public QARSMFSCompute(String query, boolean isLBA) {
+	public QARSMFSCompute(String query, boolean isLBA) throws Exception {
 		startTime = System.currentTimeMillis();
 		this.query = query;
-		Session session = SessionFactory.getTDBSession(qarsTdb);
+		session = SessionFactory.getTDBSession(qarsTdb);
 		CQuery conjunctiveQuery = CQueryFactory.createCQuery(this.query);
 		MFSSearch relaxationStrategy;
 
@@ -38,9 +40,13 @@ public class QARSMFSCompute {
 
 		allMFS = relaxationStrategy.getAllMFS();
 		allXSS = relaxationStrategy.getAllXSS();
-
-		summary = "TotalTime " + (System.currentTimeMillis() - startTime) + " ms\n";
+		
+		totalTime = System.currentTimeMillis() - startTime;
+		
+		summary = "TotalTime " + totalTime + " ms\n";
 		summary+= "Results: " + allMFS.size() + " MFS | " + allXSS.size() + " XSS\n";
+		
+		//session.close();
 	}
 
 	public String getSummary() {
@@ -48,7 +54,7 @@ public class QARSMFSCompute {
 	}
 	
 	public String getFullResults() throws IOException {
-		String filename = "/tmp/" + Integer.toString(this.query.hashCode()) + "-qars.tmp";
+		String filename = "tmp/" + Integer.toString(this.query.hashCode()) + "-qars.tmp";
 		try(FileWriter fw = new FileWriter(filename);
 				BufferedWriter bw = new BufferedWriter(fw);
 				PrintWriter out = new PrintWriter(bw)) {
@@ -73,5 +79,18 @@ public class QARSMFSCompute {
 			out.close();
 		}
 		return filename;
+	}
+	
+	public long getTotalTime() {
+		return totalTime;
+	}
+	
+	public void closeSession() {
+		try {
+			session.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
