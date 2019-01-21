@@ -77,7 +77,6 @@ public class ProcessController {
 		//export _JAVA_OPTIONS=-Xmx4096m
 		
 		if(isQuery != null && database != null) {
-			OntModel modelOnt = (new GetOntModel(database)).getModel();
 		
 			if(isQuery == 2) { //it's a query
 				System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++ ONE SPARQL QUERY PROCESSING ");
@@ -85,6 +84,7 @@ public class ProcessController {
 				String query = myrequest;
 				File processingResult = null;
 				if(algo == Algorithms.CADER){
+					OntModel modelOnt = (new GetOntModel(database)).getModel();
 					Cader relaxer = new Cader(query, modelOnt);
 					processingResult = new File(relaxer.getFullResults());
 				} else if(algo == Algorithms.LBA) {

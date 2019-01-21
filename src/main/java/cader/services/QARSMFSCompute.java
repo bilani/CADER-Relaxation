@@ -54,7 +54,7 @@ public class QARSMFSCompute {
 	}
 	
 	public String getFullResults() throws IOException {
-		String filename = "tmp/" + Integer.toString(this.query.hashCode()) + "-qars.tmp";
+		String filename = "/tmp/" + Integer.toString(this.query.hashCode()) + "-qars.tmp";
 		try(FileWriter fw = new FileWriter(filename);
 				BufferedWriter bw = new BufferedWriter(fw);
 				PrintWriter out = new PrintWriter(bw)) {
