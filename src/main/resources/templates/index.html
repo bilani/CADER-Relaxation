@@ -635,17 +635,25 @@
 		                    <div class="row bg-info text-white">
 								<div class="col-md-2" align="left"><b>			</b></div>
 								<div class="col-md-1"></div>
-								<div id="ColtotalTime" class="col-md-3"><b>Total time</b></div>
-								<div id="ColmfsTime" class="col-md-3"><b>MFS time</b></div>
-								<div id="ColxssTime" class="col-md-3"><b>XSS time</b></div>
+								<div id="ColtotalTime" class="col-md-1"><b>Total time</b></div>
+								<div id="ColmfsTime" class="col-md-1"><b>MFS time</b></div>
+								<div id="ColxssTime" class="col-md-1"><b>XSS time</b></div>
+								
+								<div id="nbReqCol" class="col-md-2"><b>Relaxed queries</b></div>
+								<div id="nbMFSCol" class="col-md-1"><b>MFS's</b></div>
+								<div id="nbXSSCol" class="col-md-1"><b>XSS's</b></div>
 							</div>
 							
-		                    <div class="row bg-info text-white">
+		                    <div class="row bg-primary text-white">
 								<div class="col-md-2" align="left"><b>Response Time </b></div>
 								<div class="col-md-1"></div>
-								<div id="totalTime" class="col-md-3">- ms</div>
-								<div id="mfsTime" class="col-md-3">- ms</div>
-								<div id="xssTime" class="col-md-3">- ms</div>
+								<div id="totalTime" class="col-md-1">- ms</div>
+								<div id="mfsTime" class="col-md-1">- ms</div>
+								<div id="xssTime" class="col-md-1">- ms</div>
+								
+								<div id="nbReq" class="col-md-2">-</div>
+								<div id="nbMFS" class="col-md-1">-</div>
+								<div id="nbXSS" class="col-md-1">-</div>
 							</div>
 						</div>
 						
@@ -653,9 +661,13 @@
 							<div class="row bg-info text-white">
 								<div class="col-md-2" align="left"><b></b></div>
 								<div class="col-md-1"></div>
-								<div id="ColtotalTime" class="col-md-3"><b></b></div>
-								<div id="ColmfsTime" class="col-md-3"><b></b></div>
-								<div id="ColxssTime" class="col-md-3"><b></b></div>
+								<div id="ColtotalTime" class="col-md-1"><b></b></div>
+								<div id="ColmfsTime" class="col-md-1"><b></b></div>
+								<div id="ColxssTime" class="col-md-1"><b></b></div>
+								
+								<div id="" class="col-md-2"><b></b></div>
+								<div id="" class="col-md-1"><b></b></div>
+								<div id="" class="col-md-1"><b></b></div>
 							</div>
 														
 						</div>
@@ -876,21 +888,30 @@
 			    cache: false,
 			    success: function (data) {
 			    	//alert(data);
-			    	var allMfs = 0, allXss = 0;
+			    	var allMfs = 0, allXss = 0, nrelaxed = 0, nmfs =0, nxss =0;
 			    	$('#queries').empty();
-					var e = '<div class="row bg-info text-white"><div class="col-md-2" align="left"><b></b></div><div class="col-md-1"></div><div id="total" class="col-md-3"></div><div id="mfs" class="col-md-3"></div><div id="xss" class="col-md-3"></div></div>';
+					var e = '<div class="row bg-info text-white"><div class="col-md-2" align="left"><b></b></div><div class="col-md-1"></div><div id="total" class="col-md-1"></div><div id="mfs" class="col-md-1"></div><div id="xss" class="col-md-1"></div> <div id="nbReq" class="col-md-2"></div><div id="nbMFS" class="col-md-1"></div><div id="nbXSS" class="col-md-1"></div></div>';
+					
 			    	$('#queries').append(e);
 			    	$.each(data, function(k, v) {
 			    		var parts = v.split(",");
 			    		allMfs = allMfs + parseInt(parts[4]);
 			    		allXss = allXss + parseInt(parts[5]);
+			    		nrelaxed = nrelaxed + parseInt(parts[0]);
+			    		nmfs = nmfs + parseInt(parts[1]);
+			    		nxss = nxss + parseInt(parts[2]);
 
-			    		var elem = '<div class="row bg-info text-white"><div class="col-md-2" align="left"><b>'+ k +'</b></div><div class="col-md-1"></div><div id="totalTime'+ k +'" class="col-md-3">'+ parts[3] +' ms</div><div id="mfsTime'+ k +'" class="col-md-3">'+ parts[4] +' ms</div><div id="xssTime'+ k +'" class="col-md-3">'+ parts[5] +' ms</div></div>';
+			    		var elem = '<div class="row bg-info text-white"><div class="col-md-2" align="left"><b>'+ k +'</b></div><div class="col-md-1"></div><div id="totalTime'+ k +'" class="col-md-1">'+ parts[3] +' ms</div><div id="mfsTime'+ k +'" class="col-md-1">'+ parts[4] +' ms</div><div id="xssTime'+ k +'" class="col-md-1">'+ parts[5] +' ms</div><div id="relaxed'+ k +'" class="col-md-2">'+ parts[0] +'</div><div id="mfsn'+ k+'" class="col-md-1">'+ parts[1] +'</div><div id="xssn'+k+'" class="col-md-1">'+ parts[2] +'</div></div>';
 			    		$('#queries').append(elem);
 			    	});
 			    	
 			    	$('#xssTime').html(allXss + " ms");
 		    		$('#mfsTime').html(allMfs + " ms");
+		    		
+		    		$('#nbReq').html(nrelaxed);
+		    		$('#nbMFS').html(nmfs);
+		    		$('#nbXSS').html(nxss);
+
 			    	//$('#totalTime').html(data);
 			    },
 			    error: function () {
