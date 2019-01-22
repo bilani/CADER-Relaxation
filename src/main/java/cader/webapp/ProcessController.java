@@ -41,7 +41,7 @@ import objects.Algorithms;
  */
 @Controller
 public class ProcessController {
-	
+	private static final String databaseFolder = "src/main/resources/databases";
 	public ArrayList<String> allDatasets = new ArrayList<>();
 
 	public String lastUploaded;
@@ -200,7 +200,7 @@ public class ProcessController {
 	  try {
 	  
 	    String filename = uploadfile.getOriginalFilename();
-	    String directory = "src/main/resources/databases";
+	    String directory = databaseFolder;
 	    String filepath = Paths.get(directory, filename).toString();
 	    
 	    // Save the file 
@@ -235,7 +235,7 @@ public class ProcessController {
             produces="application/json")
 	public @ResponseBody ArrayList<?> getDatasets() {
 		//get your datasets list here
-		File folder = new File("src/main/resources/databases");
+		File folder = new File(databaseFolder);
 		File[] listOfFiles = folder.listFiles();
 		allDatasets = new ArrayList<>();
 

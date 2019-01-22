@@ -16,14 +16,12 @@
  * limitations under the License.
  */
 
-package query.relax.cader.algorithm;
+package objects;
 
 import static cader.logger.Log.HITTINGSET;
 import static cader.logger.Log.LOG_ON;
 
 import java.util.*;
-
-import objects.CombinationGenerator;
 
 /**
  * local DB : University and professors example 

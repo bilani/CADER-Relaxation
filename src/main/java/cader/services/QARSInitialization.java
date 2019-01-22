@@ -5,15 +5,16 @@ import java.io.IOException;
 import java.nio.file.Paths;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.jena.sparql.pfunction.library.str;
 
 import fr.ensma.lias.qarscore.loader.JenaBulkLoader;
 
 public class QARSInitialization {
-	private static final String databaseFolder = Paths.get(".").toAbsolutePath().normalize().toString()
-												 + "/src/main/resources/databases/";
+	private static final String resourcesFolder = Paths.get(".").toAbsolutePath().normalize().toString()
+			 										+ "/src/main/resources/";
+	private static final String databaseFolder = resourcesFolder + "databases/";
 	private static final String qarsDataFolder = databaseFolder + "qarsData";
-	private static final String qarsTdbFolder = Paths.get(".").toAbsolutePath().normalize().toString()
-			 									+ "/src/main/resources/tdb";
+	private static final String qarsTdbFolder = resourcesFolder + "tdb";
 	private static String newDatabase;
 	private String oldDatabase = null;
 	

@@ -12,7 +12,6 @@ import java.util.Iterator;
 import org.apache.jena.ontology.OntModel;
 
 import cader.services.QueryLauncher;
-import query.relax.cader.algorithm.HittingSets;
 
 /**
  * @author blackstorm

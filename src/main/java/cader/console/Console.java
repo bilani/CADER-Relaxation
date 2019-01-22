@@ -1,5 +1,6 @@
 package cader.console;
 
+import java.io.File;
 import java.util.Scanner;
 
 import org.apache.jena.ontology.OntModel;
@@ -11,7 +12,8 @@ import cader.services.QARSMFSCompute;
 import objects.Algorithms;
 
 public class Console {
-
+	private static final String databaseFolder = "src/main/resources/databases";
+	
 	/**
 	 * @param args
 	 * @throws Exception 
@@ -19,20 +21,16 @@ public class Console {
 	public static void main( String[] args ) throws Exception {
 		FileQuery fileReader;
 		QARSInitialization initQars = null;
-		String choosedDatabase, owlDatabase;
+		String choosedDatabase;
 		Cader relaxer = null;
 		QARSMFSCompute qars = null;
 		
 		
 		while(true) {
+			@SuppressWarnings("resource")
 			Scanner sc = new Scanner(System.in);
-			System.out.println("Please choose the database size:"
-					+ "\n[100] -> LUBM100.owl"
-					+ "\n[1K] -> LUBM1K.owl" 
-					+ "\n[10K] -> LUBM10K.owl");
-			choosedDatabase = "LUBM" + sc.nextLine();
-			owlDatabase = choosedDatabase + ".owl";
-			System.out.println(choosedDatabase + " - " + owlDatabase);
+			getDatabases();
+			choosedDatabase = sc.nextLine() + ".owl";
 			
 			database: while(true) {
 			
@@ -49,17 +47,17 @@ public class Console {
 				
 				switch(choice) {
 				case 0:
-					model = (new GetOntModel(owlDatabase)).getModel();
+					model = (new GetOntModel(choosedDatabase)).getModel();
 					choosedAlgorithm = Algorithms.CADER;
 					break;
 				case 1:
-					System.out.println("Choosed Database :" + owlDatabase);
-					initQars = new QARSInitialization(owlDatabase);
+					System.out.println("Choosed Database :" + choosedDatabase);
+					initQars = new QARSInitialization(choosedDatabase);
 					choosedAlgorithm = Algorithms.LBA;
 					break;
 				case 2:
-					System.out.println("Choosed Database :" + owlDatabase + ".owl");
-					initQars = new QARSInitialization(owlDatabase);
+					System.out.println("Choosed Database :" + choosedDatabase + ".owl");
+					initQars = new QARSInitialization(choosedDatabase);
 					choosedAlgorithm = Algorithms.MBA;
 					break;
 				case 3:
@@ -67,7 +65,7 @@ public class Console {
 					if(initQars != null) initQars.cleanQarsFolders();
 					initQars = null;
 					choosedDatabase = null;
-					owlDatabase = null;
+					choosedDatabase = null;
 					break database;
 				}
 
@@ -103,7 +101,7 @@ public class Console {
 						System.out.println("Please enter file location:");
 						String path = sc.nextLine();
 						if(!path.isEmpty()) {
-							fileReader = new FileQuery(choosedAlgorithm, path, owlDatabase);
+							fileReader = new FileQuery(choosedAlgorithm, path, choosedDatabase);
 							System.out.println();
 							System.out.println(fileReader.getSummary());
 							System.out.println("You can the find the full results at the location: " + fileReader.getPathOfZipResultsFile());
@@ -121,6 +119,19 @@ public class Console {
 						continue algorithm;
 					}
 				}
+			}
+		}
+	}
+
+	private static void getDatabases() {
+		// TODO Auto-generated method stub
+		System.out.println("Please choose the database size:");
+		File folder = new File(databaseFolder);
+		File[] listOfFiles = folder.listFiles();
+		for (int i = 0; i < listOfFiles.length; i++) {
+			if (listOfFiles[i].isFile()) {
+				String database = listOfFiles[i].getName();
+				System.out.println("[" + database.substring(0, database.indexOf(".owl")) + "] -> " + database);
 			}
 		}
 	}
