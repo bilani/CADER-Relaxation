@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,6 +47,7 @@ public class ProcessController {
 
 	public String lastUploaded;
 	public String theTotal;
+	public Map<String, String> allQueries;
 	/**
 	 * @param name
 	 * @param model
@@ -134,6 +136,7 @@ public class ProcessController {
 					System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>> SUMMARY >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 					theTotal = summaryHelper(fquery.getSummary()).toString();
 					System.out.println(theTotal);
+					allQueries = fquery.getFormattedResults();
 					
 					System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>> END SUMMARY >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 					
@@ -293,6 +296,13 @@ public class ProcessController {
 	public @ResponseBody String getTotalTime() {
 		//get your total time here
 		return theTotal;
+	}
+	
+	@RequestMapping(value = "/allQueries", method = RequestMethod.GET,
+            produces=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Map<?,?> getAllQueries() {
+		//get your total time here
+		return allQueries;
 	}
 	
 	/**

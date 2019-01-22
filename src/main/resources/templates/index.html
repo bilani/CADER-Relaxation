@@ -630,23 +630,37 @@
 						</style>
 						
 	                     <br><hr style="color:black;"><br>
-	                     
-	                     <div class="row bg-info text-white">
-							<div class="col-md-2" align="left"><b>			</b></div>
-							<div class="col-md-1"></div>
-							<div id="ColtotalTime" class="col-md-3"><b>Total time</b></div>
-							<div id="ColxssTime" class="col-md-3"><b>MFS time</b></div>
-							<div id="ColmfsTime" class="col-md-3"><b>XSS time</b></div>
+	                    
+	                    <div id="timing"> 
+		                    <div class="row bg-info text-white">
+								<div class="col-md-2" align="left"><b>			</b></div>
+								<div class="col-md-1"></div>
+								<div id="ColtotalTime" class="col-md-3"><b>Total time</b></div>
+								<div id="ColmfsTime" class="col-md-3"><b>MFS time</b></div>
+								<div id="ColxssTime" class="col-md-3"><b>XSS time</b></div>
+							</div>
+							
+		                    <div class="row bg-info text-white">
+								<div class="col-md-2" align="left"><b>Response Time </b></div>
+								<div class="col-md-1"></div>
+								<div id="totalTime" class="col-md-3">- ms</div>
+								<div id="mfsTime" class="col-md-3">- ms</div>
+								<div id="xssTime" class="col-md-3">- ms</div>
+							</div>
 						</div>
 						
-	                    <div class="row bg-info text-white">
-							<div class="col-md-2" align="left"><b>Response Time </b></div>
-							<div class="col-md-1"></div>
-							<div id="totalTime" class="col-md-3">- sec</div>
-							<div id="xssTime" class="col-md-3">- sec</div>
-							<div id="mfsTime" class="col-md-3">- sec</div>
+						<div id="queries">
+							<div class="row bg-info text-white">
+								<div class="col-md-2" align="left"><b></b></div>
+								<div class="col-md-1"></div>
+								<div id="ColtotalTime" class="col-md-3"><b></b></div>
+								<div id="ColmfsTime" class="col-md-3"><b></b></div>
+								<div id="ColxssTime" class="col-md-3"><b></b></div>
+							</div>
+														
 						</div>
-	                
+						
+
 		                <br><br>
 		                
 		                <iframe id="downloadFrame" style="display:none"></iframe>
@@ -818,6 +832,7 @@
 	                	$('#allDown').show();
 	                	
 	                	GetTotalTiming();
+	                	GetTotalQueries();
 	                	
 	                	//alert(data);
 	                }else{
@@ -850,6 +865,39 @@
 					console.log("DONE");
 				}
 	        });
+	    }
+	    
+	    function GetTotalQueries(){
+	    	
+	    	$.ajax({
+			    url: "/allQueries",
+			    type: "GET",
+			    processData: false,
+			    cache: false,
+			    success: function (data) {
+			    	//alert(data);
+			    	var allMfs = 0, allXss = 0;
+			    	$('#queries').empty();
+					var e = '<div class="row bg-info text-white"><div class="col-md-2" align="left"><b></b></div><div class="col-md-1"></div><div id="total" class="col-md-3"></div><div id="mfs" class="col-md-3"></div><div id="xss" class="col-md-3"></div></div>';
+			    	$('#queries').append(e);
+			    	$.each(data, function(k, v) {
+			    		var parts = v.split(",");
+			    		allMfs = allMfs + parseInt(parts[4]);
+			    		allXss = allXss + parseInt(parts[5]);
+
+			    		var elem = '<div class="row bg-info text-white"><div class="col-md-2" align="left"><b>'+ k +'</b></div><div class="col-md-1"></div><div id="totalTime'+ k +'" class="col-md-3">'+ parts[3] +' ms</div><div id="mfsTime'+ k +'" class="col-md-3">'+ parts[4] +' ms</div><div id="xssTime'+ k +'" class="col-md-3">'+ parts[5] +' ms</div></div>';
+			    		$('#queries').append(elem);
+			    	});
+			    	
+			    	$('#xssTime').html(allXss + " ms");
+		    		$('#mfsTime').html(allMfs + " ms");
+			    	//$('#totalTime').html(data);
+			    },
+			    error: function () {
+			      // Handle return error
+			      alert('Oops !! No timing !');
+			    }
+			});
 	    }
 	    
 	    function uploadFile() {	
