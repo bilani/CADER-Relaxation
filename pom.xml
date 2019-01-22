@@ -100,7 +100,11 @@
 		</dependency>
 
 		<!-- Jena and Qars stuff -->
-		
+		<dependency>
+			<groupId>forge.lias-lab.fr</groupId>
+			<artifactId>qars</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>apache-jena-libs</artifactId>
