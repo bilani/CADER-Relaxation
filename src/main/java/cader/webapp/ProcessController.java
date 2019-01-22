@@ -70,7 +70,19 @@ public class ProcessController {
 		String database = "" + selecteddb + ".owl";
 		
 		//export _JAVA_OPTIONS=-Xmx4096m
+
+		//-- secure tdb folder --//
 		
+		File f2 = new File("src/main/resources/tdb");
+		if (!f2.exists() || !f2.isDirectory()) {
+			 Boolean mkdired = (new File("src/main/resources/tdb")).mkdirs();
+			 if (!mkdired) {
+			     System.out.println("FATAL ERROR !! check permissions");
+			     return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			 }
+		}
+		  
+		//----------------------//
 		if(isQuery != null && database != null) {
 		
 			if(isQuery == 2) { //it's a query
@@ -165,6 +177,7 @@ public class ProcessController {
 		return "Server OK";
 	}
 	
+	//P.S : Synchronous file upload
 	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<?> uploadFiile(
@@ -172,6 +185,18 @@ public class ProcessController {
 	  
 	  try {
 	  
+		  //--- secure deleted tmp ---//
+		  
+		  File f = new File("tmp");
+		  if (!f.exists() || !f.isDirectory()) {
+			  Boolean mkdired = (new File("tmp")).mkdirs();
+			  if (!mkdired) {
+			      System.out.println("FATAL ERROR !! check permissions");
+			      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			  }
+		  }
+		  
+		  //-------------------------//
 	    String filename = uploadfile.getOriginalFilename();
 	    String directory = "tmp";
 	    String filepath = Paths.get(directory, filename).toString();
