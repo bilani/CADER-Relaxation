@@ -12,15 +12,16 @@ import org.apache.jena.ontology.OntModel;
 import objects.Query;
 
 public class Cader {
-	private String query;
+	private int relaxedQueries, mfsSize, xssSize;
+	private long startTime, mfsTime, xssTime, totalTime;
 	private static QueryLauncher queryLauncher;
 	private Query relaxedQuery;
-	private long startTime, mfsTime, xssTime, totalTime;
+	private String query, summary;
 	private HashSet<String> MFSesQueries;
 	private HashSet<String> CoXSSesQueries;
 	private HashSet<String> XSSesQueries;
-	private String result;
 	private boolean wasRelaxed;
+	
 	public Cader(String query, OntModel model) {
 		startTime = System.currentTimeMillis();
 		this.query = query;
@@ -51,34 +52,50 @@ public class Cader {
 			System.out.println("Relaxed Queries : " + XSSesQueries);
 
 			totalTime = xssTime - startTime;
-			result = "TotalTime " + totalTime + " ms,";
+			summary = "TotalTime " + totalTime + " ms,";
 
 			xssTime -= mfsTime;
 			mfsTime -= startTime;
-			result+= " Time MFS " + mfsTime + " ms, Time XSS "+ xssTime + " ms\n";
+			summary+= " Time MFS " + mfsTime + " ms, Time XSS "+ xssTime + " ms\n";
 
+			this.relaxedQueries = relaxedQuery.getNumberOfExecutedQueries();
+			this.mfsSize = MFSesQueries.size();
+			this.xssSize = XSSesQueries.size();
 
-			result+= "NbRequête: " + relaxedQuery.getNumberOfExecutedQueries() + " Relaxées | ";
-			result+= MFSesQueries.size() + " MFS | ";
-			result+= XSSesQueries.size() + " XSS \n";
+			summary+= "NbRequête: " + relaxedQueries + " Relaxées | ";
+			summary+= mfsSize + " MFS | ";
+			summary+= xssSize + " XSS \n";
 			wasRelaxed = true;
 
 		} else {
 
 			totalTime = System.currentTimeMillis() - startTime;
 			System.out.println("No relaxed - Total time : " + totalTime);
-			result = "No relaxed - Total time : " + totalTime + "\n";
+			summary = "No relaxed - Total time : " + totalTime + "\n";
 		}
 	}
 
 	public String getSummary() {
-		return result;
+		return summary;
 	}
 	
 	public long getTotalTime() {
 		return totalTime;
 	}
+	
+	public String getFormattedResults() {
+		return  relaxedQueries + "," + mfsSize + "," + xssSize 
+				+ "," + totalTime + "," + mfsTime + "," + xssTime;
+	}
+	
+	public HashSet<String> getMFSesQueries() {
+		return MFSesQueries;
+	}
 
+	public HashSet<String> getXSSesQueries() {
+		return XSSesQueries;
+	}
+	
 	public String getFullResults() throws IOException {
 		String filename = "/tmp/" + Integer.toString(this.query.hashCode()) + ".tmp";
 		try(FileWriter fw = new FileWriter(filename);
@@ -86,7 +103,7 @@ public class Cader {
 				PrintWriter out = new PrintWriter(bw)) {
 			out.println("Query : " + this.query);
 			out.println();
-			out.println(this.result);
+			out.println(this.summary);
 			if (wasRelaxed) {
 				int indice = 1;
 				Iterator<String> iterator = getMFSesQueries().iterator();
@@ -112,13 +129,5 @@ public class Cader {
 		}
 		return filename;
 
-	}
-
-	public HashSet<String> getMFSesQueries() {
-		return MFSesQueries;
-	}
-
-	public HashSet<String> getXSSesQueries() {
-		return XSSesQueries;
 	}
 }

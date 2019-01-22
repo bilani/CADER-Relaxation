@@ -13,20 +13,22 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+
 import org.apache.jena.ontology.OntModel;
+
 import objects.Algorithms;
 
 public class FileQuery {
-	private String result = "";
 	private ArrayList<String> resultFileList;
-	private String zipPath;
-	private String summary;
+	private String summary, summaryFile, zipPath;
 	private static final int BUFFER = 2048;
 	private static long time = 0;
-
+	private Map<String, String> formattedResults;
 	/**
 	 *
 	 * @param location
@@ -36,21 +38,23 @@ public class FileQuery {
 	public FileQuery(Algorithms choosedAlgorithm, String location, String database) throws Exception {
 		String hashCode = String.valueOf(location.hashCode());
 		zipPath = "tmp/Results.zip";
-		summary = "tmp/" + hashCode + ".txt";
+		summaryFile = "tmp/" + hashCode + ".txt";
 		resultFileList = new ArrayList<String>();
-		result = "Used algorithm: ";
+		summary = "Used algorithm: ";
+		formattedResults = new LinkedHashMap<String, String>();
+		
 		switch(choosedAlgorithm) {
 			case CADER:
 				OntModel model = (new GetOntModel(database)).getModel();
-				result += "CADER\n";
+				summary += "CADER\n";
 				Cader(location, model);
 				break;
 			case LBA:
-				result += "LBA\n";
+				summary += "LBA\n";
 				qarsAlgorithms(location, database, true);
 				break;
 			case MBA:
-				result += "MBA\n";
+				summary += "MBA\n";
 				qarsAlgorithms(location, database, true);
 				break;
 			default:
@@ -60,7 +64,7 @@ public class FileQuery {
 
 	public void Cader(String location, OntModel model) throws IOException {
 		int index = 0;
-		String query = "";
+		String numberedQuery, query;
 		Cader relaxer;
 		try {
 			Scanner scanner = new Scanner(new File(location));
@@ -73,13 +77,15 @@ public class FileQuery {
 					System.out.println("Launching the query n°" + index + ": ");
 					index++;
 					relaxer = new Cader(query, model);
-					result += "Query n°" + index + ": \n";
-					result += relaxer.getSummary();
+					numberedQuery = "Query n°" + index;
+					summary += numberedQuery + ": \n";
+					summary += relaxer.getSummary();
 					time += relaxer.getTotalTime();
 					resultFileList.add(relaxer.getFullResults());
+					formattedResults.put(numberedQuery, relaxer.getFormattedResults());
 				}
 			}
-			result += "\n" + "TOTAL TIME: " + time + "ms" + "\n";
+			summary += "\n" + "TOTAL TIME: " + time + "ms" + "\n";
 			scanner.close();
 			System.out.println(">>>>>>>>> Before generating ZIP");
 			generateZip();
@@ -90,7 +96,7 @@ public class FileQuery {
 	
 	public void qarsAlgorithms(String location, String database, boolean isLBA) throws Exception {
 		int index = 0;
-		String query = "";
+		String numberedQuery, query;
 		QARSMFSCompute relaxer;
 		try {
 			new QARSInitialization(database);
@@ -104,13 +110,15 @@ public class FileQuery {
 					System.out.println("Launching the query n°" + index + ": ");
 					index++;
 					relaxer = new QARSMFSCompute(query, isLBA);
-					result += "Query n°" + index + ": \n";
-					result += relaxer.getSummary();
+					numberedQuery = "Query n°" + index;
+					summary += numberedQuery + ": \n";
+					summary += relaxer.getSummary();
 					time += relaxer.getTotalTime();
 					resultFileList.add(relaxer.getFullResults());
+					formattedResults.put(numberedQuery, relaxer.getFormattedResults());
 				}
 			}
-			result += "\n" + "TOTAL TIME: " + time + "ms" + "\n";
+			summary += "\n" + "TOTAL TIME: " + time + "ms" + "\n";
 			scanner.close();
 			System.out.println(">>>>>>>>> Before generating ZIP");
 			generateZip();
@@ -119,6 +127,24 @@ public class FileQuery {
 		}
 	}
 
+	/**
+	 * @return Summary of the relaxation.
+	 */
+	public String getSummary() {
+		return summary;
+	}
+
+	/**
+	 * @return the path of the archive.
+	 */
+	public String getPathOfZipResultsFile() {
+		return zipPath;
+	}
+	
+	public Map<String, String> getFormattedResults(){
+		return formattedResults;
+	}
+	
 	/**
 	 * Generate a zip archive which contains all the results and a summary.
 	 * @throws IOException
@@ -130,12 +156,12 @@ public class FileQuery {
 		ZipOutputStream out = new ZipOutputStream(buff);
 
 		//We add the summary to the zip archive
-		try(FileWriter fw = new FileWriter(summary);
+		try(FileWriter fw = new FileWriter(summaryFile);
 				BufferedWriter bw = new BufferedWriter(fw);
 				PrintWriter writer = new PrintWriter(bw)){
-			writer.print(result);
+			writer.print(summary);
 			writer.close();
-			FileInputStream fi = new FileInputStream(summary);
+			FileInputStream fi = new FileInputStream(summaryFile);
 			BufferedInputStream buffi = new BufferedInputStream(fi, BUFFER);
 			ZipEntry entry= new ZipEntry("Summary.txt");
 			out.putNextEntry(entry);
@@ -164,19 +190,5 @@ public class FileQuery {
 			buffi.close();
 		}
 		out.close();
-	}
-
-	/**
-	 * @return Summary of the relaxation.
-	 */
-	public String getSummary() {
-		return result;
-	}
-
-	/**
-	 * @return the path of the archive.
-	 */
-	public String getPathOfZipResultsFile() {
-		return zipPath;
 	}
 }

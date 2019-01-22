@@ -16,11 +16,10 @@ import fr.ensma.lias.qarscore.engine.relaxation.mfssearchengine.StrategyFactory;
 
 public class QARSMFSCompute {
 	private static final String qarsTdb = "./src/main/resources/tdb";
-	private static String summary;
-	private String query;
-	private long totalTime;
+	private String summary, query;
+	private long startTime, totalTime;
+	private int mfsSize, xssSize;
 	private static List<CQuery> allMFS, allXSS;
-	private static long startTime;
 	private static Session session;
 
 	public QARSMFSCompute(String query, boolean isLBA) throws Exception {
@@ -53,6 +52,15 @@ public class QARSMFSCompute {
 		return summary;
 	}
 	
+	public String getFormattedResults() {
+		return  " - ," + mfsSize + "," + xssSize 
+				+ "," + totalTime + ", - , - ";
+	}
+	
+	public long getTotalTime() {
+		return totalTime;
+	}
+	
 	public String getFullResults() throws IOException {
 		String filename = "/tmp/" + Integer.toString(this.query.hashCode()) + "-qars.tmp";
 		try(FileWriter fw = new FileWriter(filename);
@@ -79,18 +87,5 @@ public class QARSMFSCompute {
 			out.close();
 		}
 		return filename;
-	}
-	
-	public long getTotalTime() {
-		return totalTime;
-	}
-	
-	public void closeSession() {
-		try {
-			session.close();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }
