@@ -631,6 +631,14 @@
 						
 	                     <br><hr style="color:black;"><br>
 	                     
+	                     <div class="row bg-info text-white">
+							<div class="col-md-2" align="left"><b>			</b></div>
+							<div class="col-md-1"></div>
+							<div id="ColtotalTime" class="col-md-3"><b>Total time</b></div>
+							<div id="ColxssTime" class="col-md-3"><b>MFS time</b></div>
+							<div id="ColmfsTime" class="col-md-3"><b>XSS time</b></div>
+						</div>
+						
 	                    <div class="row bg-info text-white">
 							<div class="col-md-2" align="left"><b>Response Time </b></div>
 							<div class="col-md-1"></div>
@@ -777,7 +785,7 @@
 	   		var data = {}
 			
 			data["selecteddb"] = selecteddb;
-			data["choice"] = $('input:radio[name="choice"]').val();
+			data["choice"] = $('input:radio[name="choice"]:checked').val();
 			data["request"] = $('#req-input').val();
 			data["uploadfile"] = $('#req-select').val();
 			data["algo"] = $('input:radio[name="engine"]:checked').val();
@@ -804,13 +812,27 @@
 	                
 	                $('#myDown').prop( "disabled", false );
 	                if(choice == 1){
+	                	//it's a file
 	                	$('#allDown').prop( "disabled", false );
 	                	$('#myDown').hide();
 	                	$('#allDown').show();
+	                	
+	                	GetTotalTiming();
+	                	
+	                	//alert(data);
 	                }else{
+	                	//just query
 	                	$('#myDown').prop( "disabled", false);
 	                	$('#allDown').hide();
 	                	$('#myDown').show();
+	                	var lines = data.split('\n');
+	                	var parts = lines[2].split(' ');
+	                	
+	                	$('#totalTime').html(parts[1]+ " " + parts[2]);
+	                	$('#xssTime').html(parts[5] + " " +parts[6]);
+	                	$('#mfsTime').html(parts[9] + " "+ parts[10]);
+ 
+	                	//alert(parts[1] + " " + parts[5] + " " + parts[9]);
 	                }
 	                
 	              	allResults = data;
@@ -853,6 +875,24 @@
 		    }
 		  });
 		}
+	    
+	    function GetTotalTiming(){
+
+			$.ajax({
+			    url: "/allTotals",
+			    type: "GET",
+			    processData: false,
+			    cache: false,
+			    success: function (data) {
+			    	//alert(data);
+			    	$('#totalTime').html(data);
+			    },
+			    error: function () {
+			      // Handle return error
+			      alert('Oops !! No timing !');
+			    }
+			});
+	    }
 	    
 	    function GetAllDatasets(){ 
 	    	allDS = "";

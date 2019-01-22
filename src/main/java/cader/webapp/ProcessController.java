@@ -45,6 +45,7 @@ public class ProcessController {
 	public ArrayList<String> allDatasets = new ArrayList<>();
 
 	public String lastUploaded;
+	public String theTotal;
 	/**
 	 * @param name
 	 * @param model
@@ -111,7 +112,7 @@ public class ProcessController {
 
 					HttpHeaders responseHeaders = new HttpHeaders();
 					responseHeaders.set("charset", "utf-8");
-					responseHeaders.setContentType(MediaType.valueOf("application/txt"));
+					responseHeaders.setContentType(MediaType.TEXT_PLAIN);
 					responseHeaders.setContentLength(array.length);
 					responseHeaders.set("Content-disposition", fileName);
 
@@ -129,6 +130,13 @@ public class ProcessController {
 					
 					// ZIP is in Results.zip
 					FileQuery fquery = new FileQuery(algo, "tmp/" + lastUploaded, database);
+					
+					System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>> SUMMARY >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+					theTotal = summaryHelper(fquery.getSummary()).toString();
+					System.out.println(theTotal);
+					
+					System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>> END SUMMARY >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+					
 					File resultsZip = new File(fquery.getPathOfZipResultsFile());
 					byte[] array = Files.readAllBytes(resultsZip.toPath());
 					String fileName = "attachment; filename=Results.zip";
@@ -278,5 +286,32 @@ public class ProcessController {
 		}
 		
 		return allDatasets;
+	}
+	
+	@RequestMapping(value = "/allTotals", method = RequestMethod.GET,
+            produces=MediaType.TEXT_PLAIN_VALUE)
+	public @ResponseBody String getTotalTime() {
+		//get your total time here
+		return theTotal;
+	}
+	
+	/**
+	 * To get the interesting part of the summary
+	 * @param summ
+	 * @return
+	 */
+	public String summaryHelper(String summ) {
+		int strt = summ.indexOf("TOTAL TIME:") + "TOTAL TIME:".length();
+		StringBuilder res = new StringBuilder("");
+		
+    	int stop = 0;
+    	Character curr;
+    	do {
+    		curr = summ.charAt(strt++);
+    		res.append(curr);
+    		stop ++;
+    	}while(strt < summ.length() && stop <10 && curr != '\n');
+    	
+		return res.toString();
 	}
 }

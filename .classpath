@@ -29,6 +29,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/anass-jouhri/Downloads/qars-dist.jar"/>
+	<classpathentry kind="lib" path="/home/anass-jouhri/Desktop/query-relaxation/src/main/resources/lib/qars-dist.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
