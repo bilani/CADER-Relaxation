@@ -110,7 +110,6 @@ public class Console {
 						break;
 					case 2 :
 						fileReader = null;
-						if(qars != null) qars.closeSession();
 						qars = null;
 						relaxer = null;
 						break algorithm;
