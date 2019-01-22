@@ -13,8 +13,10 @@ mvn install:install-file    -Dfile=./src/main/resources/lib/qars-dist.jar    -Dg
 
 ## 1 # To execute the web application :
 
+### Use this method :
 1/ Launch the main class [Application.java]
 2/ Application is running on port 8080 : localhost:8080
 
-//File upload & Results summary are not yet fully implemented
-
+### Or this :
+1\ Build using : mvn clean install 
+2\ Run on server using : java -jar target/cader-1.0-SNAPSHOT.jar 
