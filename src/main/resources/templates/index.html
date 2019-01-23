@@ -493,6 +493,7 @@
   <link rel="stylesheet" type="text/css" href="css/component.css" />
 
   <script src="js/custom-file-input.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 		
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
@@ -671,8 +672,49 @@
 							</div>
 														
 						</div>
-						
+						<br><br>
+						<button class="btn btn-danger" onClick="plotCaderLbaMba()">Compare performance</button>
+						<div id="myDiv1"></div>
+						<script>
+							var newY = [];
+							var allCader = [];
+							
+							function getYall(){
+								
+								$("#myFrame").show();
+								//GIVING U 3 CHANCES, SHOW ME WHAT U'VE GOT
+								temp = 0;
+								for(i = 0; i < 3; i++) {
+									getEssentials(1);
+									allCader.push(parseInt(temp));
+								} 
+								newY.push(Math.min.apply(null, allCader));
+								
+								//NO NEED, 1 CHANCE IS SUFFICIENT
+								getEssentials(2);
+								newY.push(parseInt(temp));
+								getEssentials(3);
+								newY.push(parseInt(temp));
+								
+								$("#myFrame").hide();
+								
+								//alert(newY);
+							}
+							
+							function plotCaderLbaMba(){
+								getYall();
+								
+								var data = [{
+									  x: ['CADER', 'MBA', 'LBA'],
+									  y: newY,
+									  type: 'bar'
+									}];
 
+									Plotly.newPlot('myDiv1', data, {}, {showSendToCloud:true});
+									newY = [];
+							}
+						</script>
+  
 		                <br><br>
 		                
 		                <iframe id="downloadFrame" style="display:none"></iframe>
@@ -887,6 +929,7 @@
 			    type: "GET",
 			    processData: false,
 			    cache: false,
+			    async: false,
 			    success: function (data) {
 			    	var parts = data.split(',');
 			    	$('#nbReq').html(parts[0]);
@@ -896,6 +939,28 @@
                 	$('#totalTime').html(parts[3]);
                 	$('#xssTime').html(parts[5]);
                 	$('#mfsTime').html(parts[4]);
+                	//alert(data);
+			    },
+			    error: function () {
+				      // Handle return error
+				      alert('Oops !! Server s off');
+				    }
+				});
+		    }
+		
+		function GetFormattedRes2(){
+	    	
+			$.ajax({
+			    url: "/formattedResults",
+			    type: "GET",
+			    processData: false,
+			    cache: false,
+			    async: false,
+			    success: function (data) {
+			    	var parts = data.split(',');
+			  
+                	temp = parts[3];
+
                 	//alert(data);
 			    },
 			    error: function () {
@@ -931,6 +996,14 @@
 			    		var elem = '<div class="row bg-info text-white"><div class="col-md-2" align="left"><b>'+ k +'</b></div><div class="col-md-1"></div><div id="totalTime'+ k +'" class="col-md-1">'+ parts[3] +' ms</div><div id="mfsTime'+ k +'" class="col-md-1">'+ parts[4] +' ms</div><div id="xssTime'+ k +'" class="col-md-1">'+ parts[5] +' ms</div><div id="relaxed'+ k +'" class="col-md-2">'+ parts[0] +'</div><div id="mfsn'+ k+'" class="col-md-1">'+ parts[1] +'</div><div id="xssn'+k+'" class="col-md-1">'+ parts[2] +'</div></div>';
 			    		$('#queries').append(elem);
 			    	});
+			    	
+			    	if(isNaN(allXss)){
+			    		allXss = "-";
+			    	}
+			    	
+			    	if(isNaN(allMfs)){
+			    		allMfs = "-";
+			    	}
 			    	
 			    	$('#xssTime').html(allXss + " ms");
 		    		$('#mfsTime').html(allMfs + " ms");
@@ -979,9 +1052,30 @@
 			    type: "GET",
 			    processData: false,
 			    cache: false,
+			    async: false,
 			    success: function (data) {
 			    	//alert(data);
 			    	$('#totalTime').html(data);
+			    },
+			    error: function () {
+			      // Handle return error
+			      alert('Oops !! No timing !');
+			    }
+			});
+	    }
+	    
+	    function GetTotalTiming2(){
+
+			$.ajax({
+			    url: "/allTotals",
+			    type: "GET",
+			    processData: false,
+			    cache: false,
+			    async: false,
+			    success: function (data) {
+			    	//alert(data);
+			    	temp =data;
+			    	//alert(data + " "+temp +" "+parseInt(temp) );
 			    },
 			    error: function () {
 			      // Handle return error
@@ -998,6 +1092,7 @@
 			    dataType : 'json',
 			    processData: false,
 			    cache: false,
+			    async: false,
 			    success: function (allDS) {
 			      
 			    	var o = new Option("0", "0");
@@ -1031,6 +1126,7 @@
 			    processData: false,
 			    contentType: false,
 			    cache: false,
+			    async: false,
 			    success: function () {
 			      alert('Dataset uploaded successfully !');
 			    },
@@ -1092,6 +1188,51 @@
 		  document.getElementById(cityName).style.display = "block";
 		  evt.currentTarget.className += " active";
 		}
+		
+	    function getEssentials(algo) {
+	   		var data = {}
+			
+			data["selecteddb"] = selecteddb;
+			data["choice"] = $('input:radio[name="choice"]:checked').val();
+			data["request"] = $('#req-input').val();
+			data["uploadfile"] = $('#req-select').val();
+			data["algo"] = algo;
+			
+			//alert($('input:radio[name="engine"]:checked').val());
+			
+			if(choice == 1){
+				uploadFile();
+			}
+			
+			//alert(choice);
+	        $.ajax({
+	            url : '/process',
+	            data : data,
+	            type: "POST",
+			    cache: false,
+	            async : false,
+	            beforeSend: function(){
+			    	
+			    },
+	            success : function(data) {
+	                if(choice == 1){
+	                	//it's a file
+	                	GetTotalTiming2();
+	                }else{
+	                	//just query
+	                	GetFormattedRes2();
+	                }
+
+	            },
+	            error : function(e) {
+					console.log("ERROR: ", e);
+					alert("Error occured :: Server side !");
+				},
+				done : function(e) {
+					console.log("DONE");
+				}
+	        });
+	    }
 
 	</script>
 	
@@ -1116,6 +1257,8 @@
 					label.innerHTML = labelVal;
 			});
 		});
+		
+		
 	</script>
 	    
   </div>
