@@ -134,7 +134,8 @@ public class ProcessController {
 					FileQuery fquery = new FileQuery(algo, "tmp/" + lastUploaded, database);
 					
 					System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>> SUMMARY >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-					theTotal = summaryHelper(fquery.getSummary()).toString();
+					//theTotal = summaryHelper(fquery.getSummary()).toString();
+					theTotal = Long.toString(fquery.getTotalRunTime());
 					System.out.println(theTotal);
 					allQueries = fquery.getFormattedResults();
 					

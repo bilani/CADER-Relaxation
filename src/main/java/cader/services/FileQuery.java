@@ -27,7 +27,7 @@ public class FileQuery {
 	private ArrayList<String> resultFileList;
 	private String summary, summaryFile, zipPath;
 	private static final int BUFFER = 2048;
-	private static long time = 0;
+	private static long totalRunTime;
 	private Map<String, String> formattedResults;
 	/**
 	 *
@@ -42,7 +42,7 @@ public class FileQuery {
 		resultFileList = new ArrayList<String>();
 		summary = "Used algorithm: ";
 		formattedResults = new LinkedHashMap<String, String>();
-		
+		totalRunTime = 0;
 		switch(choosedAlgorithm) {
 			case CADER:
 				OntModel model = (new GetOntModel(database)).getModel();
@@ -72,7 +72,7 @@ public class FileQuery {
 				query = scanner.nextLine();
 				if(query.startsWith("SELECT")){
 					if(LOG_ON && GEN.isInfoEnabled()) {
-						GEN.info("Processing the query : " + query);
+						GEN.info("Processing the query: " + query);
 					}
 					System.out.println("Launching the query n°" + index + ": ");
 					index++;
@@ -80,12 +80,12 @@ public class FileQuery {
 					numberedQuery = "Query n°" + index;
 					summary += numberedQuery + ": \n";
 					summary += relaxer.getSummary();
-					time += relaxer.getTotalTime();
+					totalRunTime += relaxer.getTotalTime();
 					resultFileList.add(relaxer.getFullResults());
 					formattedResults.put(numberedQuery, relaxer.getFormattedResults());
 				}
 			}
-			summary += "\n" + "TOTAL TIME: " + time + "ms" + "\n";
+			summary += "\n" + "TOTAL TIME: " + totalRunTime + "ms" + "\n";
 			scanner.close();
 			System.out.println(">>>>>>>>> Before generating ZIP");
 			generateZip();
@@ -105,7 +105,7 @@ public class FileQuery {
 				query = scanner.nextLine();
 				if(query.startsWith("SELECT")){
 					if(LOG_ON && GEN.isInfoEnabled()) {
-						GEN.info("Processing the query : " + query);
+						GEN.info("Processing the query: " + query);
 					}
 					System.out.println("Launching the query n°" + index + ": ");
 					index++;
@@ -113,12 +113,12 @@ public class FileQuery {
 					numberedQuery = "Query n°" + index;
 					summary += numberedQuery + ": \n";
 					summary += relaxer.getSummary();
-					time += relaxer.getTotalTime();
+					totalRunTime += relaxer.getTotalTime();
 					resultFileList.add(relaxer.getFullResults());
 					formattedResults.put(numberedQuery, relaxer.getFormattedResults());
 				}
 			}
-			summary += "\n" + "TOTAL TIME: " + time + "ms" + "\n";
+			summary += "\n" + "TOTAL TIME: " + totalRunTime + "ms" + "\n";
 			scanner.close();
 			System.out.println(">>>>>>>>> Before generating ZIP");
 			generateZip();
@@ -143,6 +143,10 @@ public class FileQuery {
 	
 	public Map<String, String> getFormattedResults(){
 		return formattedResults;
+	}
+	
+	public long getTotalRunTime() {
+		return totalRunTime;
 	}
 	
 	/**

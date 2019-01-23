@@ -6,7 +6,7 @@
 
 (Query using SPARQL, relying on RDF)
 
-## 0 # Before launching the webapp, you need to add the qars-dist.jar to maven
+## 0 # Before launching the webapp, you need to add the qars-dist.jar to your maven repository
 
 1/ Run the following command :
 mvn install:install-file    -Dfile=./src/main/resources/lib/qars-dist.jar    -DgroupId=forge.lias-lab.fr    -DartifactId=qars    -Dversion=1.0.0    -Dpackaging=jar    -DgeneratePom=true

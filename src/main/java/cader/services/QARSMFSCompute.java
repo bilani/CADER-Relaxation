@@ -42,8 +42,8 @@ public class QARSMFSCompute {
 		
 		totalTime = System.currentTimeMillis() - startTime;
 		
-		summary = "TotalTime " + totalTime + " ms\n";
-		summary+= "Results: " + allMFS.size() + " MFS | " + allXSS.size() + " XSS\n";
+		summary = "RunTime: " + totalTime + " ms\n";
+		summary+= "Results: " + allMFS.size() + " MFSes | " + allXSS.size() + " XSSes\n";
 		
 		//session.close();
 	}
