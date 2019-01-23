@@ -26,6 +26,7 @@ public class QARSMFSCompute {
 		startTime = System.currentTimeMillis();
 		this.query = query;
 		session = SessionFactory.getTDBSession(qarsTdb);
+		
 		CQuery conjunctiveQuery = CQueryFactory.createCQuery(this.query);
 		MFSSearch relaxationStrategy;
 
@@ -46,6 +47,7 @@ public class QARSMFSCompute {
 		
 		summary = "RunTime: " + totalTime + " ms\n";
 		summary+= "Results: " + mfsSize + " MFSes | " + xssSize + " XSSes\n";
+		
 	}
 
 	public String getSummary() {

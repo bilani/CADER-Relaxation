@@ -65,6 +65,8 @@ public class ProcessController {
     		@RequestParam(name="request", required=false, defaultValue="") String myrequest,
     		Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
     	
+    	cleanMainDirectory();
+    	
     	System.out.println("*************************************  ************ ALGO : " + choice_algo + " ********* **************************************************");
     	
         model.addAttribute("name", "Query Relxation" );
@@ -318,22 +320,21 @@ public class ProcessController {
 	}
 	
 	/**
-	 * To get the interesting part of the summary
-	 * @param summ
-	 * @return
+	 * Remove all the log file in the main directory.
 	 */
-	public String summaryHelper(String summ) {
-		int strt = summ.indexOf("TOTAL TIME:") + "TOTAL TIME:".length();
-		StringBuilder res = new StringBuilder("");
-		
-    	int stop = 0;
-    	Character curr;
-    	do {
-    		curr = summ.charAt(strt++);
-    		res.append(curr);
-    		stop ++;
-    	}while(strt < summ.length() && stop <10 && curr != '\n');
-    	
-		return res.toString();
+	public void cleanMainDirectory() {
+		// Lists all files in folder
+		File folder = new File(Paths.get(".").toAbsolutePath().normalize().toString());
+		File fList[] = folder.listFiles();
+		// Searchs .log
+		for (int i = 0; i < fList.length; i++) {
+		    String file = fList[i].getName();
+		    if (file.endsWith(".log")) {
+		        // and deletes
+		        fList[i].delete();
+		    }
+		}
 	}
+	
+	
 }
