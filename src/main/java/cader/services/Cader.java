@@ -57,7 +57,7 @@ public class Cader {
 
 			xssTime -= mfsTime;
 			mfsTime -= startTime;
-			summary+= " Time_MFSes:" + mfsTime + " ms, Time_XSSes: "+ xssTime + " ms\n";
+			summary+= " Time_MFSes:," + mfsTime + " ms, Time_XSSes: "+ xssTime + " ms\n";
 
 			this.relaxedQueries = relaxedQuery.getNumberOfExecutedQueries();
 			this.mfsSize = MFSesQueries.size();

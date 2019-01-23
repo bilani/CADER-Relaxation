@@ -835,6 +835,7 @@
 			    },
 	            success : function(data) {
 	                $('#result').html("Results are ready, Please download the file from here");
+	                $('#queries').empty();
 	                
 	                $('#myDown').prop( "disabled", false );
 	                if(choice == 1){
@@ -852,13 +853,12 @@
 	                	$('#myDown').prop( "disabled", false);
 	                	$('#allDown').hide();
 	                	$('#myDown').show();
-	                	var lines = data.split('\n');
-	                	var parts = lines[2].split(' ');
+	                	//var lines = data.split('\n');
+	                	//var parts = lines[2].split(',');
 	                	
-	                	$('#totalTime').html(parts[1]+ " " + parts[2]);
-	                	$('#xssTime').html(parts[5] + " " +parts[6]);
-	                	$('#mfsTime').html(parts[9] + " "+ parts[10]);
- 
+	                	
+	                	GetFormattedRes();
+
 	                	//alert(parts[1] + " " + parts[5] + " " + parts[9]);
 	                }
 	                
@@ -878,6 +878,33 @@
 				}
 	        });
 	    }
+	    
+	    
+		function GetFormattedRes(){
+	    	
+			$.ajax({
+			    url: "/formattedResults",
+			    type: "GET",
+			    processData: false,
+			    cache: false,
+			    success: function (data) {
+			    	var parts = data.split(',');
+			    	$('#nbReq').html(parts[0]);
+                	$('#nbMFS').html(parts[1]);
+                	$('#nbXSS').html(parts[2]);
+
+                	$('#totalTime').html(parts[3]);
+                	$('#xssTime').html(parts[5]);
+                	$('#mfsTime').html(parts[4]);
+                	//alert(data);
+			    },
+			    error: function () {
+				      // Handle return error
+				      alert('Oops !! Server s off');
+				    }
+				});
+		    }
+	    
 	    
 	    function GetTotalQueries(){
 	    	

@@ -48,6 +48,7 @@ public class ProcessController {
 	public String lastUploaded;
 	public String theTotal;
 	public Map<String, String> allQueries;
+	public String formattedResults;
 	/**
 	 * @param name
 	 * @param model
@@ -97,14 +98,17 @@ public class ProcessController {
 					OntModel modelOnt = (new GetOntModel(database)).getModel();
 					Cader relaxer = new Cader(query, modelOnt);
 					processingResult = new File(relaxer.getFullResults());
+					formattedResults = relaxer.getFormattedResults();
 				} else if(algo == Algorithms.LBA) {
 					new QARSInitialization(database);
 					QARSMFSCompute qars = new QARSMFSCompute(query, true);
 					processingResult = new File(qars.getFullResults());
+					formattedResults = qars.getFormattedResults();
 				} else if (algo == Algorithms.MBA) {
 					new QARSInitialization(database);
 					QARSMFSCompute qars = new QARSMFSCompute(query, true);
 					processingResult = new File(qars.getFullResults());
+					formattedResults = qars.getFormattedResults();
 				}
 				if(processingResult.exists() && !processingResult.isDirectory()) { 
 					System.out.println("File found & OKAY !!");
@@ -304,6 +308,13 @@ public class ProcessController {
 	public @ResponseBody Map<?,?> getAllQueries() {
 		//get your total time here
 		return allQueries;
+	}
+	
+	@RequestMapping(value = "/formattedResults", method = RequestMethod.GET,
+            produces=MediaType.TEXT_PLAIN_VALUE)
+	public @ResponseBody String getFormattedAll() {
+		//get your total time here
+		return formattedResults;
 	}
 	
 	/**
