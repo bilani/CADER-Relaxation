@@ -39,13 +39,13 @@ public class QARSMFSCompute {
 
 		allMFS = relaxationStrategy.getAllMFS();
 		allXSS = relaxationStrategy.getAllXSS();
+		mfsSize = allMFS.size();
+		xssSize = allXSS.size();
 		
 		totalTime = System.currentTimeMillis() - startTime;
 		
 		summary = "RunTime: " + totalTime + " ms\n";
-		summary+= "Results: " + allMFS.size() + " MFSes | " + allXSS.size() + " XSSes\n";
-		
-		//session.close();
+		summary+= "Results: " + mfsSize + " MFSes | " + xssSize + " XSSes\n";
 	}
 
 	public String getSummary() {
