@@ -3,10 +3,7 @@ package cader.services;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
-
 import org.apache.commons.io.FileUtils;
-import org.apache.jena.sparql.pfunction.library.str;
-
 import fr.ensma.lias.qarscore.loader.JenaBulkLoader;
 
 public class QARSInitialization {

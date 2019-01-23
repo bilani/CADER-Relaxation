@@ -1,6 +1,7 @@
 package cader.console;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 import org.apache.jena.ontology.OntModel;
@@ -40,7 +41,8 @@ public class Console {
 						+  "\n[0] -> CADER"
 						+ "\n[1] -> LBA" 
 						+ "\n[2] -> MBA"
-						+ "\n[3] -> Change the dataset");
+						+ "\n[3] -> Change the dataset"
+						+ "\n[4] -> Clean the main directory of log files");
 				
 				int choice = Integer.parseInt(sc.nextLine());
 				Algorithms choosedAlgorithm = null;
@@ -67,6 +69,9 @@ public class Console {
 					choosedDatabase = null;
 					choosedDatabase = null;
 					break database;
+				case 4:
+					cleanMainDirectory();
+					continue database;
 				}
 
 				algorithm : while(true) {
@@ -132,6 +137,23 @@ public class Console {
 				String database = listOfFiles[i].getName();
 				System.out.println("[" + database.substring(0, database.indexOf(".owl")) + "] -> " + database);
 			}
+		}
+	}
+	
+	/**
+	 * Remove all the log file in the main directory.
+	 */
+	public static void cleanMainDirectory() {
+		// Lists all files in folder
+		File folder = new File(Paths.get(".").toAbsolutePath().normalize().toString());
+		File fList[] = folder.listFiles();
+		// Searchs .log
+		for (int i = 0; i < fList.length; i++) {
+		    String file = fList[i].getName();
+		    if (file.endsWith(".log")) {
+		        // and deletes
+		        fList[i].delete();
+		    }
 		}
 	}
 }
