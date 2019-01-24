@@ -37,7 +37,7 @@ public class QARSMFSCompute {
 			//Matrix Based Approach 
 			relaxationStrategy = StrategyFactory.getMatrixStrategy(session, conjunctiveQuery);
 		}
-
+		
 		allMFS = relaxationStrategy.getAllMFS();
 		allXSS = relaxationStrategy.getAllXSS();
 		mfsSize = allMFS.size();

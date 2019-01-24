@@ -9,13 +9,13 @@ import java.util.Iterator;
 
 import org.apache.jena.ontology.OntModel;
 
-import objects.Query;
+import objects.RDFQuery;
 
 public class Cader {
 	private int relaxedQueries, mfsSize, xssSize;
 	private long startTime, mfsTime, xssTime, totalTime;
 	private static QueryLauncher queryLauncher;
-	private Query relaxedQuery;
+	private RDFQuery relaxedQuery;
 	private String query, summary;
 	private HashSet<String> MFSesQueries;
 	private HashSet<String> CoXSSesQueries;
@@ -30,7 +30,7 @@ public class Cader {
 		System.out.println("Query: " + query);
 		if(!queryLauncher.hasResult(query)) {
 			wasRelaxed = true;
-			relaxedQuery = new Query(query, model);
+			relaxedQuery = new RDFQuery(query, model);
 			System.out.println("The Query has failed, relaxing it :");
 
 			relaxedQuery.searchMFSes();
@@ -38,14 +38,14 @@ public class Cader {
 
 			System.out.println("MFSes: " + MFSesQueries);
 
+			mfsTime = System.currentTimeMillis();
+			System.out.println("Research of MFSes - Elapsed Time: " + (mfsTime - startTime) + " ms.");
+			
 			relaxedQuery.calculateCoXSSes();
 			CoXSSesQueries = relaxedQuery.getCoXSSesQueries();
 			System.out.println("CoXSSes: " + CoXSSesQueries);
 
-			mfsTime = System.currentTimeMillis();
-			System.out.println("Research of MFSes - Elapsed Time: " + (mfsTime - startTime) + " ms.");
-
-			relaxedQuery.generateXSSes();	
+			relaxedQuery.generateXSSes();
 			XSSesQueries = relaxedQuery.getXSSesQueries();
 
 			xssTime = System.currentTimeMillis();

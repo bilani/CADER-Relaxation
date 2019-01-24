@@ -19,7 +19,6 @@ public class QueryLauncher {
 	}
 
 	public boolean hasResult(String q) {
-		q+= " LIMIT 1";
 		if(LOG_ON && GEN.isDebugEnabled()) {
 			GEN.debug("Executing : " + q);
 		}

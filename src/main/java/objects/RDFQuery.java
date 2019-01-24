@@ -3,14 +3,11 @@ package objects;
 import static cader.logger.Log.GEN;
 import static cader.logger.Log.LOG_ON;
 import static cader.logger.Log.RELAX;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-
 import org.apache.jena.ontology.OntModel;
-
 import cader.services.QueryLauncher;
 
 /**
@@ -19,7 +16,7 @@ import cader.services.QueryLauncher;
  * Contains personalized tools for Query & string manipulation
  * as well as triplets processing
  */
-public class Query {
+public class RDFQuery {
 	/**
 	 * 
 	 */
@@ -60,7 +57,7 @@ public class Query {
 	 * @param query
 	 * @param model 
 	 */
-	public Query(String query, OntModel model) {
+	public RDFQuery(String query, OntModel model) {
 		parseQuery(query);
 		queryLauncher = new QueryLauncher(model);
 	}
@@ -142,7 +139,6 @@ public class Query {
 			HashSet<Integer> tmp = iter.next();
 			if(oneCombination.containsAll(tmp)) 
 				return true;
-
 		}
 		return false;
 	}
@@ -317,31 +313,20 @@ public class Query {
 	}
 
 	/**
-	 * 
-	 * @return set of MFS's
-	 */
-	public HashSet<String> getMFSesQueries() {
-		return convertToQuery(MFSes);
-	}
-
-	/**
 	 * Calculate CoXSS's from calculated MFS's
 	 * by applying MHS algorithm
 	 */
 	public void calculateCoXSSes() {
+		/**
 		ArrayList<ArrayList<Integer>> convertedMFS = new ArrayList<ArrayList<Integer>>();
 		for(HashSet<Integer> tmp : MFSes) {
 			convertedMFS.add(new ArrayList<>(tmp));
 		}
 		CoXSSes = HittingSets.mhs(convertedMFS);
-	}
-
-	/**
-	 * 
-	 * @return hashset<str>
-	 */
-	public HashSet<String> getCoXSSesQueries() {
-		return convertToQuery(CoXSSes);
+		*/
+		MinimalHittingSet setCoverMax2Elem = new MinimalHittingSet();
+		CoXSSes = setCoverMax2Elem.minimumHittingSet(MFSes);
+		System.out.println("CoXSSes: " + CoXSSes.toString());
 	}
 
 	/**
@@ -376,7 +361,31 @@ public class Query {
 			}
 		}
 	}
+	
+	/**
+	 * Returns the number of executed queries
+	 * @return int
+	 */
+	public int getNumberOfExecutedQueries() {
+		return NumberOfExecutedQueries;
+	}
 
+	/**
+	 * 
+	 * @return set of MFS's
+	 */
+	public HashSet<String> getMFSesQueries() {
+		return convertToQuery(MFSes);
+	}
+	
+	/**
+	 * 
+	 * @return hashset<str>
+	 */
+	public HashSet<String> getCoXSSesQueries() {
+		return convertToQuery(CoXSSes);
+	}
+	
 	/**
 	 * 
 	 * @return hashset<str>
@@ -408,13 +417,5 @@ public class Query {
 			relaxedQueries.add(relaxedQuery);
 		}
 		return relaxedQueries;
-	}
-
-	/**
-	 * Returns the number of executed queries
-	 * @return int
-	 */
-	public int getNumberOfExecutedQueries() {
-		return NumberOfExecutedQueries;
 	}
 }
