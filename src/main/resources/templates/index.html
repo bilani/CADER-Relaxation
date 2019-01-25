@@ -152,17 +152,17 @@
 }
 
     		.frame {
-		
+
 			    white-space: nowrap;
 			    text-align: center; margin: 1em 0;
 			}
-			
+
 			.helper {
 			    display: inline-block;
 			    height: 100%;
 			    vertical-align: middle;
 			}
-			
+
 			img {
 			    vertical-align: middle;
 			    max-height: 100px;
@@ -179,14 +179,14 @@
 }
 
 		body {font-family: Arial;}
-		
+
 		/* Style the tab */
 		.tab {
 		  overflow: hidden;
 		  border: 1px solid #ccc;
 		  background-color: #f1f1f1;
 		}
-		
+
 		/* Style the buttons inside the tab */
 		.tab button {
 		  background-color: inherit;
@@ -198,17 +198,17 @@
 		  transition: 0.3s;
 		  font-size: 17px;
 		}
-		
+
 		/* Change background color of buttons on hover */
 		.tab button:hover {
 		  background-color: #ddd;
 		}
-		
+
 		/* Create an active/current tablink class */
 		.tab button.active {
 		  background-color: #ccc;
 		}
-		
+
 		/* Style the tab content */
 		.tabcontent {
 		  display: none;
@@ -216,7 +216,7 @@
 		  border: 1px solid #ccc;
 		  border-top: none;
 		}
-		
+
 		.loader {
 		  border: 16px solid #f3f3f3;
 		  border-radius: 50%;
@@ -226,20 +226,20 @@
 		  -webkit-animation: spin 2s linear infinite; /* Safari */
 		  animation: spin 2s linear infinite;
 		}
-		
+
 		/* Safari */
 		@-webkit-keyframes spin {
 		  0% { -webkit-transform: rotate(0deg); }
 		  100% { -webkit-transform: rotate(360deg); }
 		}
-		
+
 		@keyframes spin {
 		  0% { transform: rotate(0deg); }
 		  100% { transform: rotate(360deg); }
 		}
-		
-		
-		
+
+
+
 		/* Absolute Center Spinner */
 .loading {
   position: fixed;
@@ -487,35 +487,35 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="dist/jszip.min.js"></script>
   <script src="dist/FileSaver.min.js"></script>
-  
+
   <link rel="stylesheet" type="text/css" href="css/normalize.css" />
   <link rel="stylesheet" type="text/css" href="css/demo.css" />
   <link rel="stylesheet" type="text/css" href="css/component.css" />
 
   <script src="js/custom-file-input.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-		
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body class="permission_denied">
   <div id="particles-js"></div>
 	<div>
-	
+
     <div class="row" style="margin-top: 40px; margin-left: 40px; margin-right: 40px;">
     	<div align="center" class="col-md-12" style="background-color:white;">
     		<div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 style="color:black;" class="panel-title"><b>Evaluating SPARQL Queries On Massive RDF Datasets </b></h3>
                 </div>
-               
+
                <div class="tab">
 				  <button class="tablinks" onclick="openCity(event, 'loadDataset')">Dataset load</button>
 				  <button id="clickedDS" class="tablinks" onclick="openCity(event, 'queryEvaluation')">Query evaluation</button>
 				</div>
-				
+
 				<div id="queryEvaluation" class="tabcontent">
-				
+
 	                <div class="panel-body">
 	                    <form class="form form-horizontal" id="relaxForm">
 	                        <div class="row">
@@ -531,76 +531,76 @@
 									  display: inline
 									}
 		                        </style>
-	                        
+
 	                            <div class="one" align="left" ><b>Dataset </b></div>
-								
+
 								<div class="two" align="center" >
 		                            <select id="db-select" >
-		                                
-		                               
+
+
 		                            </select>
 	                            </div>
 	                        </div>
-	                        
+
 	                        <br><br>
-	                        
+
 	                         <style>
 	                        	.inptChoiceSpan{margin-right: 40px;}
 	                        </style>
-	                        
+
 	                        <div class="row">
 			                    <div id="choiceParam">
 			                     	<div class="one" align="left" ><b>Choice </b></div>
-			                      
+
 			                        <div class="two" style="margin-bottom: 40px;">
 			                            <input style="margin-right: 6px;" class="inptFileRadio" type="radio" name="choice" value="1" checked><span class="inptChoiceSpan">From a file</span>
 			                            <input style="margin-right: 6px;" class="inptFileRadio" type="radio" name="choice" value="2"> <span class="inptChoiceSpan">Write Request</span>
 			                        </div>
 			                    </div>
 			                </div>
-			                    
+
 			                <br><br>
-			                  
+
 			                <div id="myFrame" class="loading"></div>
-				    		
+
 				    		<style>
 				    			.form-inline{
 								  display:inline-block;
 								  align:left;
 								}
 				    		</style>
-							
+
 							<div id="choiceFile" class="row">
 								<div class = "one" align="left" ><b>Load queries file </b></div>
-							
-								<div align="center">	
+
+								<div align="center">
 									<div class="box">
 										<input type="file" name="uploadfile" id="upload-file-input" class="inputfile inputfile-2" data-multiple-caption="{count} files selected" multiple accept=".txt"/>
 										<label for="upload-file-input"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="17" viewBox="0 0 30 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg> <span>Choose a file&hellip;</span></label>
 									</div>
 								</div>
 							</div>
-							
+
 							<!-- --------- -->
-							
+
 							<div id="choiceRequest">
 								<div class = "one" align="left" ><b>Enter request </b></div>
-										
+
 								<div class = "form-inline" align="center" style="margin-left:40px;">
-	                        		<textarea placeholder="Your SPARQL request here " cols="50" id="req-input" ></textarea> 
+	                        		<textarea placeholder="Your SPARQL request here " cols="50" id="req-input" ></textarea>
 	                        	</div>
 	                        </div>
-    		
+
 	                        <br><br>
-	                        
+
 	                        <style>
 	                        	.inptEngSpan{margin-right: 40px;}
 	                        </style>
-	                        
+
 	                        <div class="row">
 			                    <div id="choiceEngine">
 			                     	<div class="one" align="left" ><b>Choose engine </b></div>
-			                      
+
 			                        <div class="two" style="margin-bottom: 40px;">
 			                            <input  style="margin-right: 6px;" class="inptEngRadio" type="radio" name="engine" value="1" checked><span class="inptEngSpan">CADER</span>
 			                            <input  style="margin-right: 6px;" class="inptEngRadio" type="radio" name="engine" value="2"> <span class="inptEngSpan">LBA</span>
@@ -608,17 +608,17 @@
 			                        </div>
 			                    </div>
 			                </div>
-			                    
+
 			                <br><br>
-	                        
+
 	                        <div class="form-group">
 	                            <div class="col-md-offset-3 col-md-6">
 	                                <button type="submit" class="btn btn-primary btn-lg" id="idbtn"> Run..  </button>
 	                            </div>
 	                        </div>
-	
+
 	                    </form>
-	                    
+
 	                    <style>
 		                    hr {
 							    display: block;
@@ -626,38 +626,38 @@
 							    border: 0;
 							    border-top: 1px solid #ccc;
 							    margin: 1em 0;
-							    padding: 0; 
+							    padding: 0;
 							}
 						</style>
-						
+
 	                     <br><hr style="color:black;"><br>
-	                    
-	                    <div id="timing"> 
+
+	                    <div id="timing">
 		                    <div class="row bg-info text-white">
 								<div class="col-md-2" align="left"><b>			</b></div>
 								<div class="col-md-1"></div>
 								<div id="ColtotalTime" class="col-md-1"><b>Total time</b></div>
 								<div id="ColmfsTime" class="col-md-1"><b>MFS time</b></div>
 								<div id="ColxssTime" class="col-md-1"><b>XSS time</b></div>
-								
-								<div id="nbReqCol" class="col-md-2"><b>Relaxed queries</b></div>
-								<div id="nbMFSCol" class="col-md-1"><b>MFS's</b></div>
-								<div id="nbXSSCol" class="col-md-1"><b>XSS's</b></div>
+
+								<div id="nbReqCol" class="col-md-2"><b>#Executed Queries</b></div>
+								<div id="nbMFSCol" class="col-md-1"><b>#MFSes</b></div>
+								<div id="nbXSSCol" class="col-md-1"><b>#XSSes</b></div>
 							</div>
-							
+
 		                    <div class="row bg-primary text-white">
 								<div class="col-md-2" align="left"><b>Response Time </b></div>
 								<div class="col-md-1"></div>
 								<div id="totalTime" class="col-md-1">- ms</div>
 								<div id="mfsTime" class="col-md-1">- ms</div>
 								<div id="xssTime" class="col-md-1">- ms</div>
-								
+
 								<div id="nbReq" class="col-md-2">-</div>
 								<div id="nbMFS" class="col-md-1">-</div>
 								<div id="nbXSS" class="col-md-1">-</div>
 							</div>
 						</div>
-						
+
 						<div id="queries">
 							<div class="row bg-info text-white">
 								<div class="col-md-2" align="left"><b></b></div>
@@ -665,45 +665,45 @@
 								<div id="ColtotalTime" class="col-md-1"><b></b></div>
 								<div id="ColmfsTime" class="col-md-1"><b></b></div>
 								<div id="ColxssTime" class="col-md-1"><b></b></div>
-								
+
 								<div id="" class="col-md-2"><b></b></div>
 								<div id="" class="col-md-1"><b></b></div>
 								<div id="" class="col-md-1"><b></b></div>
 							</div>
-														
+
 						</div>
 						<br><br>
-						<button class="btn btn-danger" onClick="plotCaderLbaMba()">Compare performance</button>
+						<button class="btn btn-danger" onClick="plotCaderLbaMba()">Query performance comparison</button>
 						<div id="myDiv1"></div>
 						<script>
 							var newY = [];
 							var allCader = [];
-							
+
 							function getYall(){
-								
+
 								$("#myFrame").show();
 								//GIVING U 3 CHANCES, SHOW ME WHAT U'VE GOT
 								temp = 0;
 								for(i = 0; i < 3; i++) {
 									getEssentials(1);
 									allCader.push(parseInt(temp));
-								} 
+								}
 								newY.push(Math.min.apply(null, allCader));
-								
+
 								//NO NEED, 1 CHANCE IS SUFFICIENT
 								getEssentials(2);
 								newY.push(parseInt(temp));
 								getEssentials(3);
 								newY.push(parseInt(temp));
-								
+
 								$("#myFrame").hide();
-								
+
 								//alert(newY);
 							}
-							
+
 							function plotCaderLbaMba(){
 								getYall();
-								
+
 								var data = [{
 									  x: ['CADER', 'MBA', 'LBA'],
 									  y: newY,
@@ -714,23 +714,23 @@
 									newY = [];
 							}
 						</script>
-  
+
 		                <br><br>
-		                
+
 		                <iframe id="downloadFrame" style="display:none"></iframe>
 		                <div id="result"></div>
 		                <button onClick="downloadAll()" class="btn" id="myDown" name="mydown">Download all results</button>
-		                    
+
 		                <form action="/allResults">
 						    <input class="btn" type="submit" value="Download all results" id="allDown" name="allDown" />
 						</form>
 	                </div>
 	             </div>
-	             
+
 	             <div id="loadDataset" class="tabcontent">
 	             <br>
 					<div id="choiceFile" class="row">
-						
+
 						<style>
 							.inputfile {
 								width: 0.1px;
@@ -740,7 +740,7 @@
 								position: absolute;
 								z-index: -1;
 							}
-							
+
 							.inputfile + label {
 							    font-size: 1.25em;
 							    font-weight: 700;
@@ -748,42 +748,42 @@
 							    background-color: white;
 							    display: inline-block;
 							}
-							
+
 							.inputfile:focus + label,
 							.inputfile + label:hover {
 							    background-color: red;
 							}
 						</style>
-						
+
 						<!-- <div class = "one" align="left" ><b>Load queries file </b></div>
-										
+
 						<div class = "form-inline" align="center" style="margin-left:60px;" >
 							<input id="dataset-upload" type="file" name="uploaddataset" accept=".owl" />
 						</div>-->
-						
+
 						<div class = "one" align="left" ><b>Load dataset </b></div>
-						
-						<div align="center">	
+
+						<div align="center">
 							<div class="box">
 								<input type="file" name="uploaddataset" id="dataset-upload" class="inputfile inputfile-2" data-multiple-caption="{count} files selected" multiple accept=".owl"/>
 								<label for="dataset-upload"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="17" viewBox="0 0 30 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg> <span>Choose a file&hellip;</span></label>
 							</div>
 						</div>
-						
+
 						<br><br>
 						<button class="btn btn-danger" onClick="uploadDataset()">Upload dataset ..</button>
-						
+
 					</div>
-	             	
+
 	             </div>
-	             
+
 	             <br><br>
             </div>
 
     	</div>
-    	
-    	
-    	
+
+
+
 
 	<script type='text/javascript'>
 		var choice = 1;
@@ -791,14 +791,14 @@
 		var allResults = "";
 
 		jQuery(document).ready(function(){
-		
-			$("#clickedDS")[0].click();		
+
+			$("#clickedDS")[0].click();
 			$("#myFrame").hide();
 			$('#idbtn').prop( "disabled", true );
 			$('#myDown').prop( "disabled", true );
 			$('#allDown').prop( "disabled", true );
 			$('#allDown').hide();
-			
+
 			if(choice == 1){
 				$('#choiceFile').show();
 			    $('#choiceRequest').hide();
@@ -806,7 +806,7 @@
 				$('#choiceRequest').show();
 			    $('#choiceFile').hide();
 			}
-			
+
 			$("#db-select").change(function() {
 				selecteddb = $(this).find(":selected").val();
 				if(selecteddb == 0){
@@ -817,53 +817,53 @@
 					$('#idbtn').prop( "disabled", false );
 				}
 			});
-			
+
 			$('input:radio[name="choice"]').change(function(){
 			    if($(this).val() == '1'){
 			       //show file picker
 			       $('#choiceFile').show();
 			       $('#choiceRequest').hide();
-			       
+
 			       choice = 1;
 			    }
-			    
+
 			    if($(this).val() == '2'){
 			       //show request writer
 			       $('#choiceRequest').show();
 			       $('#choiceFile').hide();
-			       
+
 			       choice = 2;
 			    }
 			});
-			
+
 			$( "#relaxForm" ).submit(function( event ) {
 				event.preventDefault();
 				//ProcessViaAjax();
 				crunchifyAjax();
 			});
-			
+
 		});
-		
+
 	</script>
-	
+
 	<script type="text/javascript">
-	
+
 		var allDS = "";
 	    function crunchifyAjax() {
 	   		var data = {}
-			
+
 			data["selecteddb"] = selecteddb;
 			data["choice"] = $('input:radio[name="choice"]:checked').val();
 			data["request"] = $('#req-input').val();
 			data["uploadfile"] = $('#req-select').val();
 			data["algo"] = $('input:radio[name="engine"]:checked').val();
-			
+
 			//alert($('input:radio[name="engine"]:checked').val());
-			
+
 			if(choice == 1){
 				uploadFile();
 			}
-			
+
 			//alert(choice);
 	        $.ajax({
 	            url : '/process',
@@ -878,17 +878,17 @@
 	            success : function(data) {
 	                $('#result').html("Results are ready, Please download the file from here");
 	                $('#queries').empty();
-	                
+
 	                $('#myDown').prop( "disabled", false );
 	                if(choice == 1){
 	                	//it's a file
 	                	$('#allDown').prop( "disabled", false );
 	                	$('#myDown').hide();
 	                	$('#allDown').show();
-	                	
+
 	                	GetTotalTiming();
 	                	GetTotalQueries();
-	                	
+
 	                	//alert(data);
 	                }else{
 	                	//just query
@@ -897,15 +897,15 @@
 	                	$('#myDown').show();
 	                	//var lines = data.split('\n');
 	                	//var parts = lines[2].split(',');
-	                	
-	                	
+
+
 	                	GetFormattedRes();
 
 	                	//alert(parts[1] + " " + parts[5] + " " + parts[9]);
 	                }
-	                
+
 	              	allResults = data;
-	              
+
 	            },
 	            complete:function(data){
 			    	$("#myFrame").hide();
@@ -920,10 +920,10 @@
 				}
 	        });
 	    }
-	    
-	    
+
+
 		function GetFormattedRes(){
-	    	
+
 			$.ajax({
 			    url: "/formattedResults",
 			    type: "GET",
@@ -936,7 +936,7 @@
                 	$('#nbMFS').html(parts[1]);
                 	$('#nbXSS').html(parts[2]);
 
-                	$('#totalTime').html(parts[3]);
+                	$('#totalTime').html(parts[3] + " ms");
                 	$('#xssTime').html(parts[5]);
                 	$('#mfsTime').html(parts[4]);
                 	//alert(data);
@@ -947,9 +947,9 @@
 				    }
 				});
 		    }
-		
+
 		function GetFormattedRes2(){
-	    	
+
 			$.ajax({
 			    url: "/formattedResults",
 			    type: "GET",
@@ -958,7 +958,7 @@
 			    async: false,
 			    success: function (data) {
 			    	var parts = data.split(',');
-			  
+
                 	temp = parts[3];
 
                 	//alert(data);
@@ -969,10 +969,10 @@
 				    }
 				});
 		    }
-	    
-	    
+
+
 	    function GetTotalQueries(){
-	    	
+
 	    	$.ajax({
 			    url: "/allQueries",
 			    type: "GET",
@@ -983,7 +983,7 @@
 			    	var allMfs = 0, allXss = 0, nrelaxed = 0, nmfs =0, nxss =0;
 			    	$('#queries').empty();
 					var e = '<div class="row bg-info text-white"><div class="col-md-2" align="left"><b></b></div><div class="col-md-1"></div><div id="total" class="col-md-1"></div><div id="mfs" class="col-md-1"></div><div id="xss" class="col-md-1"></div> <div id="nbReq" class="col-md-2"></div><div id="nbMFS" class="col-md-1"></div><div id="nbXSS" class="col-md-1"></div></div>';
-					
+
 			    	$('#queries').append(e);
 			    	$.each(data, function(k, v) {
 			    		var parts = v.split(",");
@@ -996,18 +996,18 @@
 			    		var elem = '<div class="row bg-info text-white"><div class="col-md-2" align="left"><b>'+ k +'</b></div><div class="col-md-1"></div><div id="totalTime'+ k +'" class="col-md-1">'+ parts[3] +' ms</div><div id="mfsTime'+ k +'" class="col-md-1">'+ parts[4] +' ms</div><div id="xssTime'+ k +'" class="col-md-1">'+ parts[5] +' ms</div><div id="relaxed'+ k +'" class="col-md-2">'+ parts[0] +'</div><div id="mfsn'+ k+'" class="col-md-1">'+ parts[1] +'</div><div id="xssn'+k+'" class="col-md-1">'+ parts[2] +'</div></div>';
 			    		$('#queries').append(elem);
 			    	});
-			    	
+
 			    	if(isNaN(allXss)){
 			    		allXss = "-";
 			    	}
-			    	
+
 			    	if(isNaN(allMfs)){
 			    		allMfs = "-";
 			    	}
-			    	
+
 			    	$('#xssTime').html(allXss + " ms");
 		    		$('#mfsTime').html(allMfs + " ms");
-		    		
+
 		    		$('#nbReq').html(nrelaxed);
 		    		$('#nbMFS').html(nmfs);
 		    		$('#nbXSS').html(nxss);
@@ -1020,11 +1020,11 @@
 			    }
 			});
 	    }
-	    
-	    function uploadFile() {	
+
+	    function uploadFile() {
 	      var data = new FormData();
 	      data.append("uploadfile",  $('#upload-file-input').prop('files')[0]);
-	      
+
 		  $.ajax({
 		    url: "/uploadFile",
 		    type: "POST",
@@ -1044,7 +1044,7 @@
 		    }
 		  });
 		}
-	    
+
 	    function GetTotalTiming(){
 
 			$.ajax({
@@ -1055,7 +1055,7 @@
 			    async: false,
 			    success: function (data) {
 			    	//alert(data);
-			    	$('#totalTime').html(data);
+			    	$('#totalTime').html(data + " ms");
 			    },
 			    error: function () {
 			      // Handle return error
@@ -1063,7 +1063,7 @@
 			    }
 			});
 	    }
-	    
+
 	    function GetTotalTiming2(){
 
 			$.ajax({
@@ -1083,8 +1083,8 @@
 			    }
 			});
 	    }
-	    
-	    function GetAllDatasets(){ 
+
+	    function GetAllDatasets(){
 	    	allDS = "";
 			$.ajax({
 			    url: "/allDatasets",
@@ -1094,18 +1094,18 @@
 			    cache: false,
 			    async: false,
 			    success: function (allDS) {
-			      
+
 			    	var o = new Option("0", "0");
 				    $(o).html("-- Select your dataset --");
 				    $("#db-select").append(o);
-				    	
-			    	$.each(allDS, function(k, v) {			    	    
+
+			    	$.each(allDS, function(k, v) {
 			    	    var o = new Option(v, v);
 				    	$(o).html(v);
 				    	$("#db-select").append(o);
-			    	    
+
 			    	});
-			      
+
 			    },
 			    error: function () {
 			      // Handle upload error
@@ -1113,11 +1113,11 @@
 			    }
 			});
 	    }
-	    
-	    function uploadDataset() {	
+
+	    function uploadDataset() {
 		      var data = new FormData();
 		      data.append("uploadfile",  $('#dataset-upload').prop('files')[0]);
-		      
+
 			  $.ajax({
 			    url: "/uploadDataset",
 			    type: "POST",
@@ -1136,47 +1136,47 @@
 			    }
 			  });
 		}
-	    
+
 	    function downloadAll(){
 	    	if(choice == 1){
 	    		downloadZip('allResults.zip', allResults);
 	    	}else{
 	    		download('allResults.txt', allResults);
-	    	} 
+	    	}
 	    }
-	    
+
 	    function download(filename, text) {
 		    var element = document.createElement('a');
 		    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
 		    element.setAttribute('download', filename);
-		
+
 		    element.style.display = 'none';
 		    document.body.appendChild(element);
-		
+
 		    element.click();
-		
+
 		    document.body.removeChild(element);
 		}
-		
+
 		 function downloadZip(filename, text) {
 		    var element = document.createElement('a');
 		    element.setAttribute('href', 'data:application/zip,' + encodeURIComponent(text));
 		    element.setAttribute('download', filename);
-		
+
 		    element.style.display = 'none';
 		    document.body.appendChild(element);
-		
+
 		    element.click();
-		
+
 		    document.body.removeChild(element);
 		}
-		
+
 		function openCity(evt, cityName) {
 		  var i, tabcontent, tablinks;
-		  
+
 		  $('#db-select').empty();
 		  GetAllDatasets();
-		 
+
 		  tabcontent = document.getElementsByClassName("tabcontent");
 		  for (i = 0; i < tabcontent.length; i++) {
 		    tabcontent[i].style.display = "none";
@@ -1188,22 +1188,22 @@
 		  document.getElementById(cityName).style.display = "block";
 		  evt.currentTarget.className += " active";
 		}
-		
+
 	    function getEssentials(algo) {
 	   		var data = {}
-			
+
 			data["selecteddb"] = selecteddb;
 			data["choice"] = $('input:radio[name="choice"]:checked').val();
 			data["request"] = $('#req-input').val();
 			data["uploadfile"] = $('#req-select').val();
 			data["algo"] = algo;
-			
+
 			//alert($('input:radio[name="engine"]:checked').val());
-			
+
 			if(choice == 1){
 				uploadFile();
 			}
-			
+
 			//alert(choice);
 	        $.ajax({
 	            url : '/process',
@@ -1212,7 +1212,7 @@
 			    cache: false,
 	            async : false,
 	            beforeSend: function(){
-			    	
+
 			    },
 	            success : function(data) {
 	                if(choice == 1){
@@ -1235,14 +1235,14 @@
 	    }
 
 	</script>
-	
+
 	<script>
 		var inputs = document.querySelectorAll( '.inputfile' );
 		Array.prototype.forEach.call( inputs, function( input )
 		{
 			var label	 = input.nextElementSibling,
 				labelVal = label.innerHTML;
-	
+
 			input.addEventListener( 'change', function( e )
 			{
 				var fileName = '';
@@ -1250,15 +1250,15 @@
 					fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
 				else
 					fileName = e.target.value.split( '\\' ).pop();
-	
+
 				if( fileName )
 					label.querySelector( 'span' ).innerHTML = fileName;
 				else
 					label.innerHTML = labelVal;
 			});
 		});
-		
-		
+
+
 	</script>
-	    
+
   </div>
