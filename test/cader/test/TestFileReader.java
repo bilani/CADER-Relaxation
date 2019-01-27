@@ -41,7 +41,7 @@ public class TestFileReader {
 	 */
 	public TestFileReader(Algorithms choosedAlgorithm, String location) throws Exception {
 		String hashCode = String.valueOf(location.hashCode());
-		zipPath = "Experimentations/" + choosedAlgorithm.toString() + "/" + location.substring(location.lastIndexOf('/'), location.lastIndexOf('.'));
+		zipPath = "Experimentations/" + choosedAlgorithm.toString() + "/" + location.substring(location.lastIndexOf('/'), location.lastIndexOf('.')) + ".zip";
 		summaryFile = "/tmp/" + hashCode + ".txt";
 		resultFileList = new ArrayList<String>();
 		summary = "Used algorithm: ";
