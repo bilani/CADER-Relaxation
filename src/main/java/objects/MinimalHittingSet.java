@@ -121,7 +121,6 @@ public class MinimalHittingSet {
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
 
 		for (String triplet : listQueries) {
-			System.out.println("Writing triplets: "  + triplet);
 			bw.write(triplet);
 			bw.newLine();
 		}
@@ -140,7 +139,6 @@ public class MinimalHittingSet {
 			System.out.println("Reading file using Buffered Reader");
 
 			while ((readLine = b.readLine()) != null) {
-				System.out.println("Reading line: "  + readLine);
 				results.add(readLine);
 			}
 			b.close();
