@@ -643,6 +643,7 @@
 								<div id="nbReqCol" class="col-md-2"><b>#Executed Queries</b></div>
 								<div id="nbMFSCol" class="col-md-1"><b>#MFSes</b></div>
 								<div id="nbXSSCol" class="col-md-1"><b>#XSSes</b></div>
+                <div id="ColTriplets" class="col-md-1"><b>#Triplets</b></div>
 							</div>
 
 		                    <div class="row bg-primary text-white">
@@ -655,6 +656,7 @@
 								<div id="nbReq" class="col-md-2">-</div>
 								<div id="nbMFS" class="col-md-1">-</div>
 								<div id="nbXSS" class="col-md-1">-</div>
+                <div id="nbTriplets" class="col-md-1">-</div>
 							</div>
 						</div>
 
@@ -669,6 +671,7 @@
 								<div id="" class="col-md-2"><b></b></div>
 								<div id="" class="col-md-1"><b></b></div>
 								<div id="" class="col-md-1"><b></b></div>
+                <div id="" class="col-md-1"><b></b></div><!-- triplets -->
 							</div>
 
 						</div>
@@ -684,7 +687,7 @@
 								$("#myFrame").show();
 								//GIVING U 3 CHANCES, SHOW ME WHAT U'VE GOT
 								temp = 0;
-								for(i = 0; i < 3; i++) {
+								for(i = 0; i < 2; i++) {
 									getEssentials(1);
 									allCader.push(parseInt(temp));
 								}
@@ -982,7 +985,7 @@
 			    	//alert(data);
 			    	var allMfs = 0, allXss = 0, nrelaxed = 0, nmfs =0, nxss =0;
 			    	$('#queries').empty();
-					var e = '<div class="row bg-info text-white"><div class="col-md-2" align="left"><b></b></div><div class="col-md-1"></div><div id="total" class="col-md-1"></div><div id="mfs" class="col-md-1"></div><div id="xss" class="col-md-1"></div> <div id="nbReq" class="col-md-2"></div><div id="nbMFS" class="col-md-1"></div><div id="nbXSS" class="col-md-1"></div></div>';
+					var e = '<div class="row bg-info text-white"><div class="col-md-2" align="left"><b></b></div><div class="col-md-1"></div><div id="total" class="col-md-1"></div><div id="mfs" class="col-md-1"></div><div id="xss" class="col-md-1"></div> <div id="nbReq" class="col-md-2"></div><div id="nbMFS" class="col-md-1"></div><div id="nbXSS" class="col-md-1"></div><div id="nbTriplets" class="col-md-1"></div></div>';
 
 			    	$('#queries').append(e);
 			    	$.each(data, function(k, v) {
@@ -993,7 +996,7 @@
 			    		nmfs = nmfs + parseInt(parts[1]);
 			    		nxss = nxss + parseInt(parts[2]);
 
-			    		var elem = '<div class="row bg-info text-white"><div class="col-md-2" align="left"><b>'+ k +'</b></div><div class="col-md-1"></div><div id="totalTime'+ k +'" class="col-md-1">'+ parts[3] +' ms</div><div id="mfsTime'+ k +'" class="col-md-1">'+ parts[4] +' ms</div><div id="xssTime'+ k +'" class="col-md-1">'+ parts[5] +' ms</div><div id="relaxed'+ k +'" class="col-md-2">'+ parts[0] +'</div><div id="mfsn'+ k+'" class="col-md-1">'+ parts[1] +'</div><div id="xssn'+k+'" class="col-md-1">'+ parts[2] +'</div></div>';
+			    		var elem = '<div class="row bg-info text-white"><div class="col-md-2" align="left"><b>'+ k +'</b></div><div class="col-md-1"></div><div id="totalTime'+ k +'" class="col-md-1">'+ parts[3] +' ms</div><div id="mfsTime'+ k +'" class="col-md-1">'+ parts[4] +' ms</div><div id="xssTime'+ k +'" class="col-md-1">'+ parts[5] +' ms</div><div id="relaxed'+ k +'" class="col-md-2">'+ parts[0] +'</div><div id="mfsn'+ k+'" class="col-md-1">'+ parts[1] +'</div><div id="xssn'+k+'" class="col-md-1">'+ parts[2] +'</div><div id="nbTriplets'+k+'" class="col-md-1">'+parts[6]+'</div></div>';
 			    		$('#queries').append(elem);
 			    	});
 

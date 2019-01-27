@@ -6,11 +6,12 @@ cader/webapp/MyErrorController.class
 cader/services/SetLoggerLevel.class
 cader/services/QARSInitialization.class
 objects/Algorithms.class
+objects/MinimalHittingSet.class
 cader/webapp/GreetingController.class
 objects/HittingSets.class
 cader/services/FileQuery.class
-objects/Query.class
 objects/CombinationGenerator.class
+objects/RDFQuery.class
 cader/console/Console.class
 cader/services/GetOntModel.class
 cader/services/FileQuery$1.class
