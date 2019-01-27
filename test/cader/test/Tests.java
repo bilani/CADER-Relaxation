@@ -1,5 +1,8 @@
 package cader.test;
 
+import java.io.File;
+import java.nio.file.Paths;
+
 import objects.Algorithms;
 
 /**
@@ -26,6 +29,24 @@ public class Tests {
 				e.printStackTrace();
 			}
 		}
+		cleanMainDirectory();
 		System.out.println("Process finished !");
+	}
+	
+	/**
+	 * Remove all the log file in the main directory.
+	 */
+	public static void cleanMainDirectory() {
+		// Lists all files in folder
+		File folder = new File(Paths.get(".").toAbsolutePath().normalize().toString());
+		File fList[] = folder.listFiles();
+		// Searchs .log
+		for (int i = 0; i < fList.length; i++) {
+		    String file = fList[i].getName();
+		    if (file.endsWith(".log")) {
+		        // and deletes
+		        fList[i].delete();
+		    }
+		}
 	}
 }
