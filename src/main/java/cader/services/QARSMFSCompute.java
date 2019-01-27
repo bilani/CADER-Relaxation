@@ -18,11 +18,17 @@ public class QARSMFSCompute {
 	private static final String qarsTdb = "./src/main/resources/tdb";
 	private String summary, query;
 	private long startTime, totalTime;
-	private int mfsSize, xssSize;
+	private int mfsSize, xssSize, numberOfTriplets;
 	private static List<CQuery> allMFS, allXSS;
 	private static Session session;
 
 	public QARSMFSCompute(String query, boolean isLBA) throws Exception {
+		numberOfTriplets = 0;
+		for (int i = 0; i < query.length(); i++) {
+		    if (query.charAt(i) == '.') {
+		        numberOfTriplets++;
+		    }
+		}
 		startTime = System.currentTimeMillis();
 		this.query = query;
 		session = SessionFactory.getTDBSession(qarsTdb);
@@ -56,7 +62,7 @@ public class QARSMFSCompute {
 	
 	public String getFormattedResults() {
 		return  " - ," + mfsSize + "," + xssSize 
-				+ "," + totalTime + ", - , - ";
+				+ "," + totalTime + ", - , - ," + numberOfTriplets;
 	}
 	
 	public long getTotalTime() {

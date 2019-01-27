@@ -12,7 +12,7 @@ import org.apache.jena.ontology.OntModel;
 import objects.RDFQuery;
 
 public class Cader {
-	private int relaxedQueries, mfsSize, xssSize;
+	private int relaxedQueries, mfsSize, xssSize, numberOfTriplets;
 	private long startTime, mfsTime, xssTime, totalTime;
 	private static QueryLauncher queryLauncher;
 	private RDFQuery relaxedQuery;
@@ -23,6 +23,12 @@ public class Cader {
 	private boolean wasRelaxed;
 	
 	public Cader(String query, OntModel model) {
+		numberOfTriplets = 0;
+		for (int i = 0; i < query.length(); i++) {
+		    if (query.charAt(i) == '.') {
+		        numberOfTriplets++;
+		    }
+		}
 		startTime = System.currentTimeMillis();
 		this.query = query;
 		queryLauncher = new QueryLauncher(model);
@@ -87,9 +93,9 @@ public class Cader {
 	public String getFormattedResults() {
 		if(wasRelaxed) {
 			return  relaxedQueries + "," + mfsSize + "," + xssSize 
-				+ "," + totalTime + "," + mfsTime + "," + xssTime;
+				+ "," + totalTime + "," + mfsTime + "," + xssTime + "," + numberOfTriplets;
 		} else {
-			return relaxedQueries + ", - , - ," + totalTime + ", - , - ";
+			return relaxedQueries + ", - , - ," + totalTime + ", - , - ," + numberOfTriplets;
 		}
 	}
 	
