@@ -16,13 +16,16 @@ public class Cader {
 	private long startTime, mfsTime, xssTime, totalTime;
 	private static QueryLauncher queryLauncher;
 	private RDFQuery relaxedQuery;
-	private String query, summary;
+	private String EOL, query, summary;
 	private HashSet<String> MFSesQueries;
 	private HashSet<String> CoXSSesQueries;
 	private HashSet<String> XSSesQueries;
 	private boolean wasRelaxed;
 	
 	public Cader(String query, OntModel model) {
+		//To check if windows or Unix EOL character;
+		//EOL = System.getProperty("os.name").startsWith("Windows") ? "\r\n" : "\n";
+		EOL = "\r\n"; // Do not impact on Unix System and works for windows
 		startTime = System.currentTimeMillis();
 		this.query = query;
 		queryLauncher = new QueryLauncher(model);
@@ -49,29 +52,29 @@ public class Cader {
 			xssTime -= mfsTime;
 			mfsTime -= startTime;
 			
-			System.out.println( "The Query has failed, relaxing it: \n\n" +
-								"MFSes: " + MFSesQueries + "\n" +
-								"Research of MFSes - Elapsed Time: " + mfsTime + " ms.\n\n" +
-								"CoXSSes: " + CoXSSesQueries + "\n" +
-								"XSSes: " + XSSesQueries + "\n" +
-								"Calculation of XSSes - Elapsed Time: " + xssTime + " ms.\n\n" +
+			System.out.println( "The Query has failed, relaxing it: " + EOL  + EOL +
+								"MFSes: " + MFSesQueries + EOL +
+								"Research of MFSes - Elapsed Time: " + mfsTime + " ms." + EOL + EOL +
+								"CoXSSes: " + CoXSSesQueries + EOL +
+								"XSSes: " + XSSesQueries + EOL +
+								"Calculation of XSSes - Elapsed Time: " + xssTime + " ms." + EOL +
 								"Run Time: " + totalTime + " ms.");
 
 			this.relaxedQueries = relaxedQuery.getNumberOfExecutedQueries();
 			this.mfsSize = MFSesQueries.size();
 			this.xssSize = XSSesQueries.size();
 			
-			summary+= " Time_MFSes: " + mfsTime + " ms, Time_XSSes: "+ xssTime + " ms\n";
+			summary+= " Time_MFSes: " + mfsTime + " ms, Time_XSSes: "+ xssTime + " ms" + EOL;
 			summary+= "Executed Request: " + relaxedQueries + " executed | ";
 			summary+= mfsSize + " MFSes | ";
-			summary+= xssSize + " XSSes \n";
+			summary+= xssSize + " XSSes" + EOL;
 
 		} else {
 			wasRelaxed = false;
 			relaxedQueries = 1;
 			totalTime = System.currentTimeMillis() - startTime;
 			System.out.println("No relaxed - Total time: " + totalTime + " .ms");
-			summary = "No relaxed - Total time: " + totalTime + "\n";
+			summary = "No relaxed - Total time: " + totalTime + EOL;
 		}
 	}
 
@@ -105,28 +108,28 @@ public class Cader {
 		try(FileWriter fw = new FileWriter(filename);
 				BufferedWriter bw = new BufferedWriter(fw);
 				PrintWriter out = new PrintWriter(bw)) {
-			out.println("Query: " + this.query);
-			out.println();
-			out.println(this.summary);
+			out.print("Query: " + this.query + EOL);
+			out.print(EOL);
+			out.print(this.summary + EOL);
 			if (wasRelaxed) {
 				int indice = 1;
 				Iterator<String> iterator = getMFSesQueries().iterator();
 				while(iterator.hasNext()) {
 					String mfs = iterator.next();
-					out.println("MFS n°" + indice + ":");
+					out.print("MFS n°" + indice + ":" + EOL);
 					indice++;
-					out.println(mfs);
-					out.println();
+					out.print(mfs + EOL);
+					out.print(EOL);
 				}
 
 				indice = 1;
 				iterator = getXSSesQueries().iterator();
 				while(iterator.hasNext()) {
 					String xss = iterator.next();
-					out.println("XSS n°" + indice + ":");
+					out.print("XSS n°" + indice + ":" + EOL);
 					indice++;
-					out.println(xss);
-					out.println();
+					out.print(xss + EOL);
+					out.print(EOL);
 				}
 			}
 			out.close();

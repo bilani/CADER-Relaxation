@@ -25,7 +25,7 @@ import objects.Algorithms;
 
 public class FileQuery {
 	private ArrayList<String> resultFileList;
-	private String summary, summaryFile, zipPath;
+	private String EOL, summary, summaryFile, zipPath;
 	private static final int BUFFER = 2048;
 	private static long totalRunTime;
 	private Map<String, String> formattedResults;
@@ -37,6 +37,10 @@ public class FileQuery {
 
 	public FileQuery(Algorithms choosedAlgorithm, String location, String database) throws Exception {
 		String hashCode = String.valueOf(location.hashCode());
+		//To check if windows or Unix EOL character;
+		//EOL = System.getProperty("os.name").startsWith("Windows") ? "\r\n" : "\n";
+		EOL = "\r\n"; // Do not impact on Unix System and works for windows
+		
 		zipPath = "tmp/Results.zip";
 		summaryFile = "tmp/" + hashCode + ".txt";
 		resultFileList = new ArrayList<String>();
@@ -46,15 +50,15 @@ public class FileQuery {
 		switch(choosedAlgorithm) {
 			case CADER:
 				OntModel model = (new GetOntModel(database)).getModel();
-				summary += "CADER\n";
+				summary += "CADER" + EOL;
 				Cader(location, model);
 				break;
 			case LBA:
-				summary += "LBA\n";
+				summary += "LBA" + EOL;
 				qarsAlgorithms(location, database, true);
 				break;
 			case MBA:
-				summary += "MBA\n";
+				summary += "MBA" + EOL;
 				qarsAlgorithms(location, database, true);
 				break;
 			default:
@@ -78,14 +82,14 @@ public class FileQuery {
 					numberedQuery = "Query n°" + index;
 					System.out.println("\n>>>>>>>>>>>>>>>>>>>>>>>>>>>> Launching " + numberedQuery + ":\n");
 					relaxer = new Cader(query, model);
-					summary += numberedQuery + ": \n";
+					summary += numberedQuery + ":" + EOL;
 					summary += relaxer.getSummary();
 					totalRunTime += relaxer.getTotalTime();
 					resultFileList.add(relaxer.getFullResults());
 					formattedResults.put(numberedQuery, relaxer.getFormattedResults());
 				}
 			}
-			summary += "\n" + "TOTAL TIME: " + totalRunTime + "ms" + "\n";
+			summary += EOL + "TOTAL TIME: " + totalRunTime + "ms" + EOL;
 			scanner.close();
 			System.out.println("\n>>>>>>>>>>>>>>>>>>>>>>>>>>>> Generating ZIP: " + zipPath + "\n");
 			generateZip();
@@ -111,14 +115,14 @@ public class FileQuery {
 					numberedQuery = "Query n°" + index;
 					System.out.println("\n>>>>>>>>>>>>>>>>>>>>>>>>>>>> Launching " + numberedQuery + ":\n");
 					relaxer = new QARSMFSCompute(query, isLBA);
-					summary += numberedQuery + ": \n";
+					summary += numberedQuery + ":" + EOL;
 					summary += relaxer.getSummary();
 					totalRunTime += relaxer.getTotalTime();
 					resultFileList.add(relaxer.getFullResults());
 					formattedResults.put(numberedQuery, relaxer.getFormattedResults());
 				}
 			}
-			summary += "\n" + "TOTAL TIME: " + totalRunTime + "ms" + "\n";
+			summary += EOL + "TOTAL TIME: " + totalRunTime + "ms" + EOL;
 			scanner.close();
 			System.out.println("\n>>>>>>>>>>>>>>>>>>>>>>>>>>>> Generating ZIP: " + zipPath + "\n");
 			generateZip();

@@ -16,19 +16,24 @@ import fr.ensma.lias.qarscore.engine.relaxation.mfssearchengine.StrategyFactory;
 
 public class QARSMFSCompute {
 	private static final String qarsTdb = "./src/main/resources/tdb";
-	private String summary, query;
+	private String EOL, summary, query;
 	private long startTime, totalTime;
 	private int mfsSize, xssSize, numberOfTriplets;
 	private static List<CQuery> allMFS, allXSS;
 	private static Session session;
 
 	public QARSMFSCompute(String query, boolean isLBA) throws Exception {
-		numberOfTriplets = (query.split(" . ")).length;
-		for (int i = 0; i < query.length(); i++) {
-		    if (query.charAt(i) == '.') {
-		        numberOfTriplets++;
+		//To check if windows or Unix EOL character
+		//EOL = System.getProperty("os.name").startsWith("Windows") ? "\r\n" : "\n";
+		EOL = "\r\n"; // Do not impact on Unix System and works for windows
+		numberOfTriplets = 0;
+		String intermediateQuery = query.replaceAll(" \\. "," € ");
+		for (int i = 0; i < intermediateQuery.length(); i++) {
+		    if (intermediateQuery.charAt(i) == '€') {
+		        numberOfTriplets += 1;
 		    }
 		}
+		numberOfTriplets += 1;
 		startTime = System.currentTimeMillis();
 		this.query = query;
 		session = SessionFactory.getTDBSession(qarsTdb);
@@ -51,8 +56,8 @@ public class QARSMFSCompute {
 		
 		totalTime = System.currentTimeMillis() - startTime;
 		
-		summary = "RunTime: " + totalTime + " ms\n";
-		summary+= "Results: " + mfsSize + " MFSes | " + xssSize + " XSSes\n";
+		summary = "RunTime: " + totalTime + " ms" + EOL;
+		summary+= "Results: " + mfsSize + " MFSes | " + xssSize + " XSSes" + EOL;
 		
 	}
 
@@ -74,22 +79,22 @@ public class QARSMFSCompute {
 		try(FileWriter fw = new FileWriter(filename);
 				BufferedWriter bw = new BufferedWriter(fw);
 				PrintWriter out = new PrintWriter(bw)) {
-			out.println("Query : " + this.query);
-			out.println();
-			out.println(summary);
+			out.print("Query : " + this.query + EOL);
+			out.print(EOL);
+			out.print(summary + EOL);
 
 			int index = 1;
 			for(CQuery mfs : allMFS) {
-				out.println("MFS n°" + index);
+				out.print("MFS n°" + index + EOL);
 				index++;
-				out.println(mfs.toString());
+				out.print(mfs.toString() + EOL);
 			}
 
 			index = 1;
 			for(CQuery xss : allXSS) {
-				out.println("XSS n°" + index);
+				out.print("XSS n°" + index + EOL);
 				index++;
-				out.println(xss.toString());	
+				out.print(xss.toString() + EOL);	
 			}
 
 			out.close();

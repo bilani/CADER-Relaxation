@@ -30,16 +30,20 @@ import objects.Algorithms;
 
 public class TestFileReader {
 	private ArrayList<String> resultFileList;
-	private String summary, summaryFile, zipPath;
+	private String EOL, summary, summaryFile, zipPath;
 	private static final int BUFFER = 2048;
 	private static long totalRunTime;
 	private Map<String, String> formattedResults;
+	
 	/**
 	 *
 	 * @param location
 	 * @throws Exception 
 	 */
 	public TestFileReader(Algorithms choosedAlgorithm, String location) throws Exception {
+		//To check if windows or Unix EOL character;
+		//EOL = System.getProperty("os.name").startsWith("Windows") ? "\r\n" : "\n";
+		EOL = "\r\n"; // Do not impact on Unix System and works for windows
 		String hashCode = String.valueOf(location.hashCode());
 		zipPath = "Experimentations/" + choosedAlgorithm.toString() + "/" + location.substring(location.lastIndexOf('/'), location.lastIndexOf('.')) + ".zip";
 		summaryFile = "/tmp/" + hashCode + ".txt";
@@ -50,15 +54,15 @@ public class TestFileReader {
 		switch(choosedAlgorithm) {
 		case CADER:
 			OntModel model = (new GetOntModel("LUBM100.owl")).getModel();
-			summary += "CADER\n";
+			summary += "CADER" + EOL;
 			Cader(location, model);
 			break;
 		case LBA:
-			summary += "LBA\n";
+			summary += "LBA" + EOL;
 			qarsAlgorithms(location, "LUBM100.owl", true);
 			break;
 		case MBA:
-			summary += "MBA\n";
+			summary += "MBA" + EOL;
 			qarsAlgorithms(location, "LUBM100.owl", true);
 			break;
 		default:
@@ -77,9 +81,9 @@ public class TestFileReader {
 			Scanner scanner = new Scanner(new File(location));
 			while (scanner.hasNextLine()) {
 				line = scanner.nextLine();
-				if(line.startsWith("# Test")) {
+				if(line.startsWith("# Test")) {	
 					if(!itsMFSes) {
-						summary += "Expected: " + expectedMFSes + " MFSes | " + expectedXSSes + " XSSes\n\n";
+						summary += "Expected: " + expectedMFSes + " MFSes | " + expectedXSSes + " XSSes" + EOL + EOL;
 					}
 					expectedMFSes = 0;
 					expectedXSSes = 0;
@@ -92,7 +96,8 @@ public class TestFileReader {
 						index++;
 						relaxer = new Cader(query, model);
 						numberedQuery = "Query n°" + index;
-						summary += numberedQuery + ": \n";
+						//\r\n is for windows EOL character
+						summary += numberedQuery + ":" + EOL;
 						summary += relaxer.getSummary();
 						totalRunTime += relaxer.getTotalTime();
 						resultFileList.add(relaxer.getFullResults());
@@ -110,7 +115,10 @@ public class TestFileReader {
 					}
 				}
 			}
-			summary += "\n" + "TOTAL TIME: " + totalRunTime + "ms" + "\n";
+			if(!itsMFSes) {
+				summary += "Expected: " + expectedMFSes + " MFSes | " + expectedXSSes + " XSSes" + EOL + EOL;
+			}
+			summary += EOL + "TOTAL TIME: " + totalRunTime + "ms" + EOL;
 			scanner.close();
 			System.out.println(">>>>>>>>> Before generating ZIP");
 			generateZip();
@@ -133,7 +141,7 @@ public class TestFileReader {
 				line = scanner.nextLine();
 				if(line.startsWith("# Test")) {
 					if(!itsMFSes) {
-						summary += "Expected: " + expectedMFSes + " MFSes | " + expectedXSSes + " XSSes\n\n";
+						summary += "Expected: " + expectedMFSes + " MFSes | " + expectedXSSes + " XSSes" + EOL + EOL;
 					}
 					expectedMFSes = 0;
 					expectedXSSes = 0;
@@ -146,7 +154,7 @@ public class TestFileReader {
 						index++;
 						relaxer = new QARSMFSCompute(query, isLBA);
 						numberedQuery = "Query n°" + index;
-						summary += numberedQuery + ": \n";
+						summary += numberedQuery + ":" + EOL;
 						summary += relaxer.getSummary();
 						totalRunTime += relaxer.getTotalTime();
 						resultFileList.add(relaxer.getFullResults());
@@ -164,7 +172,10 @@ public class TestFileReader {
 					}
 				}
 			}
-			summary += "\n" + "TOTAL TIME: " + totalRunTime + "ms" + "\n";
+			if(!itsMFSes) {
+				summary += "Expected: " + expectedMFSes + " MFSes | " + expectedXSSes + " XSSes" + EOL + EOL;
+			}
+			summary += EOL + "TOTAL TIME: " + totalRunTime + "ms" + EOL;
 			scanner.close();
 			System.out.println(">>>>>>>>> Before generating ZIP");
 			generateZip();
