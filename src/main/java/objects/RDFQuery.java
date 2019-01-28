@@ -317,7 +317,7 @@ public class RDFQuery {
 	 * by applying MHS algorithm
 	 */
 	public void calculateCoXSSes() {
-		/**
+	/**
 		ArrayList<ArrayList<Integer>> convertedMFS = new ArrayList<ArrayList<Integer>>();
 		for(HashSet<Integer> tmp : MFSes) {
 			convertedMFS.add(new ArrayList<>(tmp));
@@ -326,7 +326,6 @@ public class RDFQuery {
 		*/
 		MinimalHittingSet setCoverMax2Elem = new MinimalHittingSet();
 		CoXSSes = setCoverMax2Elem.minimumHittingSet(MFSes);
-		System.out.println("CoXSSes: " + CoXSSes.toString());
 	}
 
 	/**
@@ -417,5 +416,9 @@ public class RDFQuery {
 			relaxedQueries.add(relaxedQuery);
 		}
 		return relaxedQueries;
+	}
+
+	public int getNumberOfTriplets() {
+		return triplets.size();
 	}
 }

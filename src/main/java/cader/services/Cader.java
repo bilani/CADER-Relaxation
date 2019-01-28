@@ -23,12 +23,6 @@ public class Cader {
 	private boolean wasRelaxed;
 	
 	public Cader(String query, OntModel model) {
-		numberOfTriplets = 0;
-		for (int i = 0; i < query.length(); i++) {
-		    if (query.charAt(i) == '.') {
-		        numberOfTriplets++;
-		    }
-		}
 		startTime = System.currentTimeMillis();
 		this.query = query;
 		queryLauncher = new QueryLauncher(model);
@@ -37,38 +31,37 @@ public class Cader {
 		if(!queryLauncher.hasResult(query)) {
 			wasRelaxed = true;
 			relaxedQuery = new RDFQuery(query, model);
-			System.out.println("The Query has failed, relaxing it :");
+			numberOfTriplets = relaxedQuery.getNumberOfTriplets();
 
 			relaxedQuery.searchMFSes();
 			MFSesQueries = relaxedQuery.getMFSesQueries();
-
-			System.out.println("MFSes: " + MFSesQueries);
-
 			mfsTime = System.currentTimeMillis();
-			System.out.println("Research of MFSes - Elapsed Time: " + (mfsTime - startTime) + " ms.");
 			
 			relaxedQuery.calculateCoXSSes();
 			CoXSSesQueries = relaxedQuery.getCoXSSesQueries();
-			System.out.println("CoXSSes: " + CoXSSesQueries);
 
 			relaxedQuery.generateXSSes();
 			XSSesQueries = relaxedQuery.getXSSesQueries();
 
 			xssTime = System.currentTimeMillis();
-			System.out.println("Calculation of XSSes - Elapsed Time: " + (xssTime - mfsTime) + " ms.");
-			System.out.println("Relaxed Queries: " + XSSesQueries);
-
 			totalTime = xssTime - startTime;
 			summary = "RunTime: " + totalTime + " ms,";
-
 			xssTime -= mfsTime;
 			mfsTime -= startTime;
-			summary+= " Time_MFSes: " + mfsTime + " ms, Time_XSSes: "+ xssTime + " ms\n";
+			
+			System.out.println( "The Query has failed, relaxing it: \n\n" +
+								"MFSes: " + MFSesQueries + "\n" +
+								"Research of MFSes - Elapsed Time: " + mfsTime + " ms.\n\n" +
+								"CoXSSes: " + CoXSSesQueries + "\n" +
+								"XSSes: " + XSSesQueries + "\n" +
+								"Calculation of XSSes - Elapsed Time: " + xssTime + " ms.\n\n" +
+								"Run Time: " + totalTime + " ms.");
 
 			this.relaxedQueries = relaxedQuery.getNumberOfExecutedQueries();
 			this.mfsSize = MFSesQueries.size();
 			this.xssSize = XSSesQueries.size();
-
+			
+			summary+= " Time_MFSes: " + mfsTime + " ms, Time_XSSes: "+ xssTime + " ms\n";
 			summary+= "Executed Request: " + relaxedQueries + " executed | ";
 			summary+= mfsSize + " MFSes | ";
 			summary+= xssSize + " XSSes \n";
@@ -77,7 +70,7 @@ public class Cader {
 			wasRelaxed = false;
 			relaxedQueries = 1;
 			totalTime = System.currentTimeMillis() - startTime;
-			System.out.println("No relaxed - Total time: " + totalTime);
+			System.out.println("No relaxed - Total time: " + totalTime + " .ms");
 			summary = "No relaxed - Total time: " + totalTime + "\n";
 		}
 	}

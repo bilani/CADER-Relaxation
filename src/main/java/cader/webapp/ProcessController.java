@@ -66,13 +66,14 @@ public class ProcessController {
     		Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
     	
     	cleanMainDirectory();
-    	
-    	System.out.println("*************************************  ************ ALGO : " + choice_algo + " ********* **************************************************");
-    	
         model.addAttribute("name", "Query Relxation" );
         Algorithms algo = choice_algo.equals("1")?(Algorithms.CADER):(choice_algo.equals("2")?(Algorithms.LBA):(Algorithms.MBA));
         
-		Integer isQuery = Integer.parseInt(choice); //to determine if the request is about a file or a query
+        System.out.println();
+        System.out.println("************************************************* USED ALGORITHM: " + algo.toString());
+        System.out.println("************************************************* USED DATABASE: " + selecteddb);
+		
+        Integer isQuery = Integer.parseInt(choice); //to determine if the request is about a file or a query
 		String database = "" + selecteddb + ".owl";
 		
 		//export _JAVA_OPTIONS=-Xmx4096m
@@ -92,7 +93,7 @@ public class ProcessController {
 		if(isQuery != null && database != null) {
 		
 			if(isQuery == 2) { //it's a query
-				System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++ ONE SPARQL QUERY PROCESSING ");
+				System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++ ONE SPARQL QUERY PROCESSING +++++++++++++++++++++++++++++++++++++++++++++++++\n");
 				
 				String query = myrequest;
 				File processingResult = null;
@@ -134,18 +135,18 @@ public class ProcessController {
 			} else { //it's a file
 				
 				if(lastUploaded != null && !lastUploaded.equals("")) {
-					System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++ QUERIES FILE PROCESSING ");
+					System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++ QUERIES FILE PROCESSING ");
 					
 					// ZIP is in Results.zip
 					FileQuery fquery = new FileQuery(algo, "tmp/" + lastUploaded, database);
 					
-					System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>> SUMMARY >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-					//theTotal = summaryHelper(fquery.getSummary()).toString();
+					System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<< SUMMARY >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			
 					theTotal = Long.toString(fquery.getTotalRunTime());
-					System.out.println(theTotal);
+					System.out.println("Total Run Time: " + theTotal + " ms");
 					allQueries = fquery.getFormattedResults();
 					
-					System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>> END SUMMARY >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+					System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<< END SUMMARY >>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 					
 					File resultsZip = new File(fquery.getPathOfZipResultsFile());
 					byte[] array = Files.readAllBytes(resultsZip.toPath());

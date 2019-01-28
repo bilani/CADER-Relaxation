@@ -74,10 +74,10 @@ public class FileQuery {
 					if(LOG_ON && GEN.isInfoEnabled()) {
 						GEN.info("Processing the query: " + query);
 					}
-					System.out.println("Launching the query n°" + index + ": ");
 					index++;
-					relaxer = new Cader(query, model);
 					numberedQuery = "Query n°" + index;
+					System.out.println("\n>>>>>>>>>>>>>>>>>>>>>>>>>>>> Launching " + numberedQuery + ":\n");
+					relaxer = new Cader(query, model);
 					summary += numberedQuery + ": \n";
 					summary += relaxer.getSummary();
 					totalRunTime += relaxer.getTotalTime();
@@ -87,7 +87,7 @@ public class FileQuery {
 			}
 			summary += "\n" + "TOTAL TIME: " + totalRunTime + "ms" + "\n";
 			scanner.close();
-			System.out.println(">>>>>>>>> Before generating ZIP");
+			System.out.println("\n>>>>>>>>>>>>>>>>>>>>>>>>>>>> Generating ZIP: " + zipPath + "\n");
 			generateZip();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -107,10 +107,10 @@ public class FileQuery {
 					if(LOG_ON && GEN.isInfoEnabled()) {
 						GEN.info("Processing the query: " + query);
 					}
-					System.out.println("Launching the query n°" + index + ": ");
 					index++;
-					relaxer = new QARSMFSCompute(query, isLBA);
 					numberedQuery = "Query n°" + index;
+					System.out.println("\n>>>>>>>>>>>>>>>>>>>>>>>>>>>> Launching " + numberedQuery + ":\n");
+					relaxer = new QARSMFSCompute(query, isLBA);
 					summary += numberedQuery + ": \n";
 					summary += relaxer.getSummary();
 					totalRunTime += relaxer.getTotalTime();
@@ -120,7 +120,7 @@ public class FileQuery {
 			}
 			summary += "\n" + "TOTAL TIME: " + totalRunTime + "ms" + "\n";
 			scanner.close();
-			System.out.println(">>>>>>>>> Before generating ZIP");
+			System.out.println("\n>>>>>>>>>>>>>>>>>>>>>>>>>>>> Generating ZIP: " + zipPath + "\n");
 			generateZip();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

@@ -1,8 +1,8 @@
 cader/webapp/CustomizationBean.class
 cader/logger/Log.class
 cader/webapp/ProcessController.class
-cader/webapp/Application.class
 cader/webapp/MyErrorController.class
+cader/webapp/Application.class
 cader/services/SetLoggerLevel.class
 cader/services/QARSInitialization.class
 objects/Algorithms.class

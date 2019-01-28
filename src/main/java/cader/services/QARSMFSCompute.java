@@ -23,7 +23,7 @@ public class QARSMFSCompute {
 	private static Session session;
 
 	public QARSMFSCompute(String query, boolean isLBA) throws Exception {
-		numberOfTriplets = 0;
+		numberOfTriplets = (query.split(" . ")).length;
 		for (int i = 0; i < query.length(); i++) {
 		    if (query.charAt(i) == '.') {
 		        numberOfTriplets++;
@@ -80,15 +80,15 @@ public class QARSMFSCompute {
 
 			int index = 1;
 			for(CQuery mfs : allMFS) {
-				index++;
 				out.println("MFS n°" + index);
+				index++;
 				out.println(mfs.toString());
 			}
 
 			index = 1;
 			for(CQuery xss : allXSS) {
-				index++;
 				out.println("XSS n°" + index);
+				index++;
 				out.println(xss.toString());	
 			}
 

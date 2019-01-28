@@ -18,7 +18,6 @@ public class GetOntModel {
 
 	public GetOntModel(String database) {
 		m = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
-		System.out.println("Database received: " + database);
 		FileManager.get().readModel( m, databaseFolder + database );
 		if(LOG_ON && GEN.isInfoEnabled()) {
 			GEN.info("Loading the database " + database);

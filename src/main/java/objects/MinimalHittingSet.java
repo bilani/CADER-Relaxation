@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class MinimalHittingSet {
-//	final String pythonPath = "C:\\Users\\Hp\\Desktop\\Relaxation\\qars\\mhs-master\\mhs\\mhs.py ";
 	Map<Integer, Integer> tripletsMapping = new HashMap<>();
 	HashSet<HashSet<Integer>> solution = new HashSet<>();
 
@@ -29,7 +28,8 @@ public class MinimalHittingSet {
 			fileWriter(querieslist);
 			// execute command
 			String command = "./agdmhs mhs-input.dat mhs-output.dat -a pmmcs";
-			Runtime.getRuntime().exec(command);
+			Process p = Runtime.getRuntime().exec(command);
+			p.waitFor();
 			mhs = fileReader();
 			solution = mapResults(mhs);
 
@@ -45,7 +45,6 @@ public class MinimalHittingSet {
 			List<Integer> numbers = Arrays.stream(s.split("\\s"))
 		            .map(Integer::parseInt)
 		            .collect(Collectors.toList());
-//			char[] alphabet = s.toCharArray();
 			HashSet<Integer> tripletSet = new HashSet<>();
 			for (int c : numbers) {
 				List<Integer> singleTriplet = getAllKeysForValue(tripletsMapping, c);
@@ -62,7 +61,6 @@ public class MinimalHittingSet {
 
 	private List<String> mapQuery(HashSet<HashSet<Integer>> coxssList) {
 		int[] range = IntStream.rangeClosed(1, 100).toArray();
-//      char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
 		List<String> querieslist = new ArrayList<String>();
 		int index = 0;
 		for (HashSet<Integer> list : coxssList) {
@@ -135,9 +133,6 @@ public class MinimalHittingSet {
 		try {
 
 			String readLine = "";
-
-			System.out.println("Reading file using Buffered Reader");
-
 			while ((readLine = b.readLine()) != null) {
 				results.add(readLine);
 			}

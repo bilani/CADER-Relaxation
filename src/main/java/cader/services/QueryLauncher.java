@@ -22,12 +22,8 @@ public class QueryLauncher {
 		if(LOG_ON && GEN.isDebugEnabled()) {
 			GEN.debug("Executing : " + q);
 		}
-		System.out.println("Executing : " + q);
-		Query query = QueryFactory.create(q);
+		Query query = QueryFactory.create(q + " LIMIT1");
 		QueryExecution qexec = QueryExecutionFactory.create(query, this.model);
-		if(LOG_ON && GEN.isTraceEnabled()) {
-			GEN.trace("SPARQL query : " + query.toString());
-		}
 		try {
 			ResultSet results = qexec.execSelect();
 			if(results.hasNext()) {
@@ -46,7 +42,7 @@ public class QueryLauncher {
 			GEN.debug("Executing : " + q);
 		}
 		if(setLimit) {
-			q+= "LIMIT 1";
+			q+= " LIMIT 1";
 		}
 		Query query = QueryFactory.create(q);
 		QueryExecution qexec = QueryExecutionFactory.create(query, this.model);
@@ -56,9 +52,6 @@ public class QueryLauncher {
 		try {
 			ResultSet results = qexec.execSelect();
 			if(results.hasNext()) {
-				//
-				//Heap exceeded
-				//return ResultSetFormatter.outputAsJSON(results);
 				return ResultSetFormatter.asText(results);
 			}
 			return null;
