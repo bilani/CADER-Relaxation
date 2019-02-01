@@ -656,7 +656,7 @@
 								<div id="nbReq" class="col-md-2">-</div>
 								<div id="nbMFS" class="col-md-1">-</div>
 								<div id="nbXSS" class="col-md-1">-</div>
-                <div id="nbTriplets" class="col-md-1">-</div>
+               					<div id="nbTriplets" class="col-md-1">-</div>
 							</div>
 						</div>
 
@@ -671,7 +671,7 @@
 								<div id="" class="col-md-2"><b></b></div>
 								<div id="" class="col-md-1"><b></b></div>
 								<div id="" class="col-md-1"><b></b></div>
-                <div id="" class="col-md-1"><b></b></div><!-- triplets -->
+                				<div id="" class="col-md-1"><b></b></div><!-- triplets -->
 							</div>
 
 						</div>
@@ -938,6 +938,7 @@
 			    	$('#nbReq').html(parts[0]);
                 	$('#nbMFS').html(parts[1]);
                 	$('#nbXSS').html(parts[2]);
+                	$('#nbTriplets').html(parts[6]);
 
                 	$('#totalTime').html(parts[3] + " ms");
                 	$('#xssTime').html(parts[5]);
@@ -983,7 +984,7 @@
 			    cache: false,
 			    success: function (data) {
 			    	//alert(data);
-			    	var allMfs = 0, allXss = 0, nrelaxed = 0, nmfs =0, nxss =0;
+			    	var allMfs = 0, allXss = 0, nrelaxed = 0, nmfs =0, nxss =0, sumTriplets=0;
 			    	$('#queries').empty();
 					var e = '<div class="row bg-info text-white"><div class="col-md-2" align="left"><b></b></div><div class="col-md-1"></div><div id="total" class="col-md-1"></div><div id="mfs" class="col-md-1"></div><div id="xss" class="col-md-1"></div> <div id="nbReq" class="col-md-2"></div><div id="nbMFS" class="col-md-1"></div><div id="nbXSS" class="col-md-1"></div><div id="nbTriplets" class="col-md-1"></div></div>';
 
@@ -995,6 +996,7 @@
 			    		nrelaxed = nrelaxed + parseInt(parts[0]);
 			    		nmfs = nmfs + parseInt(parts[1]);
 			    		nxss = nxss + parseInt(parts[2]);
+			    		sumTriplets = sumTriplets + parseInt(parts[6]);
 
 			    		var elem = '<div class="row bg-info text-white"><div class="col-md-2" align="left"><b>'+ k +'</b></div><div class="col-md-1"></div><div id="totalTime'+ k +'" class="col-md-1">'+ parts[3] +' ms</div><div id="mfsTime'+ k +'" class="col-md-1">'+ parts[4] +' ms</div><div id="xssTime'+ k +'" class="col-md-1">'+ parts[5] +' ms</div><div id="relaxed'+ k +'" class="col-md-2">'+ parts[0] +'</div><div id="mfsn'+ k+'" class="col-md-1">'+ parts[1] +'</div><div id="xssn'+k+'" class="col-md-1">'+ parts[2] +'</div><div id="nbTriplets'+k+'" class="col-md-1">'+parts[6]+'</div></div>';
 			    		$('#queries').append(elem);
@@ -1007,6 +1009,11 @@
 			    	if(isNaN(allMfs)){
 			    		allMfs = "-";
 			    	}
+			    
+			    	if(isNaN(sumTriplets)){
+			    		sumTriplets = "-";
+			    	}
+			    	
 
 			    	$('#xssTime').html(allXss + " ms");
 		    		$('#mfsTime').html(allMfs + " ms");
@@ -1014,7 +1021,8 @@
 		    		$('#nbReq').html(nrelaxed);
 		    		$('#nbMFS').html(nmfs);
 		    		$('#nbXSS').html(nxss);
-
+		    		$('#nbTriplets').html(sumTriplets);
+		    		
 			    	//$('#totalTime').html(data);
 			    },
 			    error: function () {
