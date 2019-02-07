@@ -13,7 +13,7 @@ import objects.RDFQuery;
 
 public class Cader {
 	private int relaxedQueries, mfsSize, xssSize, numberOfTriplets;
-	private long startTime, mfsTime, xssTime, totalTime;
+	private long startTime,startMfsTime,endMfsTime, mfsTime,startXssTime,endXssTime, xssTime, totalTime;
 	private static QueryLauncher queryLauncher;
 	private RDFQuery relaxedQuery;
 	private String EOL, query, summary;
@@ -35,22 +35,24 @@ public class Cader {
 			wasRelaxed = true;
 			relaxedQuery = new RDFQuery(query, model);
 			numberOfTriplets = relaxedQuery.getNumberOfTriplets();
-
+			startMfsTime = System.currentTimeMillis();
 			relaxedQuery.searchMFSes();
+			endMfsTime = System.currentTimeMillis();
 			MFSesQueries = relaxedQuery.getMFSesQueries();
-			mfsTime = System.currentTimeMillis();
 			
+			startXssTime = System.currentTimeMillis();
 			relaxedQuery.calculateCoXSSes();
 			CoXSSesQueries = relaxedQuery.getCoXSSesQueries();
 
 			relaxedQuery.generateXSSes();
 			XSSesQueries = relaxedQuery.getXSSesQueries();
-
-			xssTime = System.currentTimeMillis();
-			totalTime = xssTime - startTime;
+			endXssTime = System.currentTimeMillis();
+			xssTime = endXssTime - startXssTime;
+			mfsTime = endMfsTime - startMfsTime;
+			totalTime = xssTime + mfsTime;
 			summary = "RunTime: " + totalTime + " ms,";
-			xssTime -= mfsTime;
-			mfsTime -= startTime;
+//			xssTime -= mfsTime;
+//			mfsTime -= startTime;
 			
 			System.out.println( "The Query has failed, relaxing it: " + EOL  + EOL +
 								"MFSes: " + MFSesQueries + EOL +
