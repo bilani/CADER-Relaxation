@@ -21,7 +21,7 @@ public class Cader {
 	private HashSet<String> CoXSSesQueries;
 	private HashSet<String> XSSesQueries;
 	private boolean wasRelaxed;
-	
+
 	public Cader(String query, OntModel model) {
 		//To check if windows or Unix EOL character;
 		//EOL = System.getProperty("os.name").startsWith("Windows") ? "\r\n" : "\n";
@@ -39,7 +39,7 @@ public class Cader {
 			relaxedQuery.searchMFSes();
 			endMfsTime = System.currentTimeMillis();
 			MFSesQueries = relaxedQuery.getMFSesQueries();
-			
+
 			startXssTime = System.currentTimeMillis();
 			relaxedQuery.calculateCoXSSes();
 			CoXSSesQueries = relaxedQuery.getCoXSSesQueries();
@@ -53,19 +53,19 @@ public class Cader {
 			summary = "RunTime: " + totalTime + " ms,";
 //			xssTime -= mfsTime;
 //			mfsTime -= startTime;
-			
+
 			System.out.println( "The Query has failed, relaxing it: " + EOL  + EOL +
-								"MFSes: " + MFSesQueries + EOL +
-								"Research of MFSes - Elapsed Time: " + mfsTime + " ms." + EOL + EOL +
-								"CoXSSes: " + CoXSSesQueries + EOL +
-								"XSSes: " + XSSesQueries + EOL +
-								"Calculation of XSSes - Elapsed Time: " + xssTime + " ms." + EOL +
-								"Run Time: " + totalTime + " ms.");
+					"MFSes: " + MFSesQueries + EOL +
+					"Research of MFSes - Elapsed Time: " + mfsTime + " ms." + EOL + EOL +
+					"CoXSSes: " + CoXSSesQueries + EOL +
+					"XSSes: " + XSSesQueries + EOL +
+					"Calculation of XSSes - Elapsed Time: " + xssTime + " ms." + EOL +
+					"Run Time: " + totalTime + " ms.");
 
 			this.relaxedQueries = relaxedQuery.getNumberOfExecutedQueries();
 			this.mfsSize = MFSesQueries.size();
 			this.xssSize = XSSesQueries.size();
-			
+
 			summary+= " Time_MFSes: " + mfsTime + " ms, Time_XSSes: "+ xssTime + " ms" + EOL;
 			summary+= "Executed Request: " + relaxedQueries + " executed | ";
 			summary+= mfsSize + " MFSes | ";
@@ -83,20 +83,20 @@ public class Cader {
 	public String getSummary() {
 		return summary;
 	}
-	
+
 	public long getTotalTime() {
 		return totalTime;
 	}
-	
+
 	public String getFormattedResults() {
 		if(wasRelaxed) {
-			return  relaxedQueries + "," + mfsSize + "," + xssSize 
-				+ "," + totalTime + "," + mfsTime + "," + xssTime + "," + numberOfTriplets;
+			return  relaxedQueries + "," + mfsSize + "," + xssSize
+					+ "," + totalTime + "," + mfsTime + "," + xssTime + "," + numberOfTriplets;
 		} else {
 			return relaxedQueries + ", - , - ," + totalTime + ", - , - ," + numberOfTriplets;
 		}
 	}
-	
+
 	public HashSet<String> getMFSesQueries() {
 		return MFSesQueries;
 	}
@@ -104,12 +104,12 @@ public class Cader {
 	public HashSet<String> getXSSesQueries() {
 		return XSSesQueries;
 	}
-	
+
 	public String getFullResults() throws IOException {
 		String filename = "/tmp/" + Integer.toString(this.query.hashCode()) + ".tmp";
 		try(FileWriter fw = new FileWriter(filename);
-				BufferedWriter bw = new BufferedWriter(fw);
-				PrintWriter out = new PrintWriter(bw)) {
+			BufferedWriter bw = new BufferedWriter(fw);
+			PrintWriter out = new PrintWriter(bw)) {
 			out.print("Query: " + this.query + EOL);
 			out.print(EOL);
 			out.print(this.summary + EOL);
