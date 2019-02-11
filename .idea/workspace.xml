@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="86541381-9b9b-4009-9653-c7485ec48da0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/query-relaxation.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mhs-input.dat" beforeDir="false" afterPath="$PROJECT_DIR$/mhs-input.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mhs-output.dat" beforeDir="false" afterPath="$PROJECT_DIR$/mhs-output.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cader/services/Cader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cader/services/Cader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/databases/qarsData/LUBM100.owl" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -52,8 +45,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="464">
-              <caret line="656" column="72" lean-forward="true" selection-start-line="656" selection-start-column="72" selection-end-line="656" selection-end-column="72" />
+            <state relative-caret-position="225">
+              <caret line="1023" selection-start-line="1023" selection-end-line="1026" selection-end-column="58" />
             </state>
           </provider>
         </entry>
@@ -67,6 +60,13 @@
       <find>respoms</find>
       <find>MFS Time</find>
       <find>res</find>
+      <find>tripl</find>
+      <find>MFS</find>
+      <find>MFSes</find>
+      <find>triplet</find>
+      <find>totaltime</find>
+      <find>xssTime</find>
+      <find>totalTime</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -132,7 +132,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1549816157069" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1549883218312" />
     <property name="last_opened_file_path" value="$USER_HOME$/Projet scolaire/ASR8/cloud-computing-infrastructures/kvstore" />
   </component>
   <component name="RunDashboard">
@@ -180,17 +180,25 @@
       <workItem from="1544541747631" duration="1977000" />
       <workItem from="1544560044584" duration="2503000" />
       <workItem from="1549567791240" duration="1593000" />
-      <workItem from="1549805014537" duration="4909000" />
+      <workItem from="1549805014537" duration="12446000" />
     </task>
+    <task id="LOCAL-00001" summary="updating index page">
+      <created>1549816198926</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1549816198926</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10982000" />
+    <option name="totallyTimeSpent" value="18519000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1299" height="743" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25778133" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17238627" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -201,7 +209,7 @@
       <window_info id="Web" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.5765472" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2752443" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -224,11 +232,15 @@
       <window_info anchor="right" id="Database" order="7" />
       <window_info anchor="right" id="Maven Projects" order="8" />
       <window_info anchor="right" id="Maven" order="9" />
-      <window_info anchor="right" id="Bean Validation" order="10" />
+      <window_info anchor="right" id="Bean Validation" order="10" weight="0.32960895" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="updating index page" />
+    <option name="LAST_COMMIT_MESSAGE" value="updating index page" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/java/services/FileReader.java" />
@@ -254,8 +266,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="464">
-          <caret line="656" column="72" lean-forward="true" selection-start-line="656" selection-start-column="72" selection-end-line="656" selection-end-column="72" />
+        <state relative-caret-position="225">
+          <caret line="1023" selection-start-line="1023" selection-end-line="1026" selection-end-column="58" />
         </state>
       </provider>
     </entry>
