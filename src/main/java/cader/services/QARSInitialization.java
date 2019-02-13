@@ -48,7 +48,7 @@ public class QARSInitialization {
 	}
 	
 	public void cleanQarsFolders() throws IOException {
-		System.out.println("Cleaning the directory to replace " + oldDatabase +" by " + newDatabase);
+		System.out.println("Cleaning the directory  " + oldDatabase +" by " + newDatabase);
 		FileUtils.cleanDirectory(new File(qarsDataFolder));
 		File tdb = new File(qarsTdbFolder);
 		FileUtils.cleanDirectory(tdb);
