@@ -8,14 +8,6 @@ Then, we compute the hitting sets of these MFSes. These hitting sets are in fact
 
 ---
 
-## Data initialization instructions
-Our code is based on the data initialization step in [QaRS](https://forge.lias-lab.fr/projects/qars/wiki/Documentation), described as follows:
-1. put the dataset file (i.e. data_file.owl) in the specified directory of params[0] in QARSInitializationSample.class
-2. run **QARSInitializationSample** class, to generate the data in the specified directory of params[3]
-4. update the **jenatdb.repository** in triplestores.config with the generated data directory
-
----
-
 ## Installation of additional libraries
 
 This project depends on several libraries from the [Boost project](https://www.boost.org/). To install the required dependencies on a Debian system, run the following command:
@@ -32,12 +24,20 @@ It also uses the [moodycamel::ConcurrentQueue](https://github.com/cameron314/con
 
 ## Getting Started with the server
 
-Requirements : [Java JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+1- Requirements : [Java JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 
-Build ([Maven 3](http://maven.apache.org/download.cgi) required) : at root, do : mvn clean install
+2- Import lib/qars-dist.jar into the project
+
+3- Build ([Maven 3](http://maven.apache.org/download.cgi) required) : at root, do : mvn clean install
 
 Open [http://localhost:8080](http://localhost:8080)
 
 ## Example
 
 Once you have compiled the software, you can run the existing test cases under queries directory.
+
+NB: each time you want to change the Dataset for LBA and MBA, you need to re-run the project due to a bug in qars-dist.jar
+
+User Interface:
+
+![alt text](/home/mo/Desktop/Selection_030.png)
