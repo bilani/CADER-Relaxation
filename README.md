@@ -40,4 +40,4 @@ NB: each time you want to change the Dataset for LBA and MBA, you need to re-run
 
 User Interface:
 
-![alt text](/home/mo/Desktop/Selection_030.png)
+![alt text](https://github.com/CADER-Project/CADER-Relaxation/blob/master/src/main/resources/UX.png)
