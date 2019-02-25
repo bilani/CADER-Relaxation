@@ -38,6 +38,6 @@ Once you have compiled the software, you can run the existing test cases under q
 
 NB: each time you want to change the Dataset for LBA and MBA, you need to re-run the project due to a bug in qars-dist.jar
 
-User Interface:
+## User Interface:
 
 ![alt text](https://github.com/CADER-Project/CADER-Relaxation/blob/master/src/main/resources/UX.png)
