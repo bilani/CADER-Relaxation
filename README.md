@@ -30,7 +30,7 @@ It also uses the [moodycamel::ConcurrentQueue](https://github.com/cameron314/con
 
 3- Build ([Maven 3](http://maven.apache.org/download.cgi) required) : at root, do : mvn clean install
 
-Open [http://localhost:8080](http://localhost:8080)
+4- Open [http://localhost:8080](http://localhost:8080)
 
 ## Example
 
