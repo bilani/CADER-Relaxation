@@ -32,7 +32,7 @@ It also uses the [moodycamel::ConcurrentQueue](https://github.com/cameron314/con
 
 ## Getting Started with the server
 
-Requirements : [Java JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html), [MongoDB 2.6](http://docs.mongodb.org/manual/installation/)
+Requirements : [Java JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 
 Build ([Maven 3](http://maven.apache.org/download.cgi) required) : at root, do : mvn clean install
 
