@@ -24,11 +24,11 @@ It also uses the [moodycamel::ConcurrentQueue](https://github.com/cameron314/con
 
 ## Getting Started with the server
 
-Requirements : [Java JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+1- Requirements : [Java JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 
-Import lib/qars-dist.jar into the project
+2- Import lib/qars-dist.jar into the project
 
-Build ([Maven 3](http://maven.apache.org/download.cgi) required) : at root, do : mvn clean install
+3- Build ([Maven 3](http://maven.apache.org/download.cgi) required) : at root, do : mvn clean install
 
 Open [http://localhost:8080](http://localhost:8080)
 
@@ -37,3 +37,7 @@ Open [http://localhost:8080](http://localhost:8080)
 Once you have compiled the software, you can run the existing test cases under queries directory.
 
 NB: each time you want to change the Dataset for LBA and MBA, you need to re-run the project due to a bug in qars-dist.jar
+
+User Interface:
+
+![alt text](/home/mo/Desktop/Selection_030.png)
