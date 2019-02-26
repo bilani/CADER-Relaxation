@@ -30,7 +30,7 @@ It also uses the [moodycamel::ConcurrentQueue](https://github.com/cameron314/con
 
 3- Build ([Maven 3](http://maven.apache.org/download.cgi) required) : at root, do : mvn clean install
 
-Open [http://localhost:8080](http://localhost:8080)
+4- Open [http://localhost:8080](http://localhost:8080)
 
 ## Example
 
@@ -38,6 +38,6 @@ Once you have compiled the software, you can run the existing test cases under q
 
 NB: each time you want to change the Dataset for LBA and MBA, you need to re-run the project due to a bug in qars-dist.jar
 
-User Interface:
+## User Interface:
 
-![alt text](/home/mo/Desktop/Selection_030.png)
+![alt text](https://github.com/CADER-Project/CADER-Relaxation/blob/master/src/main/resources/UX.png)
