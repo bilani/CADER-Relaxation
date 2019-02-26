@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="86541381-9b9b-4009-9653-c7485ec48da0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,14 +37,26 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/objects/RDFQuery.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="130">
-              <caret line="400" column="37" selection-start-line="400" selection-start-column="37" selection-end-line="400" selection-end-column="37" />
+            <state relative-caret-position="415">
+              <caret line="419" lean-forward="true" selection-start-line="419" selection-end-line="419" />
               <folding>
                 <element signature="e#9575#9576#0" expanded="true" />
                 <element signature="e#9612#9613#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="508" column="76" selection-start-line="508" selection-start-column="76" selection-end-line="508" selection-end-column="76" />
+              <folding>
+                <element signature="n#style#0;n#h3#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -121,12 +134,14 @@
       <find>utilisation de</find>
       <find>minimal hittin</find>
       <find>pizza</find>
+      <find>Evaluating SPARQL Queries On Massive RDF Datasets</find>
     </findStrings>
     <replaceStrings>
       <replace />
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src</dir>
+      <dir>$PROJECT_DIR$</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -137,12 +152,12 @@
       <list>
         <option value="$PROJECT_DIR$/src/main/java/services/FileReader.java" />
         <option value="$PROJECT_DIR$/src/main/java/cader/services/Cader.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/index.html" />
         <option value="$PROJECT_DIR$/src/main/java/cader/services/QARSMFSCompute.java" />
         <option value="$PROJECT_DIR$/src/main/java/cader/services/QARSInitialization.java" />
         <option value="$PROJECT_DIR$/.project" />
         <option value="$PROJECT_DIR$/test/cader/test/TestFileReader.java" />
         <option value="$PROJECT_DIR$/test/cader/test/Tests.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/index.html" />
       </list>
     </option>
   </component>
@@ -204,6 +219,14 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="cader" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CADER-Relaxation" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -217,7 +240,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551176964340" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551187877586" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/qars-dist.jar!/" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -226,15 +249,15 @@
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/paper" />
       <recent name="$PROJECT_DIR$/queries/DBPedia-queries" />
       <recent name="$PROJECT_DIR$/queries/LUBM-queries" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -311,6 +334,7 @@
       <workItem from="1551103971609" duration="3310000" />
       <workItem from="1551174402620" duration="603000" />
       <workItem from="1551176001950" duration="917000" />
+      <workItem from="1551187311935" duration="563000" />
     </task>
     <task id="LOCAL-00001" summary="updating index page">
       <created>1549816198926</created>
@@ -382,11 +406,18 @@
       <option name="project" value="LOCAL" />
       <updated>1551176228472</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="adding lib file under src/main/resources">
+      <created>1551187356788</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1551187356788</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60683000" />
+    <option name="totallyTimeSpent" value="61246000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="51" y="25" width="1315" height="743" extended-state="6" />
@@ -494,7 +525,8 @@
     <MESSAGE value="cleaning OWL files" />
     <MESSAGE value="add UX image" />
     <MESSAGE value="updating paper" />
-    <option name="LAST_COMMIT_MESSAGE" value="updating paper" />
+    <MESSAGE value="adding lib file under src/main/resources" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding lib file under src/main/resources" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -529,13 +561,6 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/forge/lias-lab/fr/qars/1.0.0/qars-1.0.0.jar!/fr/ensma/lias/qarscore/engine/relaxation/mfssearchengine/StrategyFactory.class" />
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="672" lean-forward="true" selection-start-line="672" selection-end-line="672" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index2.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -708,11 +733,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/objects/RDFQuery.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="400" column="37" selection-start-line="400" selection-start-column="37" selection-end-line="400" selection-end-column="37" />
+        <state relative-caret-position="415">
+          <caret line="419" lean-forward="true" selection-start-line="419" selection-end-line="419" />
           <folding>
             <element signature="e#9575#9576#0" expanded="true" />
             <element signature="e#9612#9613#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="508" column="76" selection-start-line="508" selection-start-column="76" selection-end-line="508" selection-end-column="76" />
+          <folding>
+            <element signature="n#style#0;n#h3#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
