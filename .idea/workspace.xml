@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="86541381-9b9b-4009-9653-c7485ec48da0" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mhs-input.dat" beforeDir="false" afterPath="$PROJECT_DIR$/mhs-input.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mhs-output.dat" beforeDir="false" afterPath="$PROJECT_DIR$/mhs-output.dat" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -41,8 +39,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/objects/RDFQuery.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="406" column="53" selection-start-line="406" selection-start-column="53" selection-end-line="406" selection-end-column="53" />
+            <state relative-caret-position="130">
+              <caret line="400" column="37" selection-start-line="400" selection-start-column="37" selection-end-line="400" selection-end-column="37" />
               <folding>
                 <element signature="e#9575#9576#0" expanded="true" />
                 <element signature="e#9612#9613#0" expanded="true" />
@@ -219,7 +217,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551176196722" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551176964340" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/qars-dist.jar!/" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -228,14 +226,15 @@
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/paper" />
       <recent name="$PROJECT_DIR$/queries/DBPedia-queries" />
       <recent name="$PROJECT_DIR$/queries/LUBM-queries" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -311,6 +310,7 @@
       <workItem from="1551090273690" duration="1203000" />
       <workItem from="1551103971609" duration="3310000" />
       <workItem from="1551174402620" duration="603000" />
+      <workItem from="1551176001950" duration="917000" />
     </task>
     <task id="LOCAL-00001" summary="updating index page">
       <created>1549816198926</created>
@@ -375,14 +375,22 @@
       <option name="project" value="LOCAL" />
       <updated>1551107133689</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="updating paper">
+      <created>1551176228472</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1551176228472</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59766000" />
+    <option name="totallyTimeSpent" value="60683000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="51" y="25" width="1315" height="743" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2821119" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -485,7 +493,8 @@
     <MESSAGE value="renaming paper" />
     <MESSAGE value="cleaning OWL files" />
     <MESSAGE value="add UX image" />
-    <option name="LAST_COMMIT_MESSAGE" value="add UX image" />
+    <MESSAGE value="updating paper" />
+    <option name="LAST_COMMIT_MESSAGE" value="updating paper" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -699,8 +708,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/objects/RDFQuery.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="406" column="53" selection-start-line="406" selection-start-column="53" selection-end-line="406" selection-end-column="53" />
+        <state relative-caret-position="130">
+          <caret line="400" column="37" selection-start-line="400" selection-start-column="37" selection-end-line="400" selection-end-column="37" />
           <folding>
             <element signature="e#9575#9576#0" expanded="true" />
             <element signature="e#9612#9613#0" expanded="true" />
