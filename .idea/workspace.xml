@@ -239,7 +239,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551254571813" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551340753909" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/qars-dist.jar!/" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -249,8 +249,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/paper" />
       <recent name="$PROJECT_DIR$/queries/DBPedia-queries" />
       <recent name="$PROJECT_DIR$/queries/LUBM-queries" />
@@ -333,7 +333,7 @@
       <workItem from="1551103971609" duration="3310000" />
       <workItem from="1551174402620" duration="603000" />
       <workItem from="1551176001950" duration="917000" />
-      <workItem from="1551187311935" duration="1474000" />
+      <workItem from="1551187311935" duration="2204000" />
     </task>
     <task id="LOCAL-00001" summary="updating index page">
       <created>1549816198926</created>
@@ -419,17 +419,23 @@
       <option name="project" value="LOCAL" />
       <updated>1551187907130</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="updating CADER paper">
+      <created>1551254670256</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1551254670256</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="62157000" />
+    <option name="totallyTimeSpent" value="62887000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="51" y="25" width="1315" height="743" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2821119" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2821119" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -440,7 +446,7 @@
       <window_info id="Web" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32899022" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.46254072" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.46254072" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39739415" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -533,7 +539,8 @@
     <MESSAGE value="updating paper" />
     <MESSAGE value="adding lib file under src/main/resources" />
     <MESSAGE value="fixing a typo on the UI" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixing a typo on the UI" />
+    <MESSAGE value="updating CADER paper" />
+    <option name="LAST_COMMIT_MESSAGE" value="updating CADER paper" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
