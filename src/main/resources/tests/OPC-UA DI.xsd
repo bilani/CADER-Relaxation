@@ -1,0 +1,247 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Uri" type="xs:anyURI"/>
+  <xs:element name="RequiredModel">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute type="xs:anyURI" name="ModelUri"/>
+          <xs:attribute type="xs:dateTime" name="PublicationDate"/>
+          <xs:attribute type="xs:float" name="Version"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Model">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="uan:RequiredModel" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+      </xs:sequence>
+      <xs:attribute type="xs:anyURI" name="ModelUri"/>
+      <xs:attribute type="xs:dateTime" name="PublicationDate"/>
+      <xs:attribute type="xs:string" name="Version"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Alias">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute type="xs:string" name="Alias" use="optional"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Extension">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="nod:ModelInfo" xmlns:nod="http://unifiedautomation.com/Configuration/NodeSet.xsd"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Reference">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute type="xs:string" name="ReferenceType" use="optional"/>
+          <xs:attribute type="xs:string" name="IsForward" use="optional"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Field">
+    <xs:complexType mixed="true">
+      <xs:sequence>
+        <xs:element ref="uan:Description" minOccurs="0" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="Name" use="optional"/>
+      <xs:attribute type="xs:byte" name="Value" use="optional"/>
+      <xs:attribute type="xs:string" name="DataType" use="optional"/>
+      <xs:attribute type="xs:byte" name="ValueRank" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DisplayName">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute type="xs:byte" name="Locale" use="optional"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="References">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="uan:Reference" maxOccurs="unbounded" minOccurs="0" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Definition">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="uan:Field" maxOccurs="unbounded" minOccurs="0" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="Name" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Value">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="typ:ListOfLocalizedText" minOccurs="0" xmlns:typ="http://opcfoundation.org/UA/2008/02/Types.xsd"/>
+        <xs:element ref="typ:ListOfExtensionObject" minOccurs="0" xmlns:typ="http://opcfoundation.org/UA/2008/02/Types.xsd"/>
+        <xs:element ref="typ:String" minOccurs="0" xmlns:typ="http://opcfoundation.org/UA/2008/02/Types.xsd"/>
+        <xs:element ref="typ:ByteString" minOccurs="0" xmlns:typ="http://opcfoundation.org/UA/2008/02/Types.xsd"/>
+        <xs:element ref="typ:Boolean" minOccurs="0" xmlns:typ="http://opcfoundation.org/UA/2008/02/Types.xsd"/>
+        <xs:element ref="typ:ExtensionObject" minOccurs="0" xmlns:typ="http://opcfoundation.org/UA/2008/02/Types.xsd"/>
+        <xs:element ref="typ:ListOfInt32" minOccurs="0" xmlns:typ="http://opcfoundation.org/UA/2008/02/Types.xsd"/>
+        <xs:element ref="typ:UInt32" minOccurs="0" xmlns:typ="http://opcfoundation.org/UA/2008/02/Types.xsd"/>
+        <xs:element ref="typ:DateTime" minOccurs="0" xmlns:typ="http://opcfoundation.org/UA/2008/02/Types.xsd"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Description" type="xs:string"/>
+  <xs:element name="InverseName" type="xs:string"/>
+  <xs:element name="NamespaceUris">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="uan:Uri" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Models">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="uan:Model" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Aliases">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="uan:Alias" maxOccurs="unbounded" minOccurs="0" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Extensions">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="uan:Extension" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UADataType">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="uan:DisplayName" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+        <xs:element ref="uan:References" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+        <xs:element ref="uan:Definition" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="NodeId"/>
+      <xs:attribute type="xs:string" name="BrowseName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UAVariable">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="uan:DisplayName" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+        <xs:element ref="uan:References" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+        <xs:element ref="uan:Value" minOccurs="0" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+        <xs:element ref="uan:Definition" minOccurs="0" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="DataType" use="optional"/>
+      <xs:attribute type="xs:string" name="ParentNodeId" use="optional"/>
+      <xs:attribute type="xs:byte" name="ValueRank" use="optional"/>
+      <xs:attribute type="xs:string" name="NodeId" use="optional"/>
+      <xs:attribute type="xs:byte" name="ArrayDimensions" use="optional"/>
+      <xs:attribute type="xs:string" name="BrowseName" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UAReferenceType">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="uan:DisplayName" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+        <xs:element ref="uan:References" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+        <xs:element ref="uan:InverseName" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="NodeId" use="optional"/>
+      <xs:attribute type="xs:string" name="BrowseName" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UAVariableType">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="uan:DisplayName" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+        <xs:element ref="uan:References" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+        <xs:element ref="uan:Value" minOccurs="0" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="DataType" use="optional"/>
+      <xs:attribute type="xs:string" name="NodeId" use="optional"/>
+      <xs:attribute type="xs:string" name="BrowseName" use="optional"/>
+      <xs:attribute type="xs:string" name="ParentNodeId" use="optional"/>
+      <xs:attribute type="xs:byte" name="UserAccessLevel" use="optional"/>
+      <xs:attribute type="xs:byte" name="AccessLevel" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UAObjectType">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="uan:DisplayName" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+        <xs:element ref="uan:References" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+        <xs:element ref="uan:Value" minOccurs="0" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="NodeId" use="optional"/>
+      <xs:attribute type="xs:string" name="BrowseName" use="optional"/>
+      <xs:attribute type="xs:string" name="SymbolicName" use="optional"/>
+      <xs:attribute type="xs:string" name="DataType" use="optional"/>
+      <xs:attribute type="xs:string" name="ParentNodeId" use="optional"/>
+      <xs:attribute type="xs:byte" name="ValueRank" use="optional"/>
+      <xs:attribute type="xs:byte" name="ArrayDimensions" use="optional"/>
+      <xs:attribute type="xs:byte" name="UserAccessLevel" use="optional"/>
+      <xs:attribute type="xs:byte" name="AccessLevel" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UAObject">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="uan:DisplayName" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+        <xs:element ref="uan:References" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+        <xs:element ref="uan:Value" minOccurs="0" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="ParentNodeId" use="optional"/>
+      <xs:attribute type="xs:string" name="NodeId" use="optional"/>
+      <xs:attribute type="xs:string" name="BrowseName" use="optional"/>
+      <xs:attribute type="xs:string" name="SymbolicName" use="optional"/>
+      <xs:attribute type="xs:string" name="DataType" use="optional"/>
+      <xs:attribute type="xs:byte" name="UserAccessLevel" use="optional"/>
+      <xs:attribute type="xs:byte" name="AccessLevel" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UAMethod">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="uan:DisplayName" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+        <xs:element ref="uan:Description" minOccurs="0" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+        <xs:element ref="uan:References" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="ParentNodeId" use="optional"/>
+      <xs:attribute type="xs:string" name="NodeId" use="optional"/>
+      <xs:attribute type="xs:string" name="BrowseName" use="optional"/>
+      <xs:attribute type="xs:string" name="MethodDeclarationId" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UANodeSet">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded" minOccurs="0">
+        <xs:element ref="uan:NamespaceUris" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+        <xs:element ref="uan:Models" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+        <xs:element ref="uan:Aliases" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+        <xs:element ref="uan:Extensions" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+        <xs:element ref="uan:UADataType" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+        <xs:element ref="uan:UAVariable" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+        <xs:element ref="uan:UAReferenceType" maxOccurs="unbounded" minOccurs="0" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+        <xs:element ref="uan:UAVariableType" maxOccurs="unbounded" minOccurs="0" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+        <xs:element ref="uan:UAObjectType" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+        <xs:element ref="uan:UAObject" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+        <xs:element ref="uan:UAMethod" xmlns:uan="http://opcfoundation.org/UA/2011/03/UANodeSet.xsd"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
